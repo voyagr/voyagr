@@ -5,9 +5,57 @@ const seedUsers = () => db.Promise.map([
   {name: 'Barack Obama', email: 'barack@example.gov', password: '1234'},
 ], user => db.model('users').create(user))
 
+const seedTrips = () => db.Promise.map(
+[
+  {
+    name: "My trip to the EU",
+    start_date: "2016-03-16 12:08:36.165-04",
+    end_date: "2017-03-16 12:08:36.165-04",
+    discription: "This was just my quick trip to the EU. It was soooooo much FUNNN!!!",
+    style: {
+      "color": "Purple", "background": "Black"
+    }
+  }, {
+    name: "Roadtrip to CA!",
+    start_date: "2017-03-04 12:08:36.165-04",
+    end_date: "2017-03-16 12:08:36.165-04",
+    discription: "I went on a trip to CA!",
+    style: {
+      "color": "red", "background": "paper"
+    }
+  }],
+trip => db.model('trips').create(trip))
+
+const seedPages = () => db.Promise.map(
+[
+  {display_info: {
+      "photos": [{
+        "x": "100","y": "100", "size": "90", "ref": "URLLINKHERE"
+      }, {
+        "x": "200","y": "200", "size": "50", "ref": "URLLINKHERE"}
+      ]}, trip_id: "1"},
+  {display_info:{
+    "h1": [{
+        "x": "300p","y": "300", "size": "small", "text": "First day on the road"
+      }, {
+        "x": "50","y": "700", "size": "large", "text": "We had a great time"
+    }]
+  }, trip_id: "2"}],
+page => db.model('pages').create(page))
+
 db.didSync
   .then(() => db.sync({force: true}))
-  .then(seedUsers)
-  .then(users => console.log(`Seeded ${users.length} users OK`))
-  .catch(error => console.error(error))    
+  .then(() => seedUsers())
+  .then(([user1, user2]) =>
+    seedTrips()
+    .then(([trip1, trip2]) =>
+      Promise.all([
+        user1.setTrips(trip2)
+        ])
+      )
+  )
+  .then((results) => console.log(`Seeded users and trips`))
+  .then(seedPages)
+  .then(pages => console.log(`Seeded ${pages.length} pages OK`))
+  .catch(error => console.error(error))
   .finally(() => db.close())

@@ -13,6 +13,7 @@ OAuth.belongsTo(User)
 User.hasOne(OAuth)
 
 User.belongsToMany(Trip, {through: 'UsersTrips'})
+
 Trip.belongsToMany(User, {through: 'UsersTrips'})
 
 Page.belongsTo(Trip)
