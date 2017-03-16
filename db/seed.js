@@ -29,16 +29,16 @@ trip => db.model('trips').create(trip))
 const seedPages = () => db.Promise.map(
 [
   {display_info: {
-      "photos": [{
-        "x": "100","y": "100", "size": "90", "ref": "URLLINKHERE"
+      "photo": [{
+        "x": "100","y": "100", "ref": "http://placekitten.com/200/300"
       }, {
-        "x": "200","y": "200", "size": "50", "ref": "URLLINKHERE"}
+        "x": "200", "y": "200", "ref": "http://placekitten.com/200/300"}
       ]}, trip_id: "1"},
   {display_info:{
-    "h1": [{
-        "x": "300p","y": "300", "size": "small", "text": "First day on the road"
+    "textBox": [{
+        "x": "300", "y": "300", "size": "large", "text": "First day on the road"
       }, {
-        "x": "50","y": "700", "size": "large", "text": "We had a great time"
+        "x": "50", "y": "700", "size": "large", "text": "We had a great time"
     }]
   }, trip_id: "2"}],
 page => db.model('pages').create(page))
