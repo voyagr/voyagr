@@ -4,12 +4,9 @@ import { DragSource } from 'react-dnd';
 
 // specify drag and drop behavior
 const photoSource = {
-	beginDrag: props => {
-		props.beginDrag(props.photo._id); // action creator injected by connect
-		return props.photo
-	},
-	endDrag: props => {
-		props.clearPhotoDragging();
+	beginDrag (props, dnd, element) {
+		console.log(props, dnd, element, 'photoSource')
+		return {}
 	}
 }
 
@@ -20,6 +17,7 @@ function collect (connect, monitor) {
 		connectDragPreview: connect.dragPreview(),
 		// called on whatever JSX element you want to show while the dragging is happening
 		connectDragSource: connect.dragSource(),
+		isDragging: monitor.isDragging()
 	}
 }
 
@@ -27,7 +25,8 @@ class Photo extends Component {
 	render() {
 		const { connectDragSource, isDragging } = this.props;
 		return connectDragSource(
-			<div className="image"
+			<div action={this.action}
+				className="image"
 				style={{
 					opacity: isDragging ? 0.5 : 1,
 					fontSize: 25,
