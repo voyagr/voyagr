@@ -50,7 +50,8 @@ db.didSync
     seedTrips()
     .then(([trip1, trip2]) =>
       Promise.all([
-        user1.setTrips(trip2)
+        user1.setTrips(trip2),
+        user2.setTrips(trip1)
         ])
       )
   )
