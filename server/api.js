@@ -10,7 +10,7 @@ api
   .use('/users', require('./users'))
   .get('/render', (req, res, next) => {
     Page.findOne({where: {
-      id: 2
+      id: 1
     }})
     .then(results => res.send(results))
   })

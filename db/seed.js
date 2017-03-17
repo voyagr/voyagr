@@ -30,9 +30,9 @@ const seedPages = () => db.Promise.map(
 [
   {display_info: {
       "photo": [{
-        "x": "100","y": "100", "ref": "http://placekitten.com/200/300"
+        "x": "100","y": "100", "ref": "http://www.fillmurray.com/200/300"
       }, {
-        "x": "200", "y": "200", "ref": "http://placekitten.com/200/300"}
+        "x": "200", "y": "200", "ref": "http://www.fillmurray.com/200/300"}
       ]}, trip_id: "1"},
   {display_info:{
     "textBox": [{
