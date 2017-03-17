@@ -1,7 +1,7 @@
 {
   "name": "voyagr",
   "version": "0.0.1",
-  "description": "A happy little skeleton.",
+  "description": "A collaborative multimedia travel journal",
   "main": "index.js",
   "scripts": {
     "validate": "check-node-version --node '>= 6.7.0'",
@@ -23,19 +23,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/queerviolet/bones.git"
+    "url": "https://github.com/illuminatedspace/automagically"
   },
   "keywords": [
     "react",
     "redux",
-    "skeleton"
+    "travel",
+    "journal",
+    "multimedia",
+    "draganddrop" 
   ],
-  "author": "Ashi Krishnan <me@ashi.works>",
+  "author": "Ashi Krishnan, Claire Freehafer, Luisa de Miranda, Aria Moraine, Liz Phillips",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/queerviolet/bones/issues"
+    "url": "https://github.com/illuminatedspace/automagically/issues"
   },
-  "homepage": "https://github.com/queerviolet/bones#readme",
+  "homepage": "voyagr.co",
   "dependencies": {
     "axios": "^0.15.2",
     "babel-preset-stage-2": "^6.18.0",

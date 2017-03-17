@@ -1,6 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import HTML5Backend from 'react-dnd-html5-backend'; // try touch backend
-import { DragDropContext } from 'react-dnd';
 import { connect } from 'react-redux'
 import { movePhoto } from '../reducers/photo'
 import CanvasContainer from '../containers/CanvasContainer';
