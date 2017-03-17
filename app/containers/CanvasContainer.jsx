@@ -23,7 +23,6 @@ class CanvasContainer extends Component {
 	render() {
 		return (
 			<div>
-			<span>sdfdsf</span>
 			<Canvas props={this.props} />
 			</div>
 		)

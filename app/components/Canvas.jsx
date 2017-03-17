@@ -1,46 +1,63 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux'
-import { movePhoto } from '../reducers/photo'
-import CanvasContainer from '../containers/CanvasContainer';
+import React, { Component } from 'react';
 
 import Page from './Page';
 
 class Canvas extends Component {
-	static propTypes = {
-		position: PropTypes.objectOf(PropTypes.number),
-		setPhotoPosition: PropTypes.func
-	}
-
-	// canMove (x, y) => {
-	// 	const {px, py} = this.props.position
-
-	// 	const dx = x - px
-	// 	const dy = y - py
-	// }
-
-	movePhoto = (x, y) => {
-		this.props.setPhotoPosition(x, y)
-	}
-
-	renderPhoto (x, y) {
-		const {px, py} = this.props.position
-		if (x === px && y === ky) {
-			return <Photo />
+	constructor (...args) {
+		super(...args)
+		this.state = {
+			drag: null,
+			photo: {
+				x: 0, y: 0,
+			},
 		}
+	}
+
+	go (next) {
+		this.setState(next)
+	}
+
+	pickUp (event) {
+		console.log('pickUp', event)
+		this.go({
+			drag: {
+				key: event.target.dataset.key,
+				x: event.nativeEvent.offsetX,
+				y: event.nativeEvent.offsetY,
+			}
+		})
+	}
+
+	drag (event) {
+		console.log('drag', this.state)
+		if (this.state.drag) {
+			this.go({
+				photo: {
+					x: event.nativeEvent.x - this.state.drag.x,
+					y: event.nativeEvent.y - this.state.drag.y,
+				}
+			})
+		}
+	}
+
+	drop (event) {
+		this.go({ drag: null })
 	}
 
 	render() {
 		return (
-			<Page movePhoto={this.movePhoto} position={{x, y}}>
-				{this.renderPhoto(x, y)}
-			</Page>
+			<Page
+				onMouseDown={this.pickUp.bind(this)}
+				onMouseMove={this.drag.bind(this)}
+				onMouseUp={this.drop.bind(this)}
+				style={{
+					position: 'absolute',
+					top: `${this.state.photo.y}px`,
+					left: `${this.state.photo.x}px`,
+				}}
+			/>
 		)
 	}
 }
-
-const mapStateToProps = state => state
-
-Canvas = DragDropContext(HTML5Backend)(Canvas)
-Canvas = connect(mapStateToProps, {movePhoto})(Canvas)
 
 export default Canvas

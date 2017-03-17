@@ -1,31 +1,20 @@
 import React, { Component } from 'react';
-import { DropTarget } from 'react-dnd';
 
 import Photo from './Photo';
-import ItemTypes from '../constants';
 
-function moveKnight(toX, toY) {
-  knightPosition = [toX, toY];
-  emitChange();
-}
-
-const photoTarget = {
-	drop (props, monitor) {
-		movePhoto(props.x, props.y);
+export default class Page extends Component {
+	constructor (props) {
+		super(props)
 	}
-}
 
-function collect (connect, monitor) {
-	return {
-		connectDropTarget: connect.dropTarget(),
-		isOver: monitor.isOver()
-	}
-}
-
-export default class Canvas extends Component {
 	render() {
 		return (
-			<Photo />
+			<Photo
+				onMouseDown={this.props.onMouseDown}
+				onMouseMove={this.props.onMouseMove}
+				onMouseUp={this.props.onMouseUp}
+				style={this.props.style}
+			/>
 		)
 	}
 }
