@@ -9,12 +9,14 @@ export default class Page extends Component {
 
 	render() {
 		return (
-			<Photo
-				onMouseDown={this.props.onMouseDown}
-				onMouseMove={this.props.onMouseMove}
-				onMouseUp={this.props.onMouseUp}
-				style={this.props.style}
-			/>
+			<div width="100%" height="100%">
+				<Photo
+					onMouseDownProps={this.props.onMouseDownProps}
+					onMouseMoveProps={this.props.onMouseMoveProps}
+					onMouseUpProps={this.props.onMouseUpProps}
+					styleProps={this.props.styleProps}
+				/>
+			</div>
 		)
 	}
 }

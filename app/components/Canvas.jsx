@@ -5,57 +5,69 @@ import Page from './Page';
 class Canvas extends Component {
 	constructor (...args) {
 		super(...args)
+
 		this.state = {
-			drag: null,
+			drag: true,
 			photo: {
 				x: 0, y: 0,
 			},
 		}
+		this.onMouseDown = this.onMouseDown.bind(this)
+		this.onMouseMove = this.onMouseMove.bind(this)
+		this.onMouseUp = this.onMouseUp.bind(this)
 	}
 
-	go (next) {
-		this.setState(next)
-	}
-
-	pickUp (event) {
-		console.log('pickUp', event)
-		this.go({
-			drag: {
-				key: event.target.dataset.key,
-				x: event.nativeEvent.offsetX,
-				y: event.nativeEvent.offsetY,
-			}
+	onMouseDown (event) {
+		event.preventDefault()
+		this.setState({
+			drag: true
 		})
+		console.log('onMouseDown this.state.drag', this.state.drag)
 	}
 
-	drag (event) {
-		console.log('drag', this.state)
+	onMouseMove (event) {
 		if (this.state.drag) {
-			this.go({
+		console.log('onMouseMove', event.nativeEvent.x)
+			this.setState({
 				photo: {
-					x: event.nativeEvent.x - this.state.drag.x,
-					y: event.nativeEvent.y - this.state.drag.y,
+					x: event.nativeEvent.x,
+					y: event.nativeEvent.y,
 				}
 			})
 		}
 	}
 
-	drop (event) {
-		this.go({ drag: null })
+	onMouseUp (event) {
+		event.preventDefault()
+		console.log('onMouseUp')
+		this.setState({ drag: null })
+		const x = this.state.photo.x
+		const y = this.state.photo.y
+
+		setTimeout(() => {
+			this.setState({
+				photo: {
+					x: x,
+					y: y
+				}
+			})
+		}, 10)
 	}
 
 	render() {
 		return (
-			<Page
-				onMouseDown={this.pickUp.bind(this)}
-				onMouseMove={this.drag.bind(this)}
-				onMouseUp={this.drop.bind(this)}
-				style={{
-					position: 'absolute',
-					top: `${this.state.photo.y}px`,
-					left: `${this.state.photo.x}px`,
-				}}
-			/>
+			<div width="100%" height="100%">
+				<Page
+					onMouseDownProps={this.onMouseDown}
+					onMouseMoveProps={this.onMouseMove}
+					onMouseUpProps={this.onMouseUp}
+					styleProps={{
+						position: 'absolute',
+						top: `${this.state.photo.y}px`,
+						left: `${this.state.photo.x}px`,
+					}}
+				/>
+			</div>
 		)
 	}
 }
