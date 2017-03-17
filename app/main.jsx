@@ -11,7 +11,7 @@ import store from './store'
 import Jokes from './components/Jokes'
 import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
-import RenderPageInfo from './components/Render'
+import PageRender from './components/Render'
 
 const loadPageInfo = (nextState, replace, done) => {
   axios.get('/api/render')
@@ -38,7 +38,7 @@ render (
       <Route path="/" component={ExampleApp}>
         <IndexRedirect to="/jokes" />
         <Route path="/jokes" component={Jokes} />
-        <Route path="/render" component={RenderPageInfo} onEnter={loadPageInfo}/>
+        <Route path="/render" component={PageRender} onEnter={loadPageInfo}/>
       </Route>
     </Router>
   </Provider>,
