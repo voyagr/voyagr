@@ -13,7 +13,13 @@ class PageRender extends Component {
     //want to return bootstrap ele with style of x and y
     switch (type) {
       case "textBox":
-        return (<p className={`text-${ele.size}`}>{ele.text}</p>)
+        return (<p
+                  key={ele.id}
+                  className={`text-${ele.size} element-display`}
+                  style={{left: `${ele.x}px`, bottom: `${ele.y}px`}}
+                >
+                  {ele.text}
+                </p>)
     }
   }
 
@@ -22,7 +28,9 @@ class PageRender extends Component {
     return (
       <div>
         <h1>HIZZZ</h1>
-        {this.parseEle("textBox", this.props.page.textBox[0])}
+        {this.props.page.textBox.map(curEle => (
+                  this.parseEle('textBox', curEle))
+                )}
       </div>
     )
   }

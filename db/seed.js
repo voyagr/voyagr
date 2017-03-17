@@ -38,7 +38,7 @@ const seedPages = () => db.Promise.map(
     "textBox": [{
         "x": "300", "y": "300", "size": "large", "text": "First day on the road"
       }, {
-        "x": "50", "y": "700", "size": "large", "text": "We had a great time"
+        "x": "50", "y": "200", "size": "large", "text": "We had a great time"
     }]
   }, trip_id: "2"}],
 page => db.model('pages').create(page))
