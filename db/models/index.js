@@ -12,8 +12,9 @@ const Trip = require('./trip')
 OAuth.belongsTo(User)
 User.hasOne(OAuth)
 
-User.belongsToMany(Trip, {through: 'UsersTrips'})
-Trip.belongsToMany(User, {through: 'UsersTrips'})
+User.belongsToMany(Trip, {through: 'userstrips'})
+
+Trip.belongsToMany(User, {through: 'userstrips'})
 
 Page.belongsTo(Trip)
 Trip.hasMany(Page)
