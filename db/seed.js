@@ -33,7 +33,12 @@ const seedPages = () => db.Promise.map(
         "x": "100","y": "100", "ref": "http://www.fillmurray.com/200/300"
       }, {
         "x": "200", "y": "200", "ref": "http://www.fillmurray.com/200/300"}
-      ]}, trip_id: "1"},
+      ],
+    "textBox": [{
+        "x": "300", "y": "300", "size": "large", "text": "First day on the road"
+      }, {
+        "x": "50", "y": "200", "size": "large", "text": "We had a great time"
+    }]}, trip_id: "1"},
   {display_info:{
     "textBox": [{
         "x": "300", "y": "300", "size": "large", "text": "First day on the road"
