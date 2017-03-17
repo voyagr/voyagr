@@ -36,8 +36,6 @@ class PageRender extends Component {
   }
 
   render () {
-    console.log("PROPS", this.props)
-    console.log("KEYS", Object.keys(this.props.page))
     const keys = Object.keys(this.props.page)
     return (
       <div>
