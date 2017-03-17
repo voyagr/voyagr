@@ -41,7 +41,6 @@ class PageRender extends Component {
     const keys = Object.keys(this.props.page)
     return (
       <div>
-        <h1>HIZZZ</h1>
         {keys.map(curType => {
           return this.props.page[curType].map(curEle => (
                   this.parseEle(curType, curEle))
