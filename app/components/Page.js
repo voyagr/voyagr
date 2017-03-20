@@ -102,6 +102,8 @@ class Page extends Component {
 
 const mapStateToProps = state => state
 
+// wraps Page component with DropTarget capabilities from react-dnd,
+// similar to the redux connect function
 Page = DropTarget(ItemTypes.ELEMENT, elementTarget, connect => ({
   connectDropTarget: connect.dropTarget(),
 }))(Page)
