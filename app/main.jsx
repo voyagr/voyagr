@@ -6,6 +6,7 @@ import {connect, Provider} from 'react-redux'
 import Canvas from './components/Canvas'
 import store from './store'
 import axios from 'axios'
+import Signup from './components/Signup'
 
 render (
   <Provider store={store}>
