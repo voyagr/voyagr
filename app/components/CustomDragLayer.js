@@ -71,8 +71,6 @@ class CustomDragLayer extends Component {
       return null;
     }
 
-    // console.log(this.props.currentOffset)
-
     return (
       <div style={layerStyles}>
         <div style={getItemStyles(this.props)}>

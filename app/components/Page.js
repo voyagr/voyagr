@@ -23,7 +23,7 @@ const elementTarget = {
     if (props.snapToGrid) {
       [left, top] = snapToGrid(left, top);
     }
-    console.log("ITEM====", item)
+
     component.moveElement(item.type, item.id, left, top);
   },
 };
@@ -51,7 +51,6 @@ class Page extends Component {
   }
 
   moveElement(type, id, left, top) {
-    console.log('type, id, left, top', arguments)
     this.setState(update(this.state, {
       elements: {
         [type] : {
@@ -64,7 +63,6 @@ class Page extends Component {
   }
 
   renderElement(item, key, type) {
-    console.log("ITEM & KEY +=", item, key)
     return (
       <DraggableElement key={key} id={key} type={type} {...item} />
     );
@@ -77,8 +75,6 @@ class Page extends Component {
   render() {
     const { connectDropTarget } = this.props;
     const { elements } = this.state;
-
-    console.log(this.state)
 
     return connectDropTarget(
       <div style={styles}>
