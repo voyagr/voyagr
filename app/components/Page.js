@@ -39,12 +39,15 @@ class Page extends Component {
 
   constructor(props) {
     super(props);
+
+
     this.state = {
       elements: {
         a: { top: 20, left: 80, title: 'Drag me around' },
         b: { top: 180, left: 20, title: 'Drag me too' },
       },
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   moveElement(id, left, top) {
@@ -63,6 +66,11 @@ class Page extends Component {
     );
   }
 
+  handleSubmit () {
+    console.log("INSIDE HANDLE SUBMIT");
+    console.log("STATE=", this.state);
+  }
+
   render() {
     const { connectDropTarget } = this.props;
     const { elements } = this.state;
@@ -75,6 +83,7 @@ class Page extends Component {
           .keys(elements)
           .map(key => this.renderElement(elements[key], key))
         }
+        <button type="submit" onClick={this.handleSubmit}>Save</button>
       </div>,
     );
   }

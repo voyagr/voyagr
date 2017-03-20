@@ -60,6 +60,7 @@ class Canvas extends Component {
       snapToGridWhileDragging: !this.state.snapToGridWhileDragging,
     });
   }
+
 }
 
 export default DragDropContext(HTML5Backend)(Canvas)
