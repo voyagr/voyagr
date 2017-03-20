@@ -4,6 +4,7 @@ import {Router, Route, IndexRedirect, browserHistory} from 'react-router'
 import {render} from 'react-dom'
 import {connect, Provider} from 'react-redux'
 import axios from 'axios'
+import Signup from './components/Signup'
 
 import store from './store'
 
@@ -14,6 +15,7 @@ render (
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App}>
+        <Route path="/signup" component={Signup} />
         <Route path="/canvas" component={Canvas} />
 {/*        <IndexRedirect to="/" />*/}
       </Route>
