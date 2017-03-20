@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 
 const rootReducer = combineReducers({
   auth: require('./auth').default,
-  page: require('./page').default
+  photo: require('./photo').default
 })
 
 export default rootReducer
