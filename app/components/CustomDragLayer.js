@@ -58,7 +58,7 @@ class CustomDragLayer extends Component {
   renderItem(type, item) {
     switch (type) {
       case ItemTypes.ELEMENT:
-        return (<ElementDragPreview title={item.title} />);
+        return (<ElementDragPreview text={item.text} />);
       default:
         return null;
     }

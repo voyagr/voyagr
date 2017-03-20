@@ -23,8 +23,8 @@ const elementTarget = {
     if (props.snapToGrid) {
       [left, top] = snapToGrid(left, top);
     }
-
-    component.moveElement(item.id, left, top);
+    console.log("ITEM====", item)
+    component.moveElement(item.type, item.id, left, top);
   },
 };
 
@@ -43,31 +43,34 @@ class Page extends Component {
 
     this.state = {
       elements: {
-        a: { top: 20, left: 80, title: 'Drag me around' },
-        b: { top: 180, left: 20, title: 'Drag me too' },
-      },
+        textBox: { 1: { top: 20, left: 80, size: 'small', text: 'My vacay memories' }, 2: { top: 100, left: 120, size: 'small', text: 'note to self'} },
+        photo: {1: {top: 200, left: 20, size: 'small', text: 'Pretty Photo' }}
+      }
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  moveElement(id, left, top) {
+  moveElement(type, id, left, top) {
+    console.log('type, id, left, top', arguments)
     this.setState(update(this.state, {
       elements: {
-        [id]: {
-          $merge: { left, top },
+        [type] : {
+          [id]: {
+            $merge: { left, top },
+          }
         },
       },
     }));
   }
 
-  renderElement(item, key) {
+  renderElement(item, key, type) {
+    console.log("ITEM & KEY +=", item, key)
     return (
-      <DraggableElement key={key} id={key} {...item} />
+      <DraggableElement key={key} id={key} type={type} {...item} />
     );
   }
 
   handleSubmit () {
-    console.log("INSIDE HANDLE SUBMIT");
     console.log("STATE=", this.state);
   }
 
@@ -81,7 +84,13 @@ class Page extends Component {
       <div style={styles}>
         {Object
           .keys(elements)
-          .map(key => this.renderElement(elements[key], key))
+          .map(type => {
+            return Object.keys(elements[type])
+            .map((elementId) => {
+              var currentEl = elements[type][elementId];
+              return this.renderElement(currentEl, elementId, type)
+            })
+          })
         }
         <button type="submit" onClick={this.handleSubmit}>Save</button>
       </div>,

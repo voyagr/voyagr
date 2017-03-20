@@ -10,7 +10,7 @@ const styles = {
 
 export default class ElementDragPreview extends Component {
   static propTypes = {
-    title: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
   };
 
   shouldComponentUpdate = shouldPureComponentUpdate;
@@ -38,12 +38,12 @@ export default class ElementDragPreview extends Component {
   }
 
   render() {
-    const { title } = this.props;
+    const { text } = this.props;
     const { tickTock } = this.state;
 
     return (
       <div style={styles}>
-        <Element title={title} yellow={tickTock} />
+        <Element text={text} yellow={tickTock} />
       </div>
     );
   }

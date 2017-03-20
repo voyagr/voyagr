@@ -9,19 +9,19 @@ const styles = {
 
 export default class Element extends Component {
   static propTypes = {
-    title: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
     yellow: PropTypes.bool,
   };
 
   shouldComponentUpdate = shouldPureComponentUpdate;
 
   render() {
-    const { title, yellow } = this.props;
+    const { text, yellow } = this.props;
     const backgroundColor = yellow ? 'yellow' : 'white';
 
     return (
       <div style={{ ...styles, backgroundColor }}>
-        {title}
+        {text}
       </div>
     );
   }

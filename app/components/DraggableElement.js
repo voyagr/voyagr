@@ -7,8 +7,8 @@ import Element from './Element';
 
 const elementSource = {
   beginDrag(props) {
-    const { id, title, left, top } = props;
-    return { id, title, left, top };
+    const { size, text, left, top, id, type } = props;
+    return { size, text, left, top, id, type };
   },
 };
 
@@ -32,10 +32,11 @@ class DraggableElement extends Component {
     connectDragSource: PropTypes.func.isRequired,
     connectDragPreview: PropTypes.func.isRequired,
     isDragging: PropTypes.bool.isRequired,
-    id: PropTypes.any.isRequired,
-    title: PropTypes.string.isRequired,
+    size: PropTypes.any.isRequired,
+    text: PropTypes.string.isRequired,
     left: PropTypes.number.isRequired,
     top: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
   };
 
   shouldComponentUpdate = shouldPureComponentUpdate;
@@ -51,11 +52,12 @@ class DraggableElement extends Component {
   }
 
   render() {
-    const { title, connectDragSource } = this.props;
+    const { text, connectDragSource } = this.props;
+
 
     return connectDragSource(
       <div style={getStyles(this.props)}>
-        <Element title={title} />
+        <Element text={text} />
       </div>,
     );
   }
