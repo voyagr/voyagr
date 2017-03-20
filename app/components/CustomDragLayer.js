@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { DragLayer } from 'react-dnd';
 import ItemTypes from './ItemTypes';
-import BoxDragPreview from './BoxDragPreview';
+import ElementDragPreview from './ElementDragPreview';
 import snapToGrid from './snapToGrid';
 
 const layerStyles = {
@@ -57,8 +57,8 @@ class CustomDragLayer extends Component {
 
   renderItem(type, item) {
     switch (type) {
-      case ItemTypes.BOX:
-        return (<BoxDragPreview title={item.title} />);
+      case ItemTypes.ELEMENT:
+        return (<ElementDragPreview title={item.title} />);
       default:
         return null;
     }
@@ -70,6 +70,8 @@ class CustomDragLayer extends Component {
     if (!isDragging) {
       return null;
     }
+
+    // console.log(this.props.currentOffset)
 
     return (
       <div style={layerStyles}>

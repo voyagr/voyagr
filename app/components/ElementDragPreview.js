@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import shouldPureComponentUpdate from './shouldPureComponentUpdate';
-import Box from './Box';
+import Element from './Element';
 
 const styles = {
   display: 'inline-block',
@@ -8,7 +8,7 @@ const styles = {
   WebkitTransform: 'rotate(-7deg)',
 };
 
-export default class BoxDragPreview extends Component {
+export default class ElementDragPreview extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
   };
@@ -43,7 +43,7 @@ export default class BoxDragPreview extends Component {
 
     return (
       <div style={styles}>
-        <Box title={title} yellow={tickTock} />
+        <Element title={title} yellow={tickTock} />
       </div>
     );
   }

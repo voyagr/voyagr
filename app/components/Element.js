@@ -7,7 +7,7 @@ const styles = {
   cursor: 'move',
 };
 
-export default class Box extends Component {
+export default class Element extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     yellow: PropTypes.bool,

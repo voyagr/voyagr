@@ -3,9 +3,9 @@ import { DragSource } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import shouldPureComponentUpdate from './shouldPureComponentUpdate';
 import ItemTypes from './ItemTypes';
-import Box from './Box';
+import Element from './Element';
 
-const boxSource = {
+const elementSource = {
   beginDrag(props) {
     const { id, title, left, top } = props;
     return { id, title, left, top };
@@ -27,7 +27,7 @@ function getStyles(props) {
   };
 }
 
-class DraggableBox extends Component {
+class DraggableElement extends Component {
   static propTypes = {
     connectDragSource: PropTypes.func.isRequired,
     connectDragPreview: PropTypes.func.isRequired,
@@ -55,14 +55,14 @@ class DraggableBox extends Component {
 
     return connectDragSource(
       <div style={getStyles(this.props)}>
-        <Box title={title} />
+        <Element title={title} />
       </div>,
     );
   }
 }
 
-export default DragSource(ItemTypes.BOX, boxSource, (connect, monitor) => ({
+export default DragSource(ItemTypes.ELEMENT, elementSource, (connect, monitor) => ({
   connectDragSource: connect.dragSource(),
   connectDragPreview: connect.dragPreview(),
   isDragging: monitor.isDragging(),
-}))(DraggableBox)
+}))(DraggableElement)

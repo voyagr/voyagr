@@ -3,17 +3,17 @@ import update from 'react/lib/update';
 import { DropTarget } from 'react-dnd';
 import shouldPureComponentUpdate from './shouldPureComponentUpdate';
 import ItemTypes from './ItemTypes';
-import DraggableBox from './DraggableBox';
+import DraggableElement from './DraggableElement';
 import snapToGrid from './snapToGrid';
 
 const styles = {
-  width: 300,
-  height: 300,
+  width: '100%',
+  height: 500,
   border: '1px solid black',
   position: 'relative',
 };
 
-const boxTarget = {
+const elementTarget = {
   drop(props, monitor, component) {
     const delta = monitor.getDifferenceFromInitialOffset();
     const item = monitor.getItem();
@@ -24,12 +24,12 @@ const boxTarget = {
       [left, top] = snapToGrid(left, top);
     }
 
-    component.moveBox(item.id, left, top);
+    component.moveElement(item.id, left, top);
   },
 };
 
 
-class Container extends Component {
+class Page extends Component {
   static propTypes = {
     connectDropTarget: PropTypes.func.isRequired,
     snapToGrid: PropTypes.bool.isRequired,
@@ -40,16 +40,16 @@ class Container extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      boxes: {
+      elements: {
         a: { top: 20, left: 80, title: 'Drag me around' },
         b: { top: 180, left: 20, title: 'Drag me too' },
       },
     };
   }
 
-  moveBox(id, left, top) {
+  moveElement(id, left, top) {
     this.setState(update(this.state, {
-      boxes: {
+      elements: {
         [id]: {
           $merge: { left, top },
         },
@@ -57,27 +57,29 @@ class Container extends Component {
     }));
   }
 
-  renderBox(item, key) {
+  renderElement(item, key) {
     return (
-      <DraggableBox key={key} id={key} {...item} />
+      <DraggableElement key={key} id={key} {...item} />
     );
   }
 
   render() {
     const { connectDropTarget } = this.props;
-    const { boxes } = this.state;
+    const { elements } = this.state;
+
+    console.log(this.state)
 
     return connectDropTarget(
       <div style={styles}>
         {Object
-          .keys(boxes)
-          .map(key => this.renderBox(boxes[key], key))
+          .keys(elements)
+          .map(key => this.renderElement(elements[key], key))
         }
       </div>,
     );
   }
 }
 
-export default DropTarget(ItemTypes.BOX, boxTarget, connect => ({
+export default DropTarget(ItemTypes.ELEMENT, elementTarget, connect => ({
   connectDropTarget: connect.dropTarget(),
-}))(Container)
+}))(Page)

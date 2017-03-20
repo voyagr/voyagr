@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import Container from './Container';
+import Page from './Page';
 import CustomDragLayer from './CustomDragLayer';
 
-class DragAroundCustomDragLayer extends Component {
+class Canvas extends Component {
   constructor(props) {
     super(props);
 
@@ -22,7 +22,7 @@ class DragAroundCustomDragLayer extends Component {
 
     return (
       <div>
-        <Container snapToGrid={snapToGridAfterDrop} />
+        <Page snapToGrid={snapToGridAfterDrop} />
         <CustomDragLayer snapToGrid={snapToGridWhileDragging} />
         <p>
           <label htmlFor="snapToGridWhileDragging">
@@ -62,4 +62,4 @@ class DragAroundCustomDragLayer extends Component {
   }
 }
 
-export default DragDropContext(HTML5Backend)(DragAroundCustomDragLayer)
+export default DragDropContext(HTML5Backend)(Canvas)
