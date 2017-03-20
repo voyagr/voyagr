@@ -5,6 +5,8 @@ import shouldPureComponentUpdate from './shouldPureComponentUpdate';
 import ItemTypes from './ItemTypes';
 import DraggableElement from './DraggableElement';
 import snapToGrid from './snapToGrid';
+import {connect} from 'react-redux';
+import {setElementXY} from '../reducers/elements'
 
 const styles = {
   width: '100%',
@@ -43,8 +45,11 @@ class Page extends Component {
 
     this.state = {
       elements: {
-        textBox: { 1: { top: 20, left: 80, size: 'small', text: 'My vacay memories' }, 2: { top: 100, left: 120, size: 'small', text: 'note to self'} },
-        photo: {1: {top: 200, left: 20, size: 'small', text: 'Pretty Photo' }}
+        textBox: {
+          1: { top: 20, left: 80, size: 'small', text: 'My vacay memories' },
+          2: { top: 100, left: 120, size: 'small', text: 'note to self'} },
+        photo: {
+          1: {top: 200, left: 20, size: 'small', text: 'Pretty Photo' }}
       }
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -70,6 +75,7 @@ class Page extends Component {
 
   handleSubmit () {
     console.log("STATE=", this.state);
+    this.props.setElementXY(this.state.elements)
   }
 
   render() {
@@ -94,6 +100,14 @@ class Page extends Component {
   }
 }
 
-export default DropTarget(ItemTypes.ELEMENT, elementTarget, connect => ({
+const mapStateToProps = state => state
+
+// wraps Page component with DropTarget capabilities from react-dnd,
+// similar to the redux connect function
+Page = DropTarget(ItemTypes.ELEMENT, elementTarget, connect => ({
   connectDropTarget: connect.dropTarget(),
 }))(Page)
+
+Page = connect(mapStateToProps, { setElementXY })(Page)
+
+export default Page
