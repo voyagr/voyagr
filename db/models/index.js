@@ -6,7 +6,17 @@
 
 const User = require('./user')
 const OAuth = require('./oauth')
+const Page = require('./page')
+const Trip = require('./trip')
 
 OAuth.belongsTo(User)
 User.hasOne(OAuth)
-module.exports = {User}
+
+User.belongsToMany(Trip, {through: 'userstrips'})
+
+Trip.belongsToMany(User, {through: 'userstrips'})
+
+Page.belongsTo(Trip)
+Trip.hasMany(Page)
+
+module.exports = {User, Page, Trip}
