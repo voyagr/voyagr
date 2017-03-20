@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import clickdrag from 'react-clickdrag'
 
 class Photo extends Component {
 	constructor (props) {

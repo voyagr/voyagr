@@ -7,7 +7,7 @@ class Canvas extends Component {
 		super(...args)
 
 		this.state = {
-			drag: true,
+			drag: null,
 			photo: {
 				x: 0, y: 0,
 			},
@@ -18,20 +18,24 @@ class Canvas extends Component {
 	}
 
 	onMouseDown (event) {
-		event.preventDefault()
+		// event.preventDefault()
 		this.setState({
-			drag: true
+			drag: {
+				x: event.nativeEvent.offsetX,
+				y: event.nativeEvent.offsetY
+			}
 		})
 		console.log('onMouseDown this.state.drag', this.state.drag)
 	}
 
 	onMouseMove (event) {
+		event.preventDefault()
 		if (this.state.drag) {
-		console.log('onMouseMove', event.nativeEvent.x)
+		console.log('onMouseMove', event.dataTransfer.getData('text'))
 			this.setState({
 				photo: {
-					x: event.nativeEvent.x,
-					y: event.nativeEvent.y,
+					x: event.nativeEvent.pageX,
+					y: event.nativeEvent.pageY,
 				}
 			})
 		}
@@ -39,19 +43,22 @@ class Canvas extends Component {
 
 	onMouseUp (event) {
 		event.preventDefault()
-		console.log('onMouseUp')
+		console.log('onMouseUp', this.state)
 		this.setState({ drag: null })
-		const x = this.state.photo.x
-		const y = this.state.photo.y
 
-		setTimeout(() => {
-			this.setState({
-				photo: {
-					x: x,
-					y: y
-				}
-			})
-		}, 10)
+		var data = event.dataTransfer.getData("text");
+    event.target.appendChild(document.getElementById(data));
+		// const x = this.state.photo.x
+		// const y = this.state.photo.y
+
+		// setTimeout(() => {
+		// 	this.setState({
+		// 		photo: {
+		// 			x: x,
+		// 			y: y
+		// 		}
+		// 	})
+		// }, 10)
 	}
 
 	render() {
