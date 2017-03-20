@@ -2,15 +2,17 @@ import React, { Component } from 'react'
 import { FormControl, FormGroup, ControlLabel, FieldGroup, Form, Col, Button } from 'react-bootstrap'
 
 
-
 export default class Signup extends Component {
+  handleChange(e){}
+
+  handleSubmit(e){
+    e.preventDefault()
+  }
+
   render () {
   return (
     <div>
-  <Form horizontal onSubmit={evt => {
-    evt.preventDefault()
-
-  } }>
+  <Form horizontal onSubmit={this.handleSubmit.bind(this)}>
 
     <FormGroup controlId="formHorizontalEmail">
       <Col componentClass={ControlLabel} smOffset={2} sm={2}>
@@ -32,7 +34,7 @@ export default class Signup extends Component {
 
     <FormGroup>
       <Col smOffset={4} sm={10}>
-        <Button type="submit" value="Login">
+        <Button type="submit" value="Signup">
           Sign Up
         </Button>
       </Col>
