@@ -15,6 +15,7 @@ render (
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App}>
+        <Route path="/signup" component={Signup} />
         <Route path="/canvas" component={Canvas} />
 {/*        <IndexRedirect to="/" />*/}
       </Route>
