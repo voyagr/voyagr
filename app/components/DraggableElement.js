@@ -54,10 +54,9 @@ class DraggableElement extends Component {
   render() {
     const { text, connectDragSource } = this.props;
 
-
     return connectDragSource(
       <div style={getStyles(this.props)}>
-        <Element text={text} />
+        <Element text={text} id={this.props.id} type={this.props.type} />
       </div>,
     );
   }

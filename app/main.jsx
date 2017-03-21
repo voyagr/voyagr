@@ -4,13 +4,13 @@ import {Router, Route, IndexRedirect, browserHistory} from 'react-router'
 import {render} from 'react-dom'
 import {connect, Provider} from 'react-redux'
 import axios from 'axios'
-import Signup from './components/Signup'
-
 import store from './store'
-
+//COMPONENTS
+import Signup from './components/Signup'
 import Canvas from './components/Canvas'
 import App from './components/App'
 import LandingPage from './components/LandingPage'
+
 
 render (
   <Provider store={store}>

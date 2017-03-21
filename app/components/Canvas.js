@@ -3,6 +3,7 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Page from './Page';
 import CustomDragLayer from './CustomDragLayer';
+import ToolBox from './ToolBox'
 
 class Canvas extends Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class Canvas extends Component {
 
     return (
       <div>
+        <ToolBox />
         <Page snapToGrid={snapToGridAfterDrop} />
         <CustomDragLayer snapToGrid={snapToGridWhileDragging} />
         <p>
