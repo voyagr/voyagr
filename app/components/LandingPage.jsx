@@ -8,7 +8,7 @@ export default class LandingPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      activeKey: '1'
+      activeKey: '1' // dictates which panel is open
     }
     this.handleSelect = this.handleSelect.bind(this)
   }
