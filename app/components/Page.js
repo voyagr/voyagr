@@ -40,31 +40,27 @@ class Page extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate;
 
   constructor(props) {
-    super(props);
-
-
-    this.state = {
-      elements: {
-        textBox: {
-          1: { top: 20, left: 80, size: 'small', text: 'My vacay memories' },
-          2: { top: 100, left: 120, size: 'small', text: 'note to self'} },
-        photo: {
-          1: {top: 200, left: 20, size: 'small', text: 'Pretty Photo' }}
-      }
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
+    super(props)
   }
 
   moveElement(type, id, left, top) {
-    this.setState(update(this.state, {
-      elements: {
-        [type] : {
-          [id]: {
-            $merge: { left, top },
-          }
-        },
-      },
-    }));
+    let elementUpdate = {
+      type: type,
+      id: id,
+      left: left,
+      top: top,
+    }
+    this.props.setElementXY(elementUpdate)
+
+    // this.setState(update(this.state, {
+    //   elements: {
+    //     [type] : {
+    //       [id]: {
+    //         $merge: { left, top },
+    //       }
+    //     },
+    //   },
+    // }));
   }
 
   renderElement(item, key, type) {
@@ -79,8 +75,10 @@ class Page extends Component {
   }
 
   render() {
+    console.log(this.props)
     const { connectDropTarget } = this.props;
-    const { elements } = this.state;
+    const { elements } = this.props;
+
 
     return connectDropTarget(
       <div style={styles}>
