@@ -23,12 +23,12 @@ class Signup extends Component {
 
   handleSubmit(e){
     e.preventDefault()
-    this.props.create(this.state.email, this.state.password)
+    this.state.password.length < 6 ?
+      console.log('Password must be at least 6 characters!')
+      : this.props.create(this.state.email, this.state.password)
   }
 
   render () {
-    console.log("THE STATE =====", this.state)
-    console.log("THIS.PROPS ====", this.props)
     return (
       <div>
         <Form horizontal onSubmit={this.handleSubmit}>
