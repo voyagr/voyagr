@@ -51,7 +51,7 @@ class Login extends Component {
 
           <FormGroup>
             <Col smOffset={4} sm={10}>
-              <Button type="submit" value="Signup">
+              <Button type="submit" value="Login">
                 Log In
               </Button>
             </Col>
