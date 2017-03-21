@@ -27,8 +27,6 @@ class Signup extends Component {
   }
 
   render () {
-    console.log("THE STATE =====", this.state)
-    console.log("THIS.PROPS ====", this.props)
     return (
       <div>
         <Form horizontal onSubmit={this.handleSubmit}>
