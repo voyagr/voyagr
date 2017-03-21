@@ -23,13 +23,12 @@ class Element extends Component {
         text: event.target.value
       }
     }
-    console.log(updatedTextBox)
-
+    
     this.props.editText(updatedTextBox)
   }
 
   render() {
-    const { text, yellow } = this.props;
+    const { text } = this.props;
 
     return (
       <ContentEditable
@@ -45,7 +44,3 @@ class Element extends Component {
 const mapStateToProps = state => state
 
 export default connect(mapStateToProps, { editText })(Element)
-
-      // {/*<div style={{ ...styles, backgroundColor }} contentEditable="true">
-      //   {text}
-      // </div>*/}
