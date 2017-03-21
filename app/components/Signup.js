@@ -1,25 +1,42 @@
 import React, { Component } from 'react'
 import { FormControl, FormGroup, ControlLabel, FieldGroup, Form, Col, Button } from 'react-bootstrap'
+import { connect } from 'react-redux'
+import { signup } from '../reducers/user'
 
+class Signup extends Component {
+  constructor(){
+    super()
+    this.state = {
+      email: '',
+      password: '',
+    }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
 
-export default class Signup extends Component {
-  handleChange(e){}
+  handleChange(e){
+    const value = e.target.value
+    const name = e.target.name
+    this.setState({[name]: value});
+  }
 
   handleSubmit(e){
     e.preventDefault()
+    this.props.signup(this.state.email, this.state.password)
   }
 
   render () {
+    console.log("THE STATE =====", this.state)
   return (
     <div>
-  <Form horizontal onSubmit={this.handleSubmit.bind(this)}>
+  <Form horizontal onSubmit={this.handleSubmit}>
 
     <FormGroup controlId="formHorizontalEmail">
       <Col componentClass={ControlLabel} smOffset={2} sm={2}>
         Email
       </Col>
       <Col sm={4}>
-        <FormControl type="email" name='email' placeholder="Email" />
+        <FormControl onChange={this.handleChange} type="email" name='email' placeholder="Email" />
       </Col>
     </FormGroup>
 
@@ -28,7 +45,7 @@ export default class Signup extends Component {
         Password
       </Col>
       <Col sm={4}>
-        <FormControl type="password" name='password' placeholder="Password" />
+        <FormControl onChange={this.handleChange} type="password" name='password' placeholder="Password" />
       </Col>
     </FormGroup>
 
@@ -44,3 +61,8 @@ export default class Signup extends Component {
     )
   }
   }
+
+export default connect (
+  null,
+  {signup},
+) (Signup)

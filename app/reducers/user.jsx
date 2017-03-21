@@ -28,7 +28,6 @@ export const signup = (email, password) =>
     .createUserWithEmailAndPassword(email, password)
     .then(user => dispatch(authenticated(user)))
     .catch(function(error) {
-        var errorCode = error.code;
         var errorMessage = error.message;
 });
 
