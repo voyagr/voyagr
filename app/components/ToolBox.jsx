@@ -27,7 +27,6 @@ class ToolBox extends Component {
 	}
 
 	render () {
-		console.log('toolbox', this.props)
 		return (
 			<div>
 				<ButtonToolbar>
