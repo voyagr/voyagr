@@ -17,16 +17,16 @@ const styles = {
 
 const elementTarget = {
   drop(props, monitor, component) {
-    const delta = monitor.getDifferenceFromInitialOffset();
-    const item = monitor.getItem();
+    const delta = monitor.getDifferenceFromInitialOffset()
+    const item = monitor.getItem()
 
-    let left = Math.round(item.left + delta.x);
-    let top = Math.round(item.top + delta.y);
+    let left = Math.round(item.left + delta.x)
+    let top = Math.round(item.top + delta.y)
     if (props.snapToGrid) {
-      [left, top] = snapToGrid(left, top);
+      [left, top] = snapToGrid(left, top)
     }
 
-    component.moveElement(item.type, item.id, left, top);
+    component.moveElement(item.type, item.id, left, top)
   },
 };
 
@@ -40,31 +40,17 @@ class Page extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate;
 
   constructor(props) {
-    super(props);
-
-
-    this.state = {
-      elements: {
-        textBox: {
-          1: { top: 20, left: 80, size: 'small', text: 'My vacay memories' },
-          2: { top: 100, left: 120, size: 'small', text: 'note to self'} },
-        photo: {
-          1: {top: 200, left: 20, size: 'small', text: 'Pretty Photo' }}
-      }
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
+    super(props)
   }
 
   moveElement(type, id, left, top) {
-    this.setState(update(this.state, {
-      elements: {
-        [type] : {
-          [id]: {
-            $merge: { left, top },
-          }
-        },
-      },
-    }));
+    let elementUpdate = {
+      type: type,
+      id: id,
+      left: left,
+      top: top,
+    }
+    this.props.setElementXY(elementUpdate)
   }
 
   renderElement(item, key, type) {
@@ -73,14 +59,10 @@ class Page extends Component {
     );
   }
 
-  handleSubmit () {
-    console.log("STATE=", this.state);
-    this.props.setElementXY(this.state.elements)
-  }
-
   render() {
-    const { connectDropTarget } = this.props;
-    const { elements } = this.state;
+    const { connectDropTarget } = this.props
+    const { elements } = this.props
+
 
     return connectDropTarget(
       <div style={styles}>
@@ -94,7 +76,6 @@ class Page extends Component {
             })
           })
         }
-        <button type="submit" onClick={this.handleSubmit}>Save</button>
       </div>,
     );
   }
