@@ -3409,6 +3409,10 @@ react-bootstrap@^0.30.8:
     uncontrollable "^4.0.1"
     warning "^3.0.0"
 
+react-contenteditable@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/react-contenteditable/-/react-contenteditable-2.0.2.tgz#0acf68920931c227d1c9c85ae429981920f8fd92"
+
 react-dnd-html5-backend@^2.2.4:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/react-dnd-html5-backend/-/react-dnd-html5-backend-2.2.4.tgz#6c4a704efaa35cf568f40376ed82b8a3eb3c26df"
@@ -3468,6 +3472,10 @@ react-redux@^4.4.5:
     invariant "^2.0.0"
     lodash "^4.2.0"
     loose-envify "^1.1.0"
+
+react-router-bootstrap@^0.23.1:
+  version "0.23.1"
+  resolved "https://registry.yarnpkg.com/react-router-bootstrap/-/react-router-bootstrap-0.23.1.tgz#a1e0b82f49d25a6083c72202ad16aaa64bba0e0c"
 
 react-router@^3.0.0:
   version "3.0.0"
