@@ -59,11 +59,6 @@ class Page extends Component {
     );
   }
 
-  handleSubmit () {
-    console.log("STATE=", this.state);
-    this.props.setElementXY(this.state.elements)
-  }
-
   render() {
     const { connectDropTarget } = this.props
     const { elements } = this.props
@@ -81,7 +76,6 @@ class Page extends Component {
             })
           })
         }
-        <button type="submit" onClick={this.handleSubmit}>Save</button>
       </div>,
     );
   }
