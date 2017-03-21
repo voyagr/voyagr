@@ -17,16 +17,16 @@ const styles = {
 
 const elementTarget = {
   drop(props, monitor, component) {
-    const delta = monitor.getDifferenceFromInitialOffset();
-    const item = monitor.getItem();
+    const delta = monitor.getDifferenceFromInitialOffset()
+    const item = monitor.getItem()
 
-    let left = Math.round(item.left + delta.x);
-    let top = Math.round(item.top + delta.y);
+    let left = Math.round(item.left + delta.x)
+    let top = Math.round(item.top + delta.y)
     if (props.snapToGrid) {
-      [left, top] = snapToGrid(left, top);
+      [left, top] = snapToGrid(left, top)
     }
 
-    component.moveElement(item.type, item.id, left, top);
+    component.moveElement(item.type, item.id, left, top)
   },
 };
 
@@ -51,16 +51,6 @@ class Page extends Component {
       top: top,
     }
     this.props.setElementXY(elementUpdate)
-
-    // this.setState(update(this.state, {
-    //   elements: {
-    //     [type] : {
-    //       [id]: {
-    //         $merge: { left, top },
-    //       }
-    //     },
-    //   },
-    // }));
   }
 
   renderElement(item, key, type) {
@@ -75,9 +65,8 @@ class Page extends Component {
   }
 
   render() {
-    console.log(this.props)
-    const { connectDropTarget } = this.props;
-    const { elements } = this.props;
+    const { connectDropTarget } = this.props
+    const { elements } = this.props
 
 
     return connectDropTarget(
