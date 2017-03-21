@@ -9,6 +9,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   let newState = Object.assign({}, state)
+  let id;
 
   switch (action.type) {
     case 'SET_ELEMENT_XY':
@@ -17,9 +18,13 @@ const reducer = (state = initialState, action) => {
       break
 
     case 'CREATE_TEXT_BOX':
-      let id = Object.keys(action.newTextBox)[0]
+      id = Object.keys(action.newTextBox)[0]
       newState.textBox[id] = action.newTextBox[id]
       break
+
+    case 'EDIT_TEXT':
+      id = Object.keys(action.updatedText)[0]
+      newState.textBox[id].text = action.updatedText[id].text
 
     default: return state;
   }
@@ -30,14 +35,21 @@ const reducer = (state = initialState, action) => {
 export const setElementXY = (elementUpdate) => {
   return {
     type: 'SET_ELEMENT_XY',
-    elementUpdate // { id: 1, type: textBox, x: 101, y: 302 }
+    elementUpdate, // { id: 1, type: textBox, x: 101, y: 302 }
   }
 }
 
 export const createTextBox = (newTextBox) => {
   return {
     type: 'CREATE_TEXT_BOX',
-    newTextBox
+    newTextBox,
+  }
+}
+
+export const editText = (updatedText) => {
+  return {
+    type: 'EDIT_TEXT',
+    updatedText,
   }
 }
 

@@ -1,28 +1,46 @@
-import React, { Component, PropTypes } from 'react';
-import shouldPureComponentUpdate from './shouldPureComponentUpdate';
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import shouldPureComponentUpdate from './shouldPureComponentUpdate'
+import ContentEditable from 'react-contenteditable'
+import { editText } from '../reducers/elements'
 
 const styles = {
   border: '1px dashed gray',
-  padding: '0.5rem 1rem',
+  padding: '20px',
   cursor: 'move',
 };
 
-export default class Element extends Component {
+class Element extends Component {
   static propTypes = {
     text: PropTypes.string.isRequired,
-    yellow: PropTypes.bool,
   };
 
   shouldComponentUpdate = shouldPureComponentUpdate;
 
+  handleChange (event) {
+    let updatedTextBox = {
+      [this.props.id]: {
+        text: event.target.value
+      }
+    }
+    
+    this.props.editText(updatedTextBox)
+  }
+
   render() {
-    const { text, yellow } = this.props;
-    const backgroundColor = yellow ? 'yellow' : 'white';
+    const { text } = this.props;
 
     return (
-      <div style={{ ...styles, backgroundColor }}>
-        {text}
-      </div>
+      <ContentEditable
+        html={text}
+        disabled={false}
+        onChange={this.handleChange.bind(this)}
+        style={{ ...styles }}
+      />
     );
   }
 }
+
+const mapStateToProps = state => state
+
+export default connect(mapStateToProps, { editText })(Element)
