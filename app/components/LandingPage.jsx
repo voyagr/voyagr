@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { PanelGroup, Panel} from 'react-bootstrap'
 import Signup from './Signup'
+import Login from './Login'
+
 export default class LandingPage extends Component {
 
   constructor(props) {
@@ -18,8 +20,8 @@ export default class LandingPage extends Component {
   render() {
     return (
       <PanelGroup activeKey={this.state.activeKey} onSelect={this.handleSelect} accordion>
-        <Panel header="Sign up" eventKey="1"><Signup/></Panel>
-        <Panel header="Log in" eventKey="2">LOG IN PLACE HOLDER</Panel>
+        <Panel header="Sign up" eventKey="1"><Signup /></Panel>
+        <Panel header="Log in" eventKey="2"><Login /></Panel>
       </PanelGroup>
     );
   }
