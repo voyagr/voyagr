@@ -1,16 +1,20 @@
 'use strict'
+// LIBRARIES
 import React from 'react'
 import {Router, Route, IndexRedirect, browserHistory} from 'react-router'
 import {render} from 'react-dom'
 import {connect, Provider} from 'react-redux'
 import axios from 'axios'
 import store from './store'
-//COMPONENTS
+import { initialize } from '../db/firebase'
+// COMPONENTS
 import Signup from './components/Signup'
 import Canvas from './components/Canvas'
 import App from './components/App'
 import LandingPage from './components/LandingPage'
-import { initialize } from '../db/firebase'
+import Timeline from './components/Timeline'
+
+
 
 render (
   <Provider store={store}>
@@ -19,6 +23,8 @@ render (
         <Route path="/landing" component={LandingPage} />
         <Route path="/signup" component={Signup} />
         <Route path="/canvas" component={Canvas} />
+        <Route path="/timeline" component={Timeline} />
+        
 {/*        <IndexRedirect to="/" />*/}
       </Route>
     </Router>
