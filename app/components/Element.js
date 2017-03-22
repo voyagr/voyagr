@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import shouldPureComponentUpdate from './shouldPureComponentUpdate'
+import shouldPureComponentUpdate from './utils/shouldPureComponentUpdate'
 import ContentEditable from 'react-contenteditable'
 import { editText } from '../reducers/elements'
 
