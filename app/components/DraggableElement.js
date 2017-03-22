@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { DragSource } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
-import shouldPureComponentUpdate from './shouldPureComponentUpdate';
-import ItemTypes from './ItemTypes';
+import shouldPureComponentUpdate from './utils/shouldPureComponentUpdate';
+import ItemTypes from './utils/ItemTypes';
 import Element from './Element';
 
 const elementSource = {

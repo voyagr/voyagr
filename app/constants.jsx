@@ -1,3 +1,0 @@
-exports.ItemTypes = {
-	PHOTO: 'photo'
-}

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import shouldPureComponentUpdate from './shouldPureComponentUpdate';
+import shouldPureComponentUpdate from './utils/shouldPureComponentUpdate';
 import Element from './Element';
 
 const styles = {
