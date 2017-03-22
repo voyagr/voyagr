@@ -65,7 +65,6 @@ export const login = (email, password) =>
   auth
   //login
   .signInWithEmailAndPassword(email, password)
-  .then(user => console.log(user))
   .catch(function(error) {
     let errorCode = error.code
     let errorMessage = error.message
@@ -77,8 +76,6 @@ export const logout = () =>
   auth
   //logout
   .signOut()
-  .then(nonUser => {
-  })
   .catch(function(error) {
     let errorCode = error.code
     let errorMessage = error.message
