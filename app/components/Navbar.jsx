@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem, pullRight } from 'react-bootstrap'
+import { connect } from 'react-redux'
+import { Button, Navbar, Nav, NavItem, NavDropdown, MenuItem, pullRight } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
+import { logout } from '../reducers/user'
 
-export default function () {
-  return (
+const NavbarComponent = (props) => (
   <Navbar>
     <Navbar.Header>
       <Navbar.Brand>
@@ -20,15 +21,15 @@ export default function () {
       </NavDropdown>
     </Nav>
     <Nav pullRight>
-      <LinkContainer to="/login">
-        <NavItem eventKey={1} href="#">Log in</NavItem>
-      </LinkContainer>
-      <LinkContainer to="/signup">
-        <NavItem eventKey={2} href="#">Sign up</NavItem>
+      <LinkContainer onSelect={props.logout} to="/">
+        <NavItem eventKey={1} >Log Out</NavItem>
       </LinkContainer>
     </Nav>
   </Navbar>
-  )
-}
+)
 
+export default connect(
+  null,
+  { logout }
+)(NavbarComponent)
 
