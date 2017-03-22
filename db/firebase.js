@@ -1,6 +1,5 @@
 import * as firebase from 'firebase'
 import config from '../firebaseConfig'
-// import { bindActionCreators } from 'redux'
 
 export const initialize = firebase.initializeApp(config)
 
