@@ -21,11 +21,12 @@ export const authenticated = user => ({
 })
 
 /*--------Async Stuff ----------*/
-export const create = (email, password) =>
+//only email and pw are used for auth, name is stored in db
+export const create = (name, email, password) =>
   dispatch => {
     firebase.auth()
     .createUserWithEmailAndPassword(email, password)
-    .then(user => console.log(user))
+    .then(user => console.log('USER ID & NAME RETURNED FROM AUTH',user.uid, name))
     .catch(function(error) {
       var errorCode = error.code;
       var errorMessage = error.message;

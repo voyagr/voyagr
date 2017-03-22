@@ -7,6 +7,7 @@ class Signup extends Component {
   constructor(props){
     super(props)
     this.state = Object.assign({}, {
+      name: '',
       email: '',
       password: '',
     })
@@ -24,8 +25,12 @@ class Signup extends Component {
   handleSubmit(e){
     e.preventDefault()
     this.state.password.length < 6 ?
-      console.log('Password must be at least 6 characters!')
-      : this.props.create(this.state.email, this.state.password)
+      alert('Password must be at least 6 characters!')
+      : this.props.create(
+          this.state.name,
+          this.state.email,
+          this.state.password
+      )
   }
 
   render () {
@@ -33,12 +38,21 @@ class Signup extends Component {
       <div>
         <Form horizontal onSubmit={this.handleSubmit}>
 
+          <FormGroup controlId="formName">
+            <Col componentClass={ControlLabel} smOffset={2} sm={2}>
+              Name
+            </Col>
+            <Col sm={4}>
+              <FormControl onChange={this.handleChange} type="name" name="name" placeholder="'Jane' or 'Ms. Way'" />
+            </Col>
+          </FormGroup>
+
           <FormGroup controlId="formHorizontalEmail">
             <Col componentClass={ControlLabel} smOffset={2} sm={2}>
               Email
             </Col>
             <Col sm={4}>
-              <FormControl onChange={this.handleChange} type="email" name='email' placeholder="Email" />
+              <FormControl onChange={this.handleChange} type="email" name="email" placeholder="Email" />
             </Col>
           </FormGroup>
 
@@ -47,7 +61,7 @@ class Signup extends Component {
               Password
             </Col>
             <Col sm={4}>
-              <FormControl onChange={this.handleChange} type="password" name='password' placeholder="Password" />
+              <FormControl onChange={this.handleChange} type="password" name="password" placeholder="Password" />
             </Col>
           </FormGroup>
 
