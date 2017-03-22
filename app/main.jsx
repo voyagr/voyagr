@@ -13,6 +13,7 @@ import Canvas from './components/Canvas'
 import App from './components/App'
 import LandingPage from './components/LandingPage'
 import Timeline from './components/Timeline'
+import Suitcase from './components/Suitcase'
 
 
 
@@ -24,6 +25,8 @@ render (
         <Route path="/signup" component={Signup} />
         <Route path="/canvas" component={Canvas} />
         <Route path="/timeline" component={Timeline} />
+        <Route path="/suitcase" component={Suitcase} />
+
         
 {/*        <IndexRedirect to="/" />*/}
       </Route>
