@@ -1,4 +1,5 @@
 import { database, auth } from '../../db/firebase'
+import { browserHistory } from 'react-router'
 
 /* --------- Initial State ---------*/
 const initialState = {
@@ -65,6 +66,7 @@ export const login = (email, password) =>
   auth
   //login
   .signInWithEmailAndPassword(email, password)
+  .then(() => browserHistory.push("/timeline"))
   .catch(function(error) {
     let errorCode = error.code
     let errorMessage = error.message

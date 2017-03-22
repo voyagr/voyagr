@@ -7,7 +7,7 @@ import {connect, Provider} from 'react-redux'
 import axios from 'axios'
 import store from './store'
 import { initialize, testFunction, ref } from '../db/firebase'
-// import { bindActionCreators } from 'redux'
+
 // COMPONENTS
 import Signup from './components/Signup'
 import Canvas from './components/Canvas'
@@ -17,20 +17,16 @@ import Timeline from './components/Timeline'
 import {setFirebaseRef} from './reducers/firebaseRef'
 import Suitcase from './components/Suitcase'
 
-// import * as config from './reducers/config'
-// import * as elements from './reducers/elements'
-// import * as firebaseRef from './reducers/firebaseRef'
-// import * as page from './reducers/page'
-// import * as user from './reducers/user'
-// import * as index from './reducers/index'
-
-
-// var actions = bindActionCreators(index, dispatch)
-// actions.setFirebaseRef(ref)
 function startingFirebase () {
   store.dispatch(setFirebaseRef(ref))
 }
 
+function testingFirebase () {
+  const { firebaseRef } = store.getState()
+  firebaseRef.child('users').on('value', (snapshot) => {
+    console.log(snapshot.val())
+  })
+}
 
 render (
   <Provider store={store}>
@@ -40,7 +36,7 @@ render (
         <Route path="/landing" component={LandingPage} />
         <Route path="/signup" component={Signup} />
         <Route path="/canvas" component={Canvas} />
-        <Route path="/timeline" component={Timeline} />
+        <Route path="/timeline" component={Timeline} onEnter={testingFirebase}/>
         <Route path="/suitcase" component={Suitcase} />
       </Route>
     </Router>
