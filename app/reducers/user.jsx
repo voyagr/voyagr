@@ -49,25 +49,37 @@ export const create = (name, email, password) =>
       })
     })
     .catch(function(error) {
-      var errorCode = error.code;
-      var errorMessage = error.message;
+      var errorCode = error.code
+      var errorMessage = error.message
       if (errorCode === 'auth/weak-password') {
-          alert('The password is too weak.');
+          alert('The password is too weak.')
         } else {
-          alert(errorMessage);
+          alert(errorMessage)
         }
         console.log('ERROR', errorCode, errorMessage)
     })
   }
 
-// export const login = (email, password) =>
-//   dispatch =>
-//     firebase.auth()
-//     .signInWithEmailAndPassword(email, password)
-//     .then(user => dispatch(authenticated(user)))
-//     .catch(function(error) {
-//         var errorCode = error.code;
-//         var errorMessage = error.message;
-// })
+export const login = (email, password) =>
+  dispatch =>
+  auth
+  //login
+  .signInWithEmailAndPassword(email, password)
+  .catch(function(error) {
+    let errorCode = error.code
+    let errorMessage = error.message
+      console.log('ERROR', errorCode, errorMessage)
+  })
+
+export const logout = () =>
+  dispatch =>
+  auth
+  //logout
+  .signOut()
+  .catch(function(error) {
+    let errorCode = error.code
+    let errorMessage = error.message
+      console.log('ERROR', errorCode, errorMessage)
+  })
 
 export default reducer
