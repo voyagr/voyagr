@@ -15,6 +15,7 @@ import App from './components/App'
 import LandingPage from './components/LandingPage'
 import Timeline from './components/Timeline'
 import {setFirebaseRef} from './reducers/firebaseRef'
+import Suitcase from './components/Suitcase'
 
 // import * as config from './reducers/config'
 // import * as elements from './reducers/elements'
@@ -40,7 +41,7 @@ render (
         <Route path="/signup" component={Signup} />
         <Route path="/canvas" component={Canvas} />
         <Route path="/timeline" component={Timeline} />
-
+        <Route path="/suitcase" component={Suitcase} />
       </Route>
     </Router>
   </Provider>,
