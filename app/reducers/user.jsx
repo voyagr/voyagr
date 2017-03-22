@@ -2,7 +2,6 @@ import { database, auth } from '../../db/firebase'
 
 /* --------- Initial State ---------*/
 const initialState = {
-  user: null,
 }
 
 /* ---------- Reducer -----------*/
