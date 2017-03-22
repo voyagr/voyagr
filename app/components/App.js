@@ -12,6 +12,14 @@ class App extends Component {
 
   }
 
+//   componentDidMount () {
+//     this.props.actions.listenToConfigChanges();
+//     // to save some data
+//     this.props.actions.saveConfig({
+//       new: 'config'
+// });
+//   }
+
   render() {
     return(
       <div>
