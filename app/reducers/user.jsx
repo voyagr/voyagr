@@ -2,7 +2,7 @@ import { database, auth } from '../../db/firebase'
 
 /* --------- Initial State ---------*/
 const initialState = {
-    currentUser: null,
+  user: null,
 }
 
 /* ---------- Reducer -----------*/
@@ -24,9 +24,31 @@ export const authenticated = user => ({
 //only email and pw are used for auth, name is stored in db
 export const create = (name, email, password) =>
   dispatch => {
+    // let user
     auth
+    //create user
     .createUserWithEmailAndPassword(email, password)
-    .then(user => console.log('USER ID & NAME RETURNED FROM AUTH', user.uid, name))
+    .then(() => {
+      auth.onAuthStateChanged(function(user) {
+        if (user) {
+          user.updateProfile({
+            displayName: name,
+          })
+          .then(() => user.sendEmailVerification())
+          .then(() => {
+            database
+            .ref(`users/${user.uid}`)
+            .set({
+              name: name,
+              email: email,
+            })
+          })
+          .catch(error => {
+            console.log('NESTED ERROR', error.code, error.message)
+          })
+        } else console.log('NO USER')
+      })
+    })
     .catch(function(error) {
       var errorCode = error.code;
       var errorMessage = error.message;
