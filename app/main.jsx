@@ -10,7 +10,7 @@ import Signup from './components/Signup'
 import Canvas from './components/Canvas'
 import App from './components/App'
 import LandingPage from './components/LandingPage'
-
+import { initialize } from '../db/firebase'
 
 render (
   <Provider store={store}>

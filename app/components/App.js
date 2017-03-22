@@ -12,10 +12,6 @@ class App extends Component {
 
   }
 
-componentDidMount() {
-  firebase.initializeApp(config);
-}
-
   render() {
     return(
       <div>
