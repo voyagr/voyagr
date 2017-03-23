@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {storage, storageRef} from 'APP/db/firebase' 
+import {storage, storageRef, auth} from 'APP/db/firebase' 
 import {Form, FormGroup, Input, Button} from 'react-bootstrap'
 
 
@@ -18,10 +18,10 @@ export default class Suitcase extends Component {
 
     handleSubmit(e) {
         e.preventDefault()
-        let imageRef = storageRef.child(this.state.image.name)
+        let imageRef = storageRef.child(auth.currentUser.uid + "/" + this.state.image.name)
         imageRef.put(this.state.image)
-                .then(snapshot => console.log("GOT YOUR IMAGE RIGHT HERE!!!"))
-                .catch(err => console.error("YOU HAVE MADE A GRIEVOUS ERROR!!!"))
+                .then(snapshot => alert("Your image is now in our database FOREVER"))
+                .catch(err => alert("YOU HAVE MADE A GRIEVOUS ERROR!!!"))
     }
 
     render () {
