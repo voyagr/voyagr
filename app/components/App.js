@@ -1,19 +1,36 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 
 import * as firebase from 'firebase'
 import config from '../../firebaseConfig'
 
 import Navbar from './Navbar'
 
-class App extends Component {
+import { auth } from 'APP/db/firebase'
+
+//AppInstance.unsubscribe
+
+export default class App extends Component {
   constructor(props) {
     super(props)
 
   }
 
+  componentDidMount () {
+    this.unsubscribe = auth.onAuthStateChanged(function(user) {
+      if (!user) auth.signInAnonymously()
+      .then( user => this.setState({user}))
+      .catch(error => {
+        console.log('ERROR', error.code, error.message)
+      })
+    })
+  }
+
+  componentWillUnmount () {
+    this.unsubscribe()
+  }
+
   render() {
-    return(
+    return (
       <div>
         <Navbar />
         <div>{ this.props.children }</div>
@@ -21,7 +38,3 @@ class App extends Component {
     )
   }
 }
-
-export default connect(
-  null
-)(App)

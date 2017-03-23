@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import { FormControl, FormGroup, ControlLabel, FieldGroup, Form, Col, Button } from 'react-bootstrap'
-import { connect } from 'react-redux'
 import { login } from '../reducers/user'
 
 class Login extends Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
     this.state = Object.assign({}, {
       email: '',
       password: '',
@@ -23,7 +22,7 @@ class Login extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    this.props.login(this.state.email, this.state.password)
+    login(this.state.email, this.state.password)
   }
 
   render() {
@@ -62,6 +61,4 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = (state) => state
-
-export default connect(mapStateToProps, { login })(Login)
+export default Login

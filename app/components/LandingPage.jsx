@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { PanelGroup, Panel} from 'react-bootstrap'
 import Signup from './Signup'
 import Login from './Login'
+import { auth } from 'APP/db/firebase'
 
 export default class LandingPage extends Component {
 
@@ -15,6 +16,20 @@ export default class LandingPage extends Component {
 
   handleSelect(activeKey) {
     this.setState({ activeKey });
+  }
+
+  componentDidMount () {
+    this.unsubscribe = auth.onAuthStateChanged(function(user) {
+      if (!user) auth.signInAnonymously()
+      .then( user => this.setState({user}))
+      .catch(error => {
+        console.log('ERROR', error.code, error.message)
+      })
+    })
+  }
+
+  componentWillUnmount () {
+    this.unsubscribe()
   }
 
   render() {
