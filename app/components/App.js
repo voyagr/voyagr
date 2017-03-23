@@ -29,10 +29,6 @@ export default class App extends Component {
     this.unsubscribe()
   }
 
-  whichRender () {
-
-  }
-
   render() {
     return (
       <div>
