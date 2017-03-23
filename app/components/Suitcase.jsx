@@ -10,7 +10,7 @@ export default class Suitcase extends Component {
             image: null
         }
     }
-
+    
     handleChange (e) {
         e.preventDefault()
         this.state.image = e.target.files[0]
