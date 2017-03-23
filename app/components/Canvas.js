@@ -18,10 +18,6 @@ class Canvas extends Component {
     };
   }
 
-  componentDidMount() {
-
-  }
-
   render() {
     const { snapToGridAfterDrop, snapToGridWhileDragging } = this.state;
 
