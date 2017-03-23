@@ -4,12 +4,16 @@ import { connect } from 'react-redux'
 
 import { createTextBox } from '../reducers/elements'
 
+import { auth, storage } from 'APP/db/firebase'
+
 class ToolBox extends Component {
 	constructor(props) {
 		super(props)
 
 		this.onClickListener = this.onClickListener.bind(this)
 		this.makeRandomId = this.makeRandomId.bind(this)
+		this.getUser = this.getUser.bind(this)
+		this.getRef = this.getRef.bind(this)
 	}
 
   makeRandomId () {
@@ -33,7 +37,22 @@ class ToolBox extends Component {
 		this.props.createTextBox(newTextBox)
 	}
 
+	getRef (userId) {
+		return storage.ref(`${userId}/`)
+	}
+
+
+
+	getUser () {
+		let user = auth.currentUser
+		if (user) return user.uid
+	}
+
 	render () {
+		// console.log('CURRENT USER', this.getUser())
+		console.log('CURRENT StorageRef', this.getRef(this.getUser() + '/pikachu.png'))
+		let pic = this.getRef(this.getUser() + '/pikachu.png').getDownloadURL()
+		console.log('PIC',pic)
 		return (
 			<div>
 				<ButtonToolbar>
@@ -44,6 +63,7 @@ class ToolBox extends Component {
 						This is the photo drawer!
 					</Panel>
 				</Accordion>
+					<img src={`${pic}`} />
 			</div>
 		)
 	}
