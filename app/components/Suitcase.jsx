@@ -38,7 +38,9 @@ export default class Suitcase extends Component {
     }
 }
 
-/* File
+
+/* This is all the format of the information 
+on the file at the time of upload --
 lastModified : 1486685563000
 lastModifiedDate : Thu Feb 09 2017 19:12:43 GMT-0500 (EST)
 name : "vaultboy.png"
