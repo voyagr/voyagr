@@ -4,6 +4,8 @@ import rootReducer from './reducers'
 import createLogger from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 
+import { ref } from 'APP/db/firebase'
+
 import {whoami} from './reducers/auth'
 
 const store = createStore(
@@ -11,7 +13,12 @@ const store = createStore(
   composeWithDevTools(
     applyMiddleware(
       createLogger({collapsed: true}),
-      thunkMiddleware
+      thunkMiddleware,
+      /*receives the store, then original dispatch, the action attached to the original dispatch*/
+      store => dispatch => {
+        ref.on('child_added', snap => dispatch(snap.val()))
+        return action => action.doNotSync ? dispatch(action) : ref.push(action)
+      }
     )
   )
 )

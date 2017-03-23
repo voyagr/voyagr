@@ -2,7 +2,8 @@
 export const setFirebaseRef = function (ref) {
   return {
     type: 'FIREBASE_REF_SET',
-    value: ref
+    value: ref,
+    doNotSync: true,
   }
 }
 
