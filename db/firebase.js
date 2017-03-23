@@ -8,3 +8,7 @@ export const database = firebase.database()
 export const auth = firebase.auth()
 
 export const ref = database.ref()
+
+export const storage = firebase.storage()
+
+export const storageRef = storage.ref()
