@@ -8,7 +8,7 @@ import { ref } from 'APP/db/firebase'
 
 import {whoami} from './reducers/auth'
 
-const store = createStore(
+const store = ref => createStore(
   rootReducer,
   composeWithDevTools(
     applyMiddleware(
@@ -24,6 +24,3 @@ const store = createStore(
 )
 
 export default store
-
-// Set the auth info at start
-store.dispatch(whoami())

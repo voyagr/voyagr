@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { Button, Navbar, Nav, NavItem, NavDropdown, MenuItem, pullRight } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { logout } from '../reducers/user'
 
-const NavbarComponent = (props) => (
+const NavbarComponent = () => (
   <Navbar>
     <Navbar.Header>
       <Navbar.Brand>
@@ -21,15 +20,11 @@ const NavbarComponent = (props) => (
       </NavDropdown>
     </Nav>
     <Nav pullRight>
-      <LinkContainer onSelect={props.logout} to="/">
+      <LinkContainer onSelect={logout} to="/">
         <NavItem eventKey={1} >Log Out</NavItem>
       </LinkContainer>
     </Nav>
   </Navbar>
 )
 
-export default connect(
-  null,
-  { logout }
-)(NavbarComponent)
-
+export default NavbarComponent

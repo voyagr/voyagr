@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import { FormControl, FormGroup, ControlLabel, FieldGroup, Form, Col, Button } from 'react-bootstrap'
-import { connect } from 'react-redux'
 import { create } from '../reducers/user'
 
 class Signup extends Component {
-  constructor(props){
-    super(props)
+  constructor(){
+    super()
     this.state = Object.assign({}, {
       name: '',
       email: '',
@@ -27,7 +26,7 @@ class Signup extends Component {
 
     this.state.password.length < 6 ?
       alert('Password must be at least 6 characters!')
-      : this.props.create(
+      : create(
           this.state.name,
           this.state.email,
           this.state.password
@@ -81,9 +80,4 @@ class Signup extends Component {
   }
 }
 
-const mapStateToProps = (state) => state
-
-export default connect(
-  mapStateToProps,
-  {create}
-)(Signup)
+export default Signup

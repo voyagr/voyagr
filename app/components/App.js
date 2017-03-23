@@ -1,22 +1,18 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 
 import * as firebase from 'firebase'
 import config from '../../firebaseConfig'
 
 import Navbar from './Navbar'
 
-import auth from 'APP/db/firebase'
+import { auth } from 'APP/db/firebase'
 
 //AppInstance.unsubscribe
 
-class App extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props)
 
-      this.state = {
-        user: null,
-      }
   }
 
   componentDidMount () {
@@ -33,6 +29,10 @@ class App extends Component {
     this.unsubscribe()
   }
 
+  whichRender () {
+
+  }
+
   render() {
     return (
       <div>
@@ -42,7 +42,3 @@ class App extends Component {
     )
   }
 }
-
-export default connect(
-  null
-)(App)
