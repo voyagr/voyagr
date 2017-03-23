@@ -8,6 +8,8 @@ import { ref } from 'APP/db/firebase'
 
 import {whoami} from './reducers/auth'
 
+
+
 const store = ref => createStore(
   rootReducer,
   composeWithDevTools(
