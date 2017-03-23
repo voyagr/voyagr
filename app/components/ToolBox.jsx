@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ButtonToolbar, Button } from 'react-bootstrap'
+import { ButtonToolbar, Button, Accordion, Panel } from 'react-bootstrap'
 import { connect } from 'react-redux'
 
 import { createTextBox } from '../reducers/elements'
@@ -39,6 +39,11 @@ class ToolBox extends Component {
 				<ButtonToolbar>
 					<Button bsStyle="primary" bsSize="large" onClick={this.onClickListener}>Add text box</Button>
 				</ButtonToolbar>
+				<Accordion>
+					<Panel header="Add Photo" eventKey="1">
+						This is the photo drawer!
+					</Panel>
+				</Accordion>
 			</div>
 		)
 	}
