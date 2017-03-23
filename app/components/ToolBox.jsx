@@ -9,13 +9,20 @@ class ToolBox extends Component {
 		super(props)
 
 		this.onClickListener = this.onClickListener.bind(this)
+		this.makeRandomId = this.makeRandomId.bind(this)
+	}
+
+  makeRandomId () {
+		return Math.floor((1 + Math.random()) * 0x10000)
+			.toString(16)
+			.substring(1);
+
 	}
 
 	onClickListener (event) {
 		event.preventDefault()
-		// how to make id ?
 		let newTextBox = {
-			'3': {
+			[this.makeRandomId()]: {
 				top: 100,
 				left: 100,
 				size: 'small',
