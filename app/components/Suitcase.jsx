@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {storage, storageRef, auth} from 'APP/db/firebase' 
+import {storage, storageRef, auth} from 'APP/db/firebase'
 import {Form, FormGroup, Input, Button} from 'react-bootstrap'
 
 
@@ -10,7 +10,7 @@ export default class Suitcase extends Component {
             image: null
         }
     }
-    
+
     handleChange (e) {
         e.preventDefault()
         this.state.image = e.target.files[0]
@@ -30,7 +30,11 @@ export default class Suitcase extends Component {
                 <h1>Suitcase</h1>
                 <h2>Here is all your media!</h2>
                 <form onSubmit={this.handleSubmit.bind(this)}>
-                    <input type="file" onChange={this.handleChange.bind(this)} />
+                    <input
+                        type="file"
+                        onChange={this.handleChange.bind(this)}
+                        accept=".gif, .jpg, .png, .mp3, .mp4, .mov"
+                    />
                     <button type="submit">Upload</button>
                 </form>
             </div>
@@ -39,7 +43,7 @@ export default class Suitcase extends Component {
 }
 
 
-/* This is all the format of the information 
+/* This is all the format of the information
 on the file at the time of upload --
 lastModified : 1486685563000
 lastModifiedDate : Thu Feb 09 2017 19:12:43 GMT-0500 (EST)
