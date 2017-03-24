@@ -10,10 +10,12 @@ class ToolBox extends Component {
 	constructor(props) {
 		super(props)
 
+		this.state = {
+			address: null
+		}
+
 		this.onClickListener = this.onClickListener.bind(this)
 		this.makeRandomId = this.makeRandomId.bind(this)
-		this.getUser = this.getUser.bind(this)
-		this.getRef = this.getRef.bind(this)
 	}
 
   makeRandomId () {
@@ -37,32 +39,21 @@ class ToolBox extends Component {
 		this.props.createTextBox(newTextBox)
 	}
 
-	getRef (userId) {
-		return storage.ref(`${userId}/`)
-	}
-
-	getUser () {
-		let user = auth.currentUser
-		if (user) return user.uid
-	}
-
 	componentDidMount () {
+		auth.onAuthStateChanged((user) => {
+			if (user) {
+				var storageRef = storage.ref(`${auth.currentUser.uid}/pikachu.png`)
+				storageRef.getDownloadURL()
+				.then((url) => {
+				  this.setState({
+						address: url,
+				  })
+				})
+		  }
+		})
 	}
 
 	render () {
-		let pic = null
-		let storageRef = storage.ref(`${this.getUser()}/pikachu.png`) || null
-		if (storageRef) {
-			storageRef.getDownloadURL()
-		.then((img) => {
-			console.log('IMG', img)
-			pic = img || null
-		})
-		}
-		// console.log('CURRENT USER', this.getUser())
-		// console.log('REF', ref || null)
-		// let path = ref.getDownloadURL()
-		// console.log('PATH', path || null)
 		return (
 			<div>
 				<ButtonToolbar>
@@ -73,6 +64,7 @@ class ToolBox extends Component {
 						This is the photo drawer!
 					</Panel>
 				</Accordion>
+				<img src={this.state.address} />
 			</div>
 		)
 	}
