@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import shouldPureComponentUpdate from './utils/shouldPureComponentUpdate';
 import Element from './Element';
+import PhotoElement from './PhotoElement'
 
 const styles = {
   display: 'inline-block',
@@ -9,10 +10,6 @@ const styles = {
 };
 
 export default class ElementDragPreview extends Component {
-  static propTypes = {
-    text: PropTypes.string.isRequired,
-  };
-
   shouldComponentUpdate = shouldPureComponentUpdate;
 
   constructor(props) {
@@ -40,10 +37,13 @@ export default class ElementDragPreview extends Component {
   render() {
     const { text } = this.props;
     const { tickTock } = this.state;
-
     return (
       <div style={styles}>
+        { this.props.type === "photo" ?
+        <PhotoElement id={this.props.id} source={this.props.source}/>
+        :
         <Element text={text} yellow={tickTock} />
+        }
       </div>
     );
   }

@@ -56,21 +56,14 @@ class CustomDragLayer extends Component {
   };
 
   renderItem(type, item) {
-    switch (type) {
-      case ItemTypes.ELEMENT:
-        return (<ElementDragPreview text={item.text} />);
-      default:
-        return null;
-    }
+    return (<ElementDragPreview source={item.source} type={item.type} text={item.text} />);
   }
 
   render() {
     const { item, itemType, isDragging } = this.props;
-
     if (!isDragging) {
       return null;
     }
-
     return (
       <div style={layerStyles}>
         <div style={getItemStyles(this.props)}>

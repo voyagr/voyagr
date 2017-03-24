@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {storage, storageRef, auth} from 'APP/db/firebase'
+import {storage, storageRef, auth, database} from 'APP/db/firebase'
 import {Form, FormGroup, Input, Button} from 'react-bootstrap'
 
 
@@ -18,10 +18,17 @@ export default class Suitcase extends Component {
 
     handleSubmit(e) {
         e.preventDefault()
-        let imageRef = storageRef.child(auth.currentUser.uid + "/" + this.state.image.name)
+        let imageRef = storageRef.child(auth.currentUser.uid + '/' + this.state.image.name)
         imageRef.put(this.state.image)
-                .then(snapshot => alert("Your image is now in our database FOREVER"))
-                .catch(err => alert("YOU HAVE MADE A GRIEVOUS ERROR!!!"))
+                .then(snapshot => {
+                    const user = auth.currentUser.uid
+                    //creates reference to folder in db for all photos belonging to user
+                    const userPhotosRef = database.ref(`photos/${user}`)
+                    //pushes an object with a unique key and download url as value for photo
+                    userPhotosRef.push(snapshot.downloadURL)
+                })
+                .then(() => alert("Your image is now in our database FOREVER")) //this is where we need to add the push to db
+                .catch(err => alert(`YOU HAVE MADE A GRIEVOUS ERROR!!! Error: ${err}`))
     }
 
     render () {
