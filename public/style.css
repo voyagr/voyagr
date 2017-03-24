@@ -14,8 +14,10 @@
 #photo-panel .drawer-photo img{
   max-width: 150px;
   max-height: 150px;
+  display: block;
 }
 
 .container {
   margin:0 0 0 0;
 }
+

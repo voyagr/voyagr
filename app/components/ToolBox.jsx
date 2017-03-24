@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ButtonToolbar, Button, Accordion, Panel } from 'react-bootstrap'
+import { ButtonToolbar, Button, Accordion, Panel, Glyphicon } from 'react-bootstrap'
 import { connect } from 'react-redux'
 
 import { createTextBox } from '../reducers/elements'
@@ -17,13 +17,13 @@ class ToolBox extends Component {
 
 		this.onClickListener = this.onClickListener.bind(this)
 		this.makeRandomId = this.makeRandomId.bind(this)
+		this.addPhoto = this.addPhoto.bind(this)
 	}
 
   makeRandomId () {
 		return Math.floor((1 + Math.random()) * 0x10000)
 			.toString(16)
 			.substring(1);
-
 	}
 
 	onClickListener (event) {
@@ -40,8 +40,20 @@ class ToolBox extends Component {
 		this.props.createTextBox(newTextBox)
 	}
 
+	addPhoto (event) {
+		let newPhoto = {
+			[this.makeRandomId()]: {
+				source: event.target.getAttribute("id"),
+				top: 200,
+				left: 200,
+				size: 'small',
+			}
+		}
+		console.log(newPhoto)
+	}
+
 	componentDidMount () {
-		auth.onAuthStateChanged((user) => {
+		this.unsubscribe = auth.onAuthStateChanged((user) => {
 			if (user) {
 				const userId = user.uid
 				const dbUserPhotosRef = database.ref(`photos/${userId}`)
@@ -51,6 +63,10 @@ class ToolBox extends Component {
 			}
 		})
 	}
+
+	componentWillUnmount () {
+    this.unsubscribe()
+  }
 
 	render () {
 		const keys = this.state.photos && Object.keys(this.state.photos)
@@ -67,6 +83,7 @@ class ToolBox extends Component {
 							return (
 							  <div className="drawer-photo" key={photoKey}>
 								  <img src={this.state.photos[photoKey]} />
+								  <Button id={photoKey} onClick={this.addPhoto}>+</Button>
 							  </div>)
 						}) : null}
 						</div>
