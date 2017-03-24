@@ -4,11 +4,12 @@ import { getEmptyImage } from 'react-dnd-html5-backend';
 import shouldPureComponentUpdate from './utils/shouldPureComponentUpdate';
 import ItemTypes from './utils/ItemTypes';
 import Element from './Element';
+import PhotoElement from './PhotoElement'
 
 const elementSource = {
   beginDrag(props) {
-    const { size, text, left, top, id, type } = props;
-    return { size, text, left, top, id, type };
+    const { size, text, left, top, id, type, source } = props;
+    return { size, text, left, top, id, type, source };
   },
 };
 
@@ -33,7 +34,6 @@ class DraggableElement extends Component {
     connectDragPreview: PropTypes.func.isRequired,
     isDragging: PropTypes.bool.isRequired,
     size: PropTypes.any.isRequired,
-    text: PropTypes.string.isRequired,
     left: PropTypes.number.isRequired,
     top: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
@@ -53,10 +53,13 @@ class DraggableElement extends Component {
 
   render() {
     const { text, connectDragSource } = this.props;
-
     return connectDragSource(
       <div style={getStyles(this.props)}>
-        <Element text={text} id={this.props.id} type={this.props.type} />
+        {
+          this.props.type === "photo" ?
+            <PhotoElement id={this.props.id} source={this.props.source}/>
+            : <Element text={text} id={this.props.id} type={this.props.type} />
+        }
       </div>,
     );
   }

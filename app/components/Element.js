@@ -23,7 +23,7 @@ class Element extends Component {
         text: event.target.value
       }
     }
-    
+
     this.props.editText(updatedTextBox)
   }
 
@@ -35,8 +35,7 @@ class Element extends Component {
         html={text}
         disabled={false}
         onChange={this.handleChange.bind(this)}
-        style={{ ...styles }}
-      />
+        style={{ ...styles }} />
     );
   }
 }
