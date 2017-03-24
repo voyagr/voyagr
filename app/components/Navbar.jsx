@@ -37,17 +37,22 @@ export default class NavbarComponent extends Component {
     }
     
     renderButtons () {
-      console.log("USER", this.state.user)
       if (this.state.user) {
         return (
           <div>
-            <Nav pullRight>
-              <LinkContainer to="/suitcase">
-                <NavItem eventKey={1}>Suitcase</NavItem>
-              </LinkContainer>        
+            <Nav pullRight>      
               <LinkContainer onSelect={logout} to="/">
-                <NavItem eventKey={2} >Log Out</NavItem>
+                <NavItem eventKey={1}>Log Out</NavItem>
               </LinkContainer> 
+              <LinkContainer to="/timeline">
+                <NavItem eventKey={2}>Timeline</NavItem>
+              </LinkContainer>
+              <LinkContainer to="/canvas/:tripId">
+                <NavItem eventKey={1}>New Trip</NavItem>
+              </LinkContainer>    
+              <LinkContainer to="/suitcase">
+                <NavItem eventKey={3}>Suitcase</NavItem>
+              </LinkContainer>  
             </Nav>
           </div>
         )
