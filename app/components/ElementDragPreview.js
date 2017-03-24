@@ -10,10 +10,6 @@ const styles = {
 };
 
 export default class ElementDragPreview extends Component {
-  static propTypes = {
-    // text: PropTypes.string.isRequired,
-  };
-
   shouldComponentUpdate = shouldPureComponentUpdate;
 
   constructor(props) {
