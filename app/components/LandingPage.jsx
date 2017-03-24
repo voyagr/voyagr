@@ -21,7 +21,6 @@ export default class LandingPage extends Component {
   componentDidMount () {
     this.unsubscribe = auth.onAuthStateChanged(function(user) {
       if (!user) auth.signInAnonymously()
-      .then( user => this.setState({user}))
       .catch(error => {
         console.log('ERROR', error.code, error.message)
       })
