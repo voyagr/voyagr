@@ -25,9 +25,7 @@ const reducer = (state = initialState, action) => {
 
     case 'ADD_A_PHOTO':
       id = Object.keys(action.photo)[0]
-      // console.log("NEW STATE", newState)
       newState.photo[id] = action.photo[id]
-      // console.log("INSIDE REDUCER", id)
       break;
 
     case 'EDIT_TEXT':

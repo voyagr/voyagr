@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import shouldPureComponentUpdate from './utils/shouldPureComponentUpdate'
-import ContentEditable from 'react-contenteditable'
-import { editText } from '../reducers/elements'
 
 const styles = {
   border: '1px dashed gray',
@@ -22,4 +20,4 @@ class Element extends Component {
 
 const mapStateToProps = state => state
 
-export default connect(mapStateToProps, { editText })(Element)
+export default connect(mapStateToProps, null)(Element)
