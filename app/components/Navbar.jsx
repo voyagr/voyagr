@@ -1,30 +1,75 @@
 import React, { Component } from 'react'
 import { Button, Navbar, Nav, NavItem, NavDropdown, MenuItem, pullRight } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
-import { logout } from '../reducers/user'
+import { auth } from 'APP/db/firebase'
+import { browserHistory } from 'react-router'
 
-const NavbarComponent = () => (
-  <Navbar>
-    <Navbar.Header>
-      <Navbar.Brand>
-        <a href="#">Voyagr</a>
-      </Navbar.Brand>
-    </Navbar.Header>
-    <Nav>
-      <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-        <MenuItem eventKey={3.1}>Action</MenuItem>
-        <MenuItem eventKey={3.2}>Another action</MenuItem>
-        <MenuItem eventKey={3.3}>Something else here</MenuItem>
-        <MenuItem divider />
-        <MenuItem eventKey={3.4}>Separated link</MenuItem>
-      </NavDropdown>
-    </Nav>
-    <Nav pullRight>
-      <LinkContainer onSelect={logout} to="/">
-        <NavItem eventKey={1} >Log Out</NavItem>
-      </LinkContainer>
-    </Nav>
-  </Navbar>
-)
+function logout () {
+  auth
+  //logout
+  .signOut()
+  .then(() => browserHistory.push('/landing'))
+  .catch(function(error) {
+    let errorCode = error.code
+    let errorMessage = error.message
+      console.log('ERROR', errorCode, errorMessage)
+  })
+}
 
-export default NavbarComponent
+
+export default class NavbarComponent extends Component {
+    constructor () {
+        super()
+        this.state = {
+            user: null,
+        }
+        this.renderButtons = this.renderButtons.bind(this)
+    }
+
+    componentWillMount () {
+        this.unsubscribe = auth.onAuthStateChanged((user) => {
+            this.setState({ user: user })
+        })
+    }
+
+    componentWillUnmount () {
+        this.unsubscribe()
+    }
+    
+    renderButtons () {
+      if (this.state.user) {
+        return (
+          <div>
+            <Nav pullRight>      
+              <LinkContainer onSelect={logout} to="/">
+                <NavItem eventKey={1}>Log Out</NavItem>
+              </LinkContainer> 
+              <LinkContainer to="/timeline">
+                <NavItem eventKey={2}>Timeline</NavItem>
+              </LinkContainer>
+              <LinkContainer to="/canvas/:tripId">
+                <NavItem eventKey={1}>New Trip</NavItem>
+              </LinkContainer>    
+              <LinkContainer to="/suitcase">
+                <NavItem eventKey={3}>Suitcase</NavItem>
+              </LinkContainer>  
+            </Nav>
+          </div>
+        )
+      } 
+    }
+ 
+  render () {
+    return (
+      <Navbar>
+        <Navbar.Header>
+          <Navbar.Brand>
+            <a href="/">Voyagr</a>
+          </Navbar.Brand>
+        </Navbar.Header>
+        { this.renderButtons() }
+      </Navbar>
+    )
+  }
+}
+

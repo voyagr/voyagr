@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { FormControl, FormGroup, ControlLabel, FieldGroup, Form, Col, Button } from 'react-bootstrap'
-import { create } from '../reducers/user'
+import { database, auth } from 'APP/db/firebase'
 
 class Signup extends Component {
   constructor(){
@@ -23,14 +23,38 @@ class Signup extends Component {
 
   handleSubmit(e){
     e.preventDefault()
-
-    this.state.password.length < 6 ?
-      alert('Password must be at least 6 characters!')
-      : create(
-          this.state.name,
-          this.state.email,
-          this.state.password
-      )
+    auth
+    .createUserWithEmailAndPassword(this.state.email, this.state.password)
+    .then(() => {
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          user.updateProfile({
+            displayName: this.state.name,
+          })
+          .then(() => user.sendEmailVerification())
+          .then(() => {
+            console.log(this.state)
+            database
+            .ref(`users/${user.uid}`)
+            .set({
+              name: this.state.name,
+              email: this.state.email,
+            })
+          })
+          .catch(error => {
+            console.log('NESTED ERROR', error.code, error.message)
+          })
+        } else console.log('NO USER')
+      })
+    })
+    .catch(function(error) {
+      if (error.code === 'auth/weak-password') {
+          alert('The password is too weak.')
+        } else {
+          alert(error.message)
+        }
+        console.log('ERROR', error.code, error.message)
+    })
 
   }
 
