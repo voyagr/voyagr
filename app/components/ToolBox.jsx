@@ -62,9 +62,9 @@ class ToolBox extends Component {
 				<Accordion>
 					<Panel header="Add Photo" eventKey="1">
 						This is the photo drawer!
+						<img src={this.state.address} />
 					</Panel>
 				</Accordion>
-				<img src={this.state.address} />
 			</div>
 		)
 	}
