@@ -37,7 +37,11 @@ export default class Suitcase extends Component {
                 <h1>Suitcase</h1>
                 <h2>Here is all your media!</h2>
                 <form onSubmit={this.handleSubmit.bind(this)}>
-                    <input type="file" onChange={this.handleChange.bind(this)} />
+                    <input
+                        type="file"
+                        onChange={this.handleChange.bind(this)}
+                        accept=".gif, .jpg, .png, .mp3, .mp4, .mov"
+                    />
                     <button type="submit">Upload</button>
                 </form>
             </div>
