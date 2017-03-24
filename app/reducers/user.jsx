@@ -1,6 +1,7 @@
 import { database, auth } from '../../db/firebase'
 import { browserHistory } from 'react-router'
 
+
 /* --------- Initial State ---------*/
 const initialState = {
 }
@@ -50,14 +51,12 @@ export const create = (name, email, password) =>
       })
     })
     .catch(function(error) {
-      var errorCode = error.code
-      var errorMessage = error.message
-      if (errorCode === 'auth/weak-password') {
+      if (error.code === 'auth/weak-password') {
           alert('The password is too weak.')
         } else {
-          alert(errorMessage)
+          alert(error.message)
         }
-        console.log('ERROR', errorCode, errorMessage)
+        console.log('ERROR', error.code, error.message)
     })
   }
 

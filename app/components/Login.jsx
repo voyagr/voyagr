@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { FormControl, FormGroup, ControlLabel, FieldGroup, Form, Col, Button } from 'react-bootstrap'
-import { login } from '../reducers/user'
+import { auth } from 'APP/db/firebase'
+import { browserHistory } from 'react-router'
 
 class Login extends Component {
-  constructor() {
+  constructor () {
     super()
     this.state = Object.assign({}, {
       email: '',
@@ -22,9 +23,16 @@ class Login extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    login(this.state.email, this.state.password)
+    auth //login
+      .signInWithEmailAndPassword(this.state.email, this.state.password)
+      .then(() => browserHistory.push("/timeline"))
+      .catch(function(error) {
+        let errorCode = error.code
+        let errorMessage = error.message
+        console.log('ERROR', errorCode, errorMessage)
+      })
   }
-
+  
   render() {
     return (
       <div>
