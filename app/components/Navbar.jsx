@@ -3,10 +3,10 @@ import { Button, Navbar, Nav, NavItem, NavDropdown, MenuItem, pullRight } from '
 import { LinkContainer } from 'react-router-bootstrap'
 import { auth } from 'APP/db/firebase'
 import { browserHistory } from 'react-router'
+import { startNewTrip } from './utils/newTrip'
 
 function logout () {
   auth
-  //logout
   .signOut()
   .then(() => browserHistory.push('/landing'))
   .catch(function(error) {
@@ -37,6 +37,7 @@ export default class NavbarComponent extends Component {
     }
     
     renderButtons () {
+
       if (this.state.user) {
         return (
           <div>
@@ -47,9 +48,7 @@ export default class NavbarComponent extends Component {
               <LinkContainer to="/timeline">
                 <NavItem eventKey={2}>Timeline</NavItem>
               </LinkContainer>
-              <LinkContainer to="/canvas/:tripId">
-                <NavItem eventKey={1}>New Trip</NavItem>
-              </LinkContainer>    
+              <NavItem onClick={(startNewTrip)} eventKey={1}>New Trip</NavItem>
               <LinkContainer to="/suitcase">
                 <NavItem eventKey={3}>Suitcase</NavItem>
               </LinkContainer>  
