@@ -11,31 +11,11 @@ const styles = {
 };
 
 class Element extends Component {
-  static propTypes = {
-    text: PropTypes.string.isRequired,
-  };
-
   shouldComponentUpdate = shouldPureComponentUpdate;
 
-  handleChange (event) {
-    let updatedTextBox = {
-      [this.props.id]: {
-        text: event.target.value
-      }
-    }
-
-    this.props.editText(updatedTextBox)
-  }
-
   render() {
-    const { text } = this.props;
-
     return (
-      <ContentEditable
-        html={text}
-        disabled={false}
-        onChange={this.handleChange.bind(this)}
-        style={{ ...styles }} />
+      <img src={this.props.source} />
     );
   }
 }

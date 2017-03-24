@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { ButtonToolbar, Button, Accordion, Panel, Glyphicon } from 'react-bootstrap'
 import { connect } from 'react-redux'
-
-import { createTextBox } from '../reducers/elements'
-
 import { auth, database } from 'APP/db/firebase'
+import { createTextBox, addAPhoto } from '../reducers/elements'
+// import { addAPhoto } from '../reducers/photo'
 
 class ToolBox extends Component {
 	constructor(props) {
@@ -49,7 +48,7 @@ class ToolBox extends Component {
 				size: 'small',
 			}
 		}
-		console.log(newPhoto)
+		this.props.addAPhoto(newPhoto)
 	}
 
 	componentDidMount () {
@@ -80,10 +79,11 @@ class ToolBox extends Component {
 						This is the photo drawer!
 						<div id="photo-panel">
 						{keys ? keys.map(photoKey => {
+							// console.log(photoKey)
 							return (
 							  <div className="drawer-photo" key={photoKey}>
 								  <img src={this.state.photos[photoKey]} />
-								  <Button id={photoKey} onClick={this.addPhoto}>+</Button>
+								  <Button id={this.state.photos[photoKey]} onClick={this.addPhoto}>+</Button>
 							  </div>)
 						}) : null}
 						</div>
@@ -96,4 +96,4 @@ class ToolBox extends Component {
 
 const mapStateToProps = state => state
 
-export default connect(mapStateToProps, { createTextBox })(ToolBox)
+export default connect(mapStateToProps, { createTextBox, addAPhoto })(ToolBox)
