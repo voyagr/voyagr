@@ -1,7 +1,21 @@
-.text-large {
+/*.text-large {
   font-size: 3em;
+}*/
+
+#photo-panel {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.element-display {
-  position: absolute;
+#photo-panel .drawer-photo{
+  margin: 10px;
+}
+
+#photo-panel .drawer-photo img{
+  max-width: 150px;
+  max-height: 150px;
+}
+
+.container {
+  margin:0 0 0 0;
 }

@@ -4,6 +4,8 @@ import Canvas from './Canvas'
 import { Provider } from 'react-redux'
 import {ref} from 'APP/db/firebase'
 import store from 'APP/app/store'
+import ToolBox from './ToolBox'
+import { Grid, Col } from 'react-bootstrap'
 
 export default class CanvasContainer extends Component {
   constructor (props) {
@@ -25,7 +27,14 @@ export default class CanvasContainer extends Component {
     if (!this.state) return null
     return (
       <Provider store={this.state.store}>
-        <Canvas />
+        <Grid>
+          <Col lg={4}>
+            <ToolBox />
+          </Col>
+          <Col lg={8}>
+            <Canvas />
+          </Col>
+        </Grid>
       </Provider>
     )
   }

@@ -4,14 +4,15 @@ import { connect } from 'react-redux'
 
 import { createTextBox } from '../reducers/elements'
 
-import { auth, storage } from 'APP/db/firebase'
+import { auth, database } from 'APP/db/firebase'
 
 class ToolBox extends Component {
 	constructor(props) {
 		super(props)
 
 		this.state = {
-			address: null
+			address: null,
+			photos: null,
 		}
 
 		this.onClickListener = this.onClickListener.bind(this)
@@ -42,18 +43,17 @@ class ToolBox extends Component {
 	componentDidMount () {
 		auth.onAuthStateChanged((user) => {
 			if (user) {
-				var storageRef = storage.ref(`${auth.currentUser.uid}/pikachu.png`)
-				storageRef.getDownloadURL()
-				.then((url) => {
-				  this.setState({
-						address: url,
-				  })
-				})
-		  }
+				const userId = user.uid
+				const dbUserPhotosRef = database.ref(`photos/${userId}`)
+				dbUserPhotosRef.on('value', (snapshot) => this.setState({
+					photos: snapshot.val(),
+				}))
+			}
 		})
 	}
 
 	render () {
+		const keys = this.state.photos && Object.keys(this.state.photos)
 		return (
 			<div>
 				<ButtonToolbar>
@@ -62,7 +62,14 @@ class ToolBox extends Component {
 				<Accordion>
 					<Panel header="Add Photo" eventKey="1">
 						This is the photo drawer!
-						<img src={this.state.address} />
+						<div id="photo-panel">
+						{keys ? keys.map(photoKey => {
+							return (
+							  <div className="drawer-photo" key={photoKey}>
+								  <img src={this.state.photos[photoKey]} />
+							  </div>)
+						}) : null}
+						</div>
 					</Panel>
 				</Accordion>
 			</div>

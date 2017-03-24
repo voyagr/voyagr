@@ -23,7 +23,7 @@ class Canvas extends Component {
 
     return (
       <div>
-        <ToolBox />
+{/*        <ToolBox />*/}
         <Page snapToGrid={snapToGridAfterDrop} />
         <CustomDragLayer snapToGrid={snapToGridWhileDragging} />
         <p>
