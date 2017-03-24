@@ -41,18 +41,28 @@ class ToolBox extends Component {
 		return storage.ref(`${userId}/`)
 	}
 
-
-
 	getUser () {
 		let user = auth.currentUser
 		if (user) return user.uid
 	}
 
+	componentDidMount () {
+	}
+
 	render () {
+		let pic = null
+		let storageRef = storage.ref(`${this.getUser()}/pikachu.png`) || null
+		if (storageRef) {
+			storageRef.getDownloadURL()
+		.then((img) => {
+			console.log('IMG', img)
+			pic = img || null
+		})
+		}
 		// console.log('CURRENT USER', this.getUser())
-		console.log('CURRENT StorageRef', this.getRef(this.getUser() + '/pikachu.png'))
-		let pic = this.getRef(this.getUser() + '/pikachu.png').getDownloadURL()
-		console.log('PIC',pic)
+		// console.log('REF', ref || null)
+		// let path = ref.getDownloadURL()
+		// console.log('PATH', path || null)
 		return (
 			<div>
 				<ButtonToolbar>
@@ -63,7 +73,6 @@ class ToolBox extends Component {
 						This is the photo drawer!
 					</Panel>
 				</Accordion>
-					<img src={`${pic}`} />
 			</div>
 		)
 	}

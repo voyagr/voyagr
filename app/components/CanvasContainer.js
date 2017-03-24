@@ -22,7 +22,6 @@ export default class CanvasContainer extends Component {
   //possibly add cleanup for component will unmount
 
   render () {
-    console.log('PROPS',this.props)
     if (!this.state) return null
     return (
       <Provider store={this.state.store}>
