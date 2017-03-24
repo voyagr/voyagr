@@ -4,9 +4,9 @@ import { browserHistory } from 'react-router'
 export function startNewTrip() {
     let uid = auth.currentUser.uid
     let infoPostData = {
-        name: 'Goa Trip',
-        description: 'a holiday in paradise an have its own disappointments',
-        startDate: '1/1/2012'
+        name: 'A Trip',
+        description: 'A description',
+        startDate: '1/1/2000'
     }
 
     var newTripKey = database.ref('/tripInfo').push().key

@@ -7,7 +7,6 @@ import { startNewTrip } from './utils/newTrip'
 
 function logout () {
   auth
-  //logout
   .signOut()
   .then(() => browserHistory.push('/landing'))
   .catch(function(error) {
