@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ButtonToolbar, Button, Accordion, Panel } from 'react-bootstrap'
+import { ButtonToolbar, Button, Accordion, Panel, Form, FormGroup, FormControl, Col, ControlLabel } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { auth, database } from 'APP/db/firebase'
 import { createTextBox, addAPhoto } from '../reducers/elements'
@@ -11,17 +11,48 @@ class ToolBox extends Component {
 		this.state = {
 			address: null,
 			photos: null,
+			title: '',
+			description: '',
+			startDate: '',
 		}
 
 		this.onClickListener = this.onClickListener.bind(this)
 		this.makeRandomId = this.makeRandomId.bind(this)
 		this.addPhoto = this.addPhoto.bind(this)
+		this.handleTripInfoSubmit = this.handleTripInfoSubmit.bind(this)
+		this.handleTripInfoInput = this.handleTripInfoInput.bind(this)
 	}
 
   makeRandomId () {
 		return Math.floor((1 + Math.random()) * 0x10000)
 			.toString(16)
 			.substring(1);
+	}
+
+// var updates = {}
+//     updates['/tripInfo/' + newTripKey] = infoPostData
+//     updates['/userTrips/' + uid] = {[newTripKey]: newTripKey}
+//     updates['/tripUsers/' + newTripKey] = {[uid]: uid}
+
+//     database.ref()
+//             .update(updates)
+//             .then(() =>
+//                 browserHistory.push("/canvas/" + newTripKey)
+//             )
+// }
+
+	handleTripInfoSubmit (event) {
+		event.preventDefault()
+		console.log("INSIDE HANDLE", this.props.tripInfoRef)
+
+
+	}
+
+	handleTripInfoInput (event) {
+		const value = event.target.value
+		const type = event.target.name
+
+		this.setState({[type]: value})
 	}
 
 	onClickListener (event) {
@@ -68,11 +99,15 @@ class ToolBox extends Component {
 
 	render () {
 		const keys = this.state.photos && Object.keys(this.state.photos)
+		let tripInfo = this.props.tripInfo || ""
+
 		return (
 			<div>
+
 				<ButtonToolbar>
 					<Button bsStyle="primary" bsSize="large" onClick={this.onClickListener}>Add text box</Button>
 				</ButtonToolbar>
+
 				<Accordion>
 					<Panel header="Add Photo" eventKey="1">
 						This is the photo drawer!
@@ -85,6 +120,46 @@ class ToolBox extends Component {
 							  </div>)
 						}) : null}
 						</div>
+					</Panel>
+
+					<Panel header="Edit Trip Information" eventKey="2">
+						<strong>Edit your trip information</strong>
+						<Form horizontal onSubmit={this.handleTripInfoSubmit}>
+						    <FormGroup controlId="Title">
+						      <Col componentClass={ControlLabel} sm={3}>
+						        Title
+						      </Col>
+						      <Col sm={9}>
+						        <FormControl onChange={this.handleTripInfoInput} name="title" placeholder={tripInfo.name} />
+						      </Col>
+						    </FormGroup>
+
+						    <FormGroup controlId="description">
+						      <Col componentClass={ControlLabel} sm={3}>
+						        Description
+						      </Col>
+						      <Col sm={9}>
+						        <FormControl name="description" onChange={this.handleTripInfoInput} placeholder={tripInfo.description} />
+						      </Col>
+						    </FormGroup>
+
+						    <FormGroup controlId="startDate">
+						      <Col componentClass={ControlLabel} sm={3}>
+						        Start Date
+						      </Col>
+						      <Col sm={9}>
+						        <FormControl name="startDate" onChange={this.handleTripInfoInput} placeholder={tripInfo.startDate} />
+						      </Col>
+						    </FormGroup>
+
+						    <FormGroup>
+						      <Col smOffset={3} sm={10}>
+						        <Button type="submit">
+						          Submit
+						        </Button>
+						      </Col>
+						    </FormGroup>
+						  </Form>
 					</Panel>
 				</Accordion>
 			</div>
