@@ -20,17 +20,27 @@ router.get('/', (req, res, next) => {
 
 	admin.auth().getUserByEmail(email)
   .then(function(user) {
-		let uid = user.uid
+		let uid = user.uid // invited user id
+
+		// add userId to tripUsers
     database
 		.ref(`/tripUsers/${tripId}`)
-		.set ({
+		.set({
 			[uid]: uid
+		})
+		.catch(console.error)
+
+		// add tripId to userTrips
+		database
+		.ref(`/userTrips/${uid}`)
+		.set({
+			[tripId]: tripId
 		})
 		.catch(console.error)
   })
   .catch(function(error) {
     console.log("Error fetching user data:", error);
-  });
+  })
 
 	res.send(req.query)
 })
