@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ButtonToolbar, Button, Accordion, Panel, Checkbox } from 'react-bootstrap'
+import { ButtonToolbar, Button, Accordion, Panel, } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { auth, database } from 'APP/db/firebase'
 import { createTextBox, addAPhoto } from '../reducers/elements'
