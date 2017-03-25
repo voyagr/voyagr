@@ -9,36 +9,28 @@ import { Grid, Col } from 'react-bootstrap'
 export default class CanvasContainer extends Component {
   constructor (props) {
     super(props)
-
-    this.storeWillSet = this.storeWillSet.bind(this)
   }
+  // export const ref = database.ref()
+  //tripRef = database.ref()
+//  const userId = user.uid
+//  const dbUserPhotosRef = database.ref(`photos/${userId}`)
+//  dbUserPhotosRef.on('value', (snapshot) => this.setState({
+//    photos: snapshot.val(),
+//  }))
 
-//promisifed setting the store and the tripinfoRef
-  storeWillSet (tripId, tripActionsRef) {
-    return new Promise((resolve, reject) => {
-        this.setState({
-          store: store(tripActionsRef),
-          tripInfoRef: database.ref(`tripInfo/${tripId}`)
-      })
-    })
-  }
 
   //when this component mounts, figure out the firebase path from params
   componentDidMount () {
     const tripId = this.props.params.tripId
     const tripActionsRef = database.ref(`tripActions/${tripId}`)
+    // const tripInfoRef = database.ref(`tripInfo/${tripId}`)
 
-    //We have to set the store in a promise so that we can
-    //.then off of it to make sure we wait till it's done to
-    //get the tripInfo so that we can pass it down to the
-    //toolbox
-    this.storeWillSet(tripId, tripActionsRef)
-    .then(() =>
-      this.state.tripInfoRef.on('value', (snap) => this.setState({
-        tripInfo: snap.val()
-      }))
-    )
-    .catch(err => console.error(err))
+    this.setState({
+      store: store(tripActionsRef),
+      tripInfoRef: database.ref(`tripInfo/${tripId}`)
+    }, () => { this.state.tripInfoRef.on('value', (snap) => this.setState({
+      tripInfo: snap.val()
+    })) })
   }
 
   //add component will receive props, update store
@@ -59,7 +51,7 @@ export default class CanvasContainer extends Component {
             : null
           }
           <Col lg={4}>
-            <ToolBox tripInfo={tripInfo} tripInfoRef={this.state.tripInfoRef}/>
+            <ToolBox tripInfo={this.state.tripInfo} tripInfoRef={this.state.tripInfoRef}/>
           </Col>
           <Col lg={8}>
             <Canvas />

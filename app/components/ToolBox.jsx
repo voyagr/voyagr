@@ -43,7 +43,8 @@ class ToolBox extends Component {
 
 	handleTripInfoSubmit (event) {
 		event.preventDefault()
-		console.log("INSIDE HANDLE", this.props.tripInfoRef)
+		console.log("INSIDE HANDLE TRIP REF", this.props.tripInfoRef)
+		console.log("CURRENT STATE", this.state)
 
 
 	}
