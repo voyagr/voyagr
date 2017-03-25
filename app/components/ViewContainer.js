@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Canvas from './Canvas'
+import ViewCanvas from './ViewCanvas'
 import { Provider } from 'react-redux'
 import {ref} from 'APP/db/firebase'
 import store from 'APP/app/store'
@@ -28,15 +28,12 @@ export default class CanvasContainer extends Component {
       console.log('Trip Id', this.props.params.tripId)
     return (
       <Provider store={this.state.store}>
-        <Grid>
-          <Col lg={4}>
-            <Button href={`/view/${this.props.params.tripId}`}>View Page</Button>
-            <ToolBox />
-          </Col>
-          <Col lg={8}>
-            <Canvas />
-          </Col>
-        </Grid>
+        <div>
+          <Button href={`/canvas/${this.props.params.tripId}`}>Edit Page</Button>
+          <div className="center-grid">
+            <ViewCanvas />
+          </div>
+        </div>
       </Provider>
     )
   }

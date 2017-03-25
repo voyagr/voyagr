@@ -17,3 +17,10 @@
   margin:0 0 0 0;
 }
 
+.center-grid {
+  margin: 0 20%;
+}
+
+.center-grid .container {
+  width: 100%;
+}
