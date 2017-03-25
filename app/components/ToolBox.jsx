@@ -29,24 +29,16 @@ class ToolBox extends Component {
 			.substring(1);
 	}
 
-// var updates = {}
-//     updates['/tripInfo/' + newTripKey] = infoPostData
-//     updates['/userTrips/' + uid] = {[newTripKey]: newTripKey}
-//     updates['/tripUsers/' + newTripKey] = {[uid]: uid}
-
-//     database.ref()
-//             .update(updates)
-//             .then(() =>
-//                 browserHistory.push("/canvas/" + newTripKey)
-//             )
-// }
-
 	handleTripInfoSubmit (event) {
 		event.preventDefault()
-		console.log("INSIDE HANDLE TRIP REF", this.props.tripInfoRef)
-		console.log("CURRENT STATE", this.state)
 
+		const infoToUpdate = {
+			name: this.state.title,
+			description: this.state.description,
+			startDate: this.state.startDate
+		}
 
+		this.props.tripInfoRef.set(infoToUpdate)
 	}
 
 	handleTripInfoInput (event) {
