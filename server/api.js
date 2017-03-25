@@ -8,6 +8,7 @@ api
   .get('/heartbeat', (req, res) => res.send({ok: true}))
   .use('/auth', require('./auth'))
   .use('/users', require('./users'))
+  .use('/invite', require('./invite'))
   .get('/render', (req, res, next) => {
     Page.findOne({where: {
       id: 1
