@@ -2,13 +2,11 @@ import React, { Component } from 'react'
 import { Button, Form, FormControl, FormGroup, Col, ControlLabel } from 'react-bootstrap'
 import { database } from 'APP/db/firebase'
 
+import { inviteUser } from 'APP/app/components/utils/inviteUser'
+
 export default class InviteUser extends Component {
 	constructor(props) {
 		super()
-
-		/*
-		props = tripId
-		*/
 
 		this.state = {
 			email: ''
@@ -25,9 +23,7 @@ export default class InviteUser extends Component {
 	handleSubmit (event) {
 		event.preventDefault()
 
-		database
-		.ref('tripUsers/tripId/')
-		.set({ [this.state.email]: this.state.email })
+		inviteUser(this.state.email, this.props.tripId)
 	}
 
 	render () {
@@ -36,7 +32,7 @@ export default class InviteUser extends Component {
 				<Form horizontal onSubmit={this.handleSubmit}>
 					<FormGroup controlId="formName">
 						<Col componentClass={ControlLabel} smOffset={2} sm={2}>
-							Email
+							Enter the e-mail address of the person you want to invite
 						</Col>
 						<Col sm={4}>
 							<FormControl

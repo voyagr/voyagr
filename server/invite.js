@@ -7,42 +7,42 @@ const config = require('APP/firebaseConfig')
 const firebase = require('firebase').initializeApp(config)
 const database = firebase.database()
 
-const serviceAccount = require('APP/serviceAccountKey.json');
+const serviceAccount = require('APP/serviceAccountKey.json')
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://voyagr-59d3e.firebaseio.com"
-});
+  databaseURL: 'https://voyagr-59d3e.firebaseio.com'
+})
 
-router.get('/', (req, res, next) => {
+router.post('/', (req, res, next) => {
 	const email = req.query.email
 	const tripId = req.query.tripId
 
 	admin.auth().getUserByEmail(email)
-  .then(function(user) {
-		let uid = user.uid // invited user id
+		.then(function(user) {
+			let uid = user.uid // invited user id
 
-		// add userId to tripUsers
-    database
-		.ref(`/tripUsers/${tripId}`)
-		.set({
-			[uid]: uid
+			// add userId to tripUsers
+			database
+				.ref(`/tripUsers/${tripId}`)
+				.set({
+					[uid]: uid
+				})
+				.then(res.send)
+				.catch(console.error)
+
+			// add tripId to userTrips
+			database
+				.ref(`/userTrips/${uid}`)
+				.set({
+					[tripId]: tripId
+				})
+				.catch(console.error)
 		})
-		.catch(console.error)
-
-		// add tripId to userTrips
-		database
-		.ref(`/userTrips/${uid}`)
-		.set({
-			[tripId]: tripId
-		})
-		.catch(console.error)
+		.then(res.send)
+		.catch(function(error) {
+			console.log("Error fetching user data:", error);
   })
-  .catch(function(error) {
-    console.log("Error fetching user data:", error);
-  })
-
-	res.send(req.query)
 })
 
 module.exports = router
