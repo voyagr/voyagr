@@ -18,11 +18,14 @@ export default class Timeline extends Component {
         this.unsubscribe = auth.onAuthStateChanged((user) => {
             this.setState({ user: user, displayName: user.displayName })
             database.ref('userTrips/' + user.uid)
-            console.log('userTrips/' + user.uid)
-                //.once('value')
-                // .then(snapshot => console.log("SNAP ---", snapshot.val())
-                //     //updateStarCount(postElement, snapshot.val());
-                // )
+                .on('value', snapshot => {
+                    let userTrips = snapshot.val()
+                    let timelineTrips = []
+                    for (let key in userTrips) {
+                        timelineTrips.push(userTrips[key]);
+                    }
+                    this.setState({trips: timelineTrips})
+                })
         })
     }
 
@@ -33,11 +36,16 @@ export default class Timeline extends Component {
     renderItems() {
         if (this.state.user) {
             return (
-                    <div>
-                        <h1>Timeline</h1>
-                        <h2>Welcome, {this.state.displayName}</h2>
-                    </div>
-                )
+                <div>
+                    <h1>Timeline</h1>
+                    <h3>Welcome, {this.state.displayName}</h3>
+                    <h3>Here are your trips!</h3>
+                    <ul>
+                        {this.state.trips && this.state.trips.map((tripName) =>
+                            <li key={tripName}><a href={`/canvas/${tripName}`}>{tripName}</a></li>)}
+                    </ul>
+                </div>
+            )
         } 
     }
 
