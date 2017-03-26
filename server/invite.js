@@ -20,7 +20,7 @@ router.post('/', (req, res, next) => {
 
 	admin.auth().getUserByEmail(email)
 		.then(function(user) {
-			let uid = user.uid // invited user id
+			const uid = user.uid // invited user id
 
 			// add userId to tripUsers
 			database
