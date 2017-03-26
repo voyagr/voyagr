@@ -9,11 +9,11 @@ export function startNewTrip() {
         startDate: '1/1/2000'
     }
 
-    var newTripKey = database.ref('/tripInfo').push().key
+    var newTripKey = database.ref('/userTrips/' + uid).push().key
 
     var updates = {}
     updates['/tripInfo/' + newTripKey] = infoPostData
-    updates['/userTrips/' + uid] = {[newTripKey]: newTripKey}
+    updates['/userTrips/' + uid] = database.ref('/userTrips/' + uid).push(newTripKey)
     updates['/tripUsers/' + newTripKey] = {[uid]: uid}
 
     database.ref()

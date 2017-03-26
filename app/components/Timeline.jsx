@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { auth, database } from 'APP/db/firebase'
 import { browserHistory } from 'react-router'
+import store from '../store';
 
 
 export default class Timeline extends Component {
@@ -9,7 +10,7 @@ export default class Timeline extends Component {
         this.state = {
             user: null,
             displayName: null,
-            trips: null
+            trips: {},
         }
         this.renderItems = this.renderItems.bind(this)
     }
@@ -18,14 +19,19 @@ export default class Timeline extends Component {
         this.unsubscribe = auth.onAuthStateChanged((user) => {
             this.setState({ user: user, displayName: user.displayName })
             database.ref('userTrips/' + user.uid)
-                .on('value', snapshot => {
-                    let userTrips = snapshot.val()
-                    let timelineTrips = []
-                    for (let key in userTrips) {
-                        timelineTrips.push(userTrips[key]);
-                    }
-                    this.setState({trips: timelineTrips})
+            .on('value', snap => {
+                let userTrips = snap.val()
+                this.setState({trips: userTrips})
+                let tripIds = Object.keys(this.state.trips) 
+                tripIds.map((tripId) => {
+                    database.ref(`tripInfo/${tripId}`)
+                    .on('value', snap => {
+                        this.state.trips[tripId] = snap.val()
+                        //console.log(this.state.trips[tripId].name)
+                     })
                 })
+                console.log(this.state)
+            })
         })
     }
 
@@ -41,8 +47,11 @@ export default class Timeline extends Component {
                     <h3>Welcome, {this.state.displayName}</h3>
                     <h3>Here are your trips!</h3>
                     <ul>
-                        {this.state.trips && this.state.trips.map((tripName) =>
-                            <li key={tripName}><a href={`/canvas/${tripName}`}>{tripName}</a></li>)}
+                        { Object.keys(this.state.trips).map(tripId => {
+                            
+                            return (<li key={tripId}><a href={`/canvas/${this.state.trips[tripId]}`}>{this.state.trips[tripId]}</a></li>)
+                            })
+                        }
                     </ul>
                 </div>
             )
