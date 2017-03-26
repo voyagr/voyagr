@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { auth } from 'APP/db/firebase'
+import { auth, database } from 'APP/db/firebase'
 import { browserHistory } from 'react-router'
 
 
@@ -8,7 +8,8 @@ export default class Timeline extends Component {
         super()
         this.state = {
             user: null,
-            displayName: null 
+            displayName: null,
+            trips: null
         }
         this.renderItems = this.renderItems.bind(this)
     }
@@ -16,6 +17,12 @@ export default class Timeline extends Component {
     componentWillMount () {
         this.unsubscribe = auth.onAuthStateChanged((user) => {
             this.setState({ user: user, displayName: user.displayName })
+            database.ref('userTrips/' + user.uid)
+            console.log('userTrips/' + user.uid)
+                //.once('value')
+                // .then(snapshot => console.log("SNAP ---", snapshot.val())
+                //     //updateStarCount(postElement, snapshot.val());
+                // )
         })
     }
 
