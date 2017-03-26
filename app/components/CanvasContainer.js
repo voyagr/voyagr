@@ -53,17 +53,9 @@ export default class CanvasContainer extends Component {
   //possibly add cleanup for component will unmount
 
   renderView() {
-    let tripInfo = this.state.tripInfo || null
     return this.state.editable ?
     //render this if editable is true
       <Grid>
-        {
-          tripInfo ?
-          <div>
-            <h1>{`${tripInfo.name}, ${tripInfo.description}, ${tripInfo.startDate}`}</h1>
-          </div>
-          : null
-        }
         <Col lg={4}>
           <ToolBox tripInfo={this.state.tripInfo} tripInfoRef={this.state.tripInfoRef}/>
         </Col>
@@ -82,11 +74,19 @@ export default class CanvasContainer extends Component {
 
   render () {
     if (!this.state) return null
+    let tripInfo = this.state.tripInfo || null
     return (
       <div>
         <Button onClick={this.toggleMode}>
           {this.state.editable ? "View" : "Edit" }
         </Button>
+        {
+          tripInfo ?
+          <div>
+            <h1>{`${tripInfo.name}, ${tripInfo.description}, ${tripInfo.startDate}`}</h1>
+          </div>
+          : null
+        }
         <Provider store={this.state.store}>
           {this.renderView()}
         </Provider>

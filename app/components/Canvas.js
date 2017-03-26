@@ -53,7 +53,7 @@ class Canvas extends Component {
       <div>
         <Page snapToGrid={snapToGridAfterDrop} deleteMode={deleteMode} editable={this.props.editable} />
 {/*        {this.props.editable ? this.renderCustomDragLayer() : null}*/}
-        <CustomDragLayer snapToGrid={snapToGridWhileDragging} />
+        {this.props.editable ? <CustomDragLayer snapToGrid={snapToGridWhileDragging} /> : null}
         <p>
           <label htmlFor="snapToGridWhileDragging">
             <input

@@ -30,8 +30,8 @@ class NonDraggableElement extends Component {
       <div style={getStyles(this.props)}>
         {
           this.props.type === "photo" ?
-            <PhotoElement id={this.props.id} source={this.props.source}/>
-            : <Element text={text} id={this.props.id} type={this.props.type} />
+            <PhotoElement id={this.props.id} source={this.props.source} editable={false}/>
+            : <Element text={text} id={this.props.id} type={this.props.type} editable={false}/>
         }
       </div>
     )

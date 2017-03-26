@@ -27,11 +27,13 @@ class Element extends Component {
 
   render() {
     const { text } = this.props;
-
+    let isDisabled
+    if (this.props.editable === false) isDisabled = true
+    else isDisabled = false
     return (
       <ContentEditable
         html={text}
-        disabled={false}
+        disabled={isDisabled}
         onChange={this.handleChange.bind(this)}
         style={{ ...styles }} />
     );

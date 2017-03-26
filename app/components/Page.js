@@ -4,7 +4,7 @@ import { DropTarget } from 'react-dnd';
 import shouldPureComponentUpdate from './utils/shouldPureComponentUpdate';
 import ItemTypes from './utils/ItemTypes';
 import DraggableElement from './DraggableElement';
-import NonDraggableElement from './DraggableElement';
+import NonDraggableElement from './NonDraggableElement';
 import snapToGrid from './utils/snapToGrid';
 import { connect } from 'react-redux';
 import { setElementXY, deleteElement } from '../reducers/elements'
@@ -81,9 +81,8 @@ class Page extends Component {
   // }
 
   renderElement(item, key, type) {
-    return (
-      <NonDraggableElement key={key} id={key} type={type} {...item} />
-    )
+    if (this.props.editable) return <DraggableElement key={key} id={key} type={type} {...item} />
+    else return <NonDraggableElement key={key} id={key} type={type} {...item} />
   }
 
   render() {
