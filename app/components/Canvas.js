@@ -7,23 +7,43 @@ import ToolBox from './ToolBox'
 
 class Canvas extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.handleSnapToGridAfterDropChange = this.handleSnapToGridAfterDropChange.bind(this);
-    this.handleSnapToGridWhileDraggingChange = this.handleSnapToGridWhileDraggingChange.bind(this);
+    this.handleSnapToGridAfterDropChange = this.handleSnapToGridAfterDropChange.bind(this)
+    this.handleSnapToGridWhileDraggingChange = this.handleSnapToGridWhileDraggingChange.bind(this)
+    this.handleDeleteMode = this.handleDeleteMode.bind(this)
 
     this.state = {
       snapToGridAfterDrop: false,
       snapToGridWhileDragging: false,
+      deleteMode: false,
     };
   }
 
+  handleSnapToGridAfterDropChange() {
+    this.setState({
+      snapToGridAfterDrop: !this.state.snapToGridAfterDrop,
+    });
+  }
+
+  handleSnapToGridWhileDraggingChange() {
+    this.setState({
+      snapToGridWhileDragging: !this.state.snapToGridWhileDragging,
+    });
+  }
+
+  handleDeleteMode () {
+    this.setState({
+      deleteMode: !this.state.deleteMode,
+    })
+  }
+
   render() {
-    const { snapToGridAfterDrop, snapToGridWhileDragging } = this.state;
+    const { snapToGridAfterDrop, snapToGridWhileDragging, deleteMode } = this.state;
 
     return (
       <div>
-        <Page snapToGrid={snapToGridAfterDrop} />
+        <Page snapToGrid={snapToGridAfterDrop} deleteMode={deleteMode} />
         <CustomDragLayer snapToGrid={snapToGridWhileDragging} />
         <p>
           <label htmlFor="snapToGridWhileDragging">
@@ -45,23 +65,20 @@ class Canvas extends Component {
             />
             <small>Snap to grid after drop</small>
           </label>
+          <br />
+          <label htmlFor="deleteMode">
+            <input
+              id="deleteMode"
+              type="checkbox"
+              checked={deleteMode}
+              onChange={this.handleDeleteMode}
+            />
+            <small id="deleteCheckbox">Delete mode</small>
+          </label>
         </p>
       </div>
     );
   }
-
-  handleSnapToGridAfterDropChange() {
-    this.setState({
-      snapToGridAfterDrop: !this.state.snapToGridAfterDrop,
-    });
-  }
-
-  handleSnapToGridWhileDraggingChange() {
-    this.setState({
-      snapToGridWhileDragging: !this.state.snapToGridWhileDragging,
-    });
-  }
-
 }
 
 export default DragDropContext(HTML5Backend)(Canvas)

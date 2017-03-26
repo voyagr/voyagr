@@ -17,3 +17,6 @@
   margin:0 0 0 0;
 }
 
+#deleteCheckbox {
+  color: red;
+}
