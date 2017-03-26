@@ -33,6 +33,10 @@ const reducer = (state = initialState, action) => {
       newState.textBox[id].text = action.updatedText[id].text
       break;
 
+    case 'DELETE_ELEMENT':
+      delete newState[action.elementToDelete.type][action.elementToDelete[id]]
+      break;
+
     default: return state;
   }
 
@@ -64,5 +68,12 @@ export const addAPhoto = photo => ({
   type: 'ADD_A_PHOTO',
   photo
 })
+
+export const deleteElement = (elementToDelete) => {
+  return {
+    type: 'DELETE_ELEMENT',
+    elementToDelete,
+  }
+}
 
 export default reducer
