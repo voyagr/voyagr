@@ -15,17 +15,19 @@ admin.initializeApp({
 })
 
 router.post('/', (req, res, next) => {
-	const email = req.query.email
-	const tripId = req.query.tripId
+	console.log(req.body)
+	const email = req.body.email
+	const tripId = req.body.tripId
 
 	admin.auth().getUserByEmail(email)
 		.then(function(user) {
+			console.log(user)
 			const uid = user.uid // invited user id
 
 			// add userId to tripUsers
 			database
 				.ref(`/tripUsers/${tripId}`)
-				.set({
+				.update({
 					[uid]: uid
 				})
 				.then(res.send)
@@ -34,14 +36,16 @@ router.post('/', (req, res, next) => {
 			// add tripId to userTrips
 			database
 				.ref(`/userTrips/${uid}`)
-				.set({
+				.update({
 					[tripId]: tripId
 				})
 				.catch(console.error)
+
+			res.send(user)
+
 		})
-		.then(res.send)
 		.catch(function(error) {
-			console.log("Error fetching user data:", error);
+			console.log("Error fetching user data:", error)
   })
 })
 

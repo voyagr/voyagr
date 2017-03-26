@@ -22,7 +22,6 @@ export default class InviteUser extends Component {
 
 	handleSubmit (event) {
 		event.preventDefault()
-
 		inviteUser(this.state.email, this.props.tripId)
 	}
 
@@ -30,11 +29,11 @@ export default class InviteUser extends Component {
 		return (
 			<div>
 				<Form horizontal onSubmit={this.handleSubmit}>
-					<FormGroup controlId="formName">
-						<Col componentClass={ControlLabel} smOffset={2} sm={2}>
-							Enter the e-mail address of the person you want to invite
+					<FormGroup controlId="Invite">
+						<Col componentClass={ControlLabel} sm={3}>
+							E-mail
 						</Col>
-						<Col sm={4}>
+						<Col sm={9}>
 							<FormControl
 								type="email"
 								name="email"
@@ -45,7 +44,7 @@ export default class InviteUser extends Component {
 					</FormGroup>
 
 					<FormGroup>
-						<Col smOffset={4} sm={10}>
+						<Col smOffset={3} sm={10}>
 							<Button type="submit" value="Submit">
 								Invite
 							</Button>
