@@ -18,6 +18,7 @@ export default class InviteUser extends Component {
 		this.handleChange = this.handleChange.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.handleInvalidEmail = this.handleInvalidEmail.bind(this)
+		this.handleSuccess = this.handleSuccess.bind(this)
 	}
 
 	handleChange (event) {
@@ -44,12 +45,12 @@ export default class InviteUser extends Component {
 	handleInvalidEmail () {
 		return (
 			<Alert bsStyle="danger">
-				<p>There is no user registered with that e-mail address.</p>
+				<p>There is no user registered with that email address.</p>
 			</Alert>
 		)
 	}
 
-	handleValidEmail () {
+	handleSuccess () {
 		return (
 			<Alert bsStyle="success">
 				<p>User can now collaborate on this trip.</p>
@@ -86,7 +87,7 @@ export default class InviteUser extends Component {
 						</Col>
 					</FormGroup>
 					{this.state.showInvalidAlert ? this.handleInvalidEmail() : null}
-					{this.state.showSuccessAlert ? this.handleValidEmail() : null}
+					{this.state.showSuccessAlert ? this.handleSuccess() : null}
 				</Form>
 			</div>
 		)
