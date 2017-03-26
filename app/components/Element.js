@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import shouldPureComponentUpdate from './utils/shouldPureComponentUpdate'
 import ContentEditable from 'react-contenteditable'
 import { editText } from '../reducers/elements'
 
@@ -8,6 +7,7 @@ const styles = {
   border: '1px dashed gray',
   padding: '20px',
   cursor: 'move',
+  background: 'white',
 };
 
 class Element extends Component {
@@ -15,15 +15,13 @@ class Element extends Component {
     text: PropTypes.string.isRequired,
   };
 
-  shouldComponentUpdate = shouldPureComponentUpdate;
-
   handleChange (event) {
     let updatedTextBox = {
       [this.props.id]: {
         text: event.target.value
       }
     }
-    
+
     this.props.editText(updatedTextBox)
   }
 
@@ -35,8 +33,7 @@ class Element extends Component {
         html={text}
         disabled={false}
         onChange={this.handleChange.bind(this)}
-        style={{ ...styles }}
-      />
+        style={{ ...styles }} />
     );
   }
 }

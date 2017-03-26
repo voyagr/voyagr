@@ -5,8 +5,8 @@ import shouldPureComponentUpdate from './utils/shouldPureComponentUpdate';
 import ItemTypes from './utils/ItemTypes';
 import DraggableElement from './DraggableElement';
 import snapToGrid from './utils/snapToGrid';
-import {connect} from 'react-redux';
-import {setElementXY} from '../reducers/elements'
+import { connect } from 'react-redux';
+import { setElementXY, deleteElement } from '../reducers/elements'
 
 const styles = {
   width: '100%',
@@ -44,13 +44,25 @@ class Page extends Component {
   }
 
   moveElement(type, id, left, top) {
-    let elementUpdate = {
-      type: type,
-      id: id,
-      left: left,
-      top: top,
+
+    if(this.props.deleteMode) {
+      let elementToDelete = {
+        type: type,
+        id: id,
+      }
+
+      this.props.deleteElement(elementToDelete)
+    } else {
+
+      let elementUpdate = {
+        type: type,
+        id: id,
+        left: left,
+        top: top,
+      }
+
+      this.props.setElementXY(elementUpdate)
     }
-    this.props.setElementXY(elementUpdate)
   }
 
   renderElement(item, key, type) {
@@ -89,6 +101,6 @@ Page = DropTarget(ItemTypes.ELEMENT, elementTarget, connect => ({
   connectDropTarget: connect.dropTarget(),
 }))(Page)
 
-Page = connect(mapStateToProps, { setElementXY })(Page)
+Page = connect(mapStateToProps, { setElementXY, deleteElement })(Page)
 
 export default Page

@@ -1,49 +1,24 @@
-import React, { Component, PropTypes } from 'react';
-import shouldPureComponentUpdate from './utils/shouldPureComponentUpdate';
+import React, { Component } from 'react';
 import Element from './Element';
+import PhotoElement from './PhotoElement'
 
 const styles = {
   display: 'inline-block',
-  transform: 'rotate(-7deg)',
-  WebkitTransform: 'rotate(-7deg)',
+  boxShadow: '10px 10px 5px #888888',
 };
 
 export default class ElementDragPreview extends Component {
-  static propTypes = {
-    text: PropTypes.string.isRequired,
-  };
-
-  shouldComponentUpdate = shouldPureComponentUpdate;
-
-  constructor(props) {
-    super(props);
-    this.tick = this.tick.bind(this);
-    this.state = {
-      tickTock: false,
-    };
-  }
-
-  componentDidMount() {
-    this.interval = setInterval(this.tick, 500);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
-
-  tick() {
-    this.setState({
-      tickTock: !this.state.tickTock,
-    });
-  }
 
   render() {
-    const { text } = this.props;
-    const { tickTock } = this.state;
+    const { text, id, source, type } = this.props;
 
     return (
       <div style={styles}>
-        <Element text={text} yellow={tickTock} />
+        {
+        type === "photo" ?
+          <PhotoElement id={id} source={source} />
+        : <Element text={text} />
+        }
       </div>
     );
   }

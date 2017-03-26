@@ -1,7 +1,22 @@
-.text-large {
-  font-size: 3em;
+#photo-panel {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.element-display {
-  position: absolute;
+#photo-panel .drawer-photo{
+  margin: 10px;
+}
+
+#photo-panel .drawer-photo img{
+  max-width: 150px;
+  max-height: 150px;
+  display: block;
+}
+
+.container {
+  margin:0 0 0 0;
+}
+
+#deleteCheckbox {
+  color: red;
 }
