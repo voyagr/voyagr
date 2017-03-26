@@ -15,13 +15,11 @@ admin.initializeApp({
 })
 
 router.post('/', (req, res, next) => {
-	console.log(req.body)
 	const email = req.body.email
 	const tripId = req.body.tripId
 
 	admin.auth().getUserByEmail(email)
 		.then(function(user) {
-			console.log(user)
 			const uid = user.uid // invited user id
 
 			// add userId to tripUsers
@@ -45,7 +43,8 @@ router.post('/', (req, res, next) => {
 
 		})
 		.catch(function(error) {
-			console.log("Error fetching user data:", error)
+			console.error(error)
+			res.send(error)
   })
 })
 
