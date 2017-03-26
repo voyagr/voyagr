@@ -37,6 +37,7 @@ const reducer = (state = initialState, action) => {
       delete newState[action.elementToDelete.type][action.elementToDelete.id]
       break;
 
+
     default: return state;
   }
 
