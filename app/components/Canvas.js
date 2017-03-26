@@ -12,6 +12,7 @@ class Canvas extends Component {
     this.handleSnapToGridAfterDropChange = this.handleSnapToGridAfterDropChange.bind(this)
     this.handleSnapToGridWhileDraggingChange = this.handleSnapToGridWhileDraggingChange.bind(this)
     this.handleDeleteMode = this.handleDeleteMode.bind(this)
+    // this.renderCustomDragLayer = this.renderCustomDragLayer.bind(this)
 
     this.state = {
       snapToGridAfterDrop: false,
@@ -38,12 +39,20 @@ class Canvas extends Component {
     })
   }
 
+//keeps drag preview from being rendered, but not the drag itself
+  // renderCustomDragLayer () {
+  //   return (
+  //     <CustomDragLayer snapToGrid={this.state.snapToGridWhileDragging} />
+  //   )
+  // }
+
   render() {
     const { snapToGridAfterDrop, snapToGridWhileDragging, deleteMode } = this.state;
 
     return (
       <div>
-        <Page snapToGrid={snapToGridAfterDrop} deleteMode={deleteMode} />
+        <Page snapToGrid={snapToGridAfterDrop} deleteMode={deleteMode} editable={this.props.editable} />
+{/*        {this.props.editable ? this.renderCustomDragLayer() : null}*/}
         <CustomDragLayer snapToGrid={snapToGridWhileDragging} />
         <p>
           <label htmlFor="snapToGridWhileDragging">

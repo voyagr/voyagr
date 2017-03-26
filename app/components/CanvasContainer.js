@@ -45,16 +45,23 @@ export default class CanvasContainer extends Component {
   //possibly add cleanup for component will unmount
 
   renderView() {
-    return this.state.editable
-            ?  <Grid>
-                <Col lg={4}>
-                  <ToolBox />
-                </Col>
-                <Col lg={8}>
-                  <Canvas />
-                </Col>
-              </Grid>
-            : <Canvas editable={this.state.editable}/>
+    return this.state.editable ?
+    //render this if editable is true
+      <Grid>
+        <Col lg={4}>
+          <ToolBox />
+        </Col>
+        <Col lg={8}>
+          <Canvas editable={this.state.editable} />
+        </Col>
+      </Grid>
+
+    //render this if editable is false
+    : <Grid>
+        <Col lg={8}>
+          <Canvas editable={this.state.editable} />
+        </Col>
+      </Grid>
   }
 
   render () {
