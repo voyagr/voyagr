@@ -34,8 +34,9 @@ const reducer = (state = initialState, action) => {
       break;
 
     case 'DELETE_ELEMENT':
-      delete newState[action.elementToDelete.type][action.elementToDelete[id]]
+      delete newState[action.elementToDelete.type][action.elementToDelete.id]
       break;
+
 
     default: return state;
   }

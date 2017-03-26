@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { auth } from 'APP/db/firebase'
+import { auth, database } from 'APP/db/firebase'
 import { browserHistory } from 'react-router'
 
 
@@ -8,7 +8,8 @@ export default class Timeline extends Component {
         super()
         this.state = {
             user: null,
-            displayName: null 
+            displayName: null,
+            trips: null
         }
         this.renderItems = this.renderItems.bind(this)
     }
@@ -16,6 +17,15 @@ export default class Timeline extends Component {
     componentWillMount () {
         this.unsubscribe = auth.onAuthStateChanged((user) => {
             this.setState({ user: user, displayName: user.displayName })
+            database.ref('userTrips/' + user.uid)
+                .on('value', snapshot => {
+                    let userTrips = snapshot.val()
+                    let timelineTrips = []
+                    for (let key in userTrips) {
+                        timelineTrips.push(userTrips[key]);
+                    }
+                    this.setState({trips: timelineTrips})
+                })
         })
     }
 
@@ -26,11 +36,16 @@ export default class Timeline extends Component {
     renderItems() {
         if (this.state.user) {
             return (
-                    <div>
-                        <h1>Timeline</h1>
-                        <h2>Welcome, {this.state.displayName}</h2>
-                    </div>
-                )
+                <div>
+                    <h1>Timeline</h1>
+                    <h3>Welcome, {this.state.displayName}</h3>
+                    <h3>Here are your trips!</h3>
+                    <ul>
+                        {this.state.trips && this.state.trips.map((tripName) =>
+                            <li key={tripName}><a href={`/canvas/${tripName}`}>{tripName}</a></li>)}
+                    </ul>
+                </div>
+            )
         } 
     }
 

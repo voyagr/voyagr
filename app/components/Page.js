@@ -65,10 +65,26 @@ class Page extends Component {
     }
   }
 
+
+  // render() {
+  //   const { text, connectDragSource } = this.props;
+  //   return connectDragSource(
+  //     <div style={getStyles(this.props)}>
+  //       {
+  //         this.props.type === "photo" ?
+  //           <PhotoElement id={this.props.id} source={this.props.source}/>
+  //           : <Element text={text} id={this.props.id} type={this.props.type} />
+  //       }
+  //     </div>,
+  //   );
+  // }
+
   renderElement(item, key, type) {
     return (
-      <DraggableElement key={key} id={key} type={type} {...item} />
-    );
+      this.props.editable ?
+        <DraggableElement key={key} id={key} type={type} {...item} />
+        : <Element text={text} id={this.props.id} type={this.props.type} />
+    )
   }
 
   render() {
