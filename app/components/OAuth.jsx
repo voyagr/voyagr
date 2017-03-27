@@ -18,10 +18,9 @@ class OAuth extends Component {
             // This gives you a Google Access Token. 
             let token = result.credential.accessToken
             let user = result.user
-            console.log(user)
             browserHistory.push('/timeline')
         }).catch(function(error) {
-            console.log(error.code, error.message, error.email, error.credential)
+            console.error(error.code, error.message, error.email, error.credential)
         });
     }
     /*----- WILL THIS GET THE RESULT OF THE REDIRECT ELSEWHERE?? -----*/
