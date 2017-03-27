@@ -15,13 +15,7 @@ import LandingPage from './components/LandingPage'
 import Timeline from './components/Timeline'
 import Suitcase from './components/Suitcase'
 import {setFirebaseRef} from './reducers/firebaseRef'
-
-// function testingFirebase () {
-//   const { firebaseRef } = store.getState()
-//   firebaseRef.child('users').on('value', (snapshot) => {
-//     console.log(snapshot.val())
-//   })
-// }
+import InviteUser from 'APP/app/components/InviteUser'
 
 render (
   <Router history={browserHistory}>
@@ -31,6 +25,7 @@ render (
         <Route path="/canvas/:tripId" component={CanvasContainer} />
       <Route path="/timeline" component={Timeline} />
       <Route path="/suitcase" component={Suitcase} />
+      <Route path="/invite" component={InviteUser} />
     </Route>
   </Router>,
   document.getElementById('main')
