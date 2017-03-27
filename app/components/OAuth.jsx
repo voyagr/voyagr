@@ -24,7 +24,7 @@ class OAuth extends Component {
             console.log(error.code, error.message, error.email, error.credential)
         });
     }
-    /*----- THIS WILL GET THE RESULT OF THE REDIRECT ELSEWHERE? -----*/
+    /*----- WILL THIS GET THE RESULT OF THE REDIRECT ELSEWHERE?? -----*/
     // firebase.auth().getRedirectResult().then(function(result) {
     //     if (result.credential) {
     //         var token = result.credential.accessToken;
