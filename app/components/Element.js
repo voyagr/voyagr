@@ -39,11 +39,12 @@ class Element extends Component {
     if (this.props.editable === false) isDisabled = true
     else isDisabled = false
     return (
-      <ContentEditable
-        html={text}
-        disabled={isDisabled}
-        onChange={this.handleChange.bind(this)}
-        style={getStyles(this.props)} />
+      <div style={getStyles(this.props)}>
+        <ContentEditable
+          html={text}
+          disabled={isDisabled}
+          onChange={this.handleChange.bind(this)} />
+      </div>
     );
   }
 }

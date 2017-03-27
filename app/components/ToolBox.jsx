@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { ButtonToolbar, Button, Accordion, Panel, Form, FormGroup, FormControl, Col, ControlLabel } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { auth, database } from 'APP/db/firebase'
-import { createTextBox, addAPhoto } from '../reducers/elements'
+import { createTextBox, addAPhoto, setSize } from '../reducers/elements'
 import InviteUser from './InviteUser'
 
 class ToolBox extends Component {
@@ -22,6 +22,7 @@ class ToolBox extends Component {
 		this.addPhoto = this.addPhoto.bind(this)
 		this.handleTripInfoSubmit = this.handleTripInfoSubmit.bind(this)
 		this.handleTripInfoInput = this.handleTripInfoInput.bind(this)
+		this.handleSizeChange = this.handleSizeChange.bind(this)
 	}
 
   makeRandomId () {
@@ -47,6 +48,22 @@ class ToolBox extends Component {
 		const type = event.target.name
 
 		this.setState({[type]: value})
+	}
+
+	handleSizeChange (event) {
+		let elementToUpdateSize = {
+			size: event.target.value,
+			id: this.props.selected.id,
+			type: this.props.selected.type,
+		}
+		// console.log(newSize)
+		// let elementToUpdateSize = {
+    //   type: type,
+    //   id: id,
+    //   size: "large"
+    // }
+
+    this.props.setSize(elementToUpdateSize)
 	}
 
 	onClickListener (event) {
@@ -94,6 +111,8 @@ class ToolBox extends Component {
 	render () {
 		const keys = this.state.photos && Object.keys(this.state.photos)
 		let tripInfo = this.props.tripInfo || ""
+		let selectedElement;
+		if (this.props.selected) selectedElement = this.props.elements[this.props.selected.type][this.props.selected.id]
 
 		return (
 			<div>
@@ -156,7 +175,23 @@ class ToolBox extends Component {
 						  </Form>
 					</Panel>
 					<Panel header="Edit Element" eventKey="3">
-						{ this.props.selected ? <div>THERE IS AN ITEM {`Type, ${this.props.selected.type} ID, ${this.props.selected.id}`}</div>
+						{ this.props.selected ?
+							//if there is a selected item
+							<div>
+								This is the currently selected element
+								<br />
+								{`Current size, ${selectedElement.size}`}
+								<hr />
+								<FormGroup controlId="formControlsSelect">
+						      <ControlLabel>Select Size</ControlLabel>
+						      <FormControl onChange={this.handleSizeChange} value={selectedElement.size} componentClass="select" placeholder="select">
+						        <option value="large">Large</option>
+						        <option value="medium">Medium</option>
+						        <option value="small">Small</option>
+						      </FormControl>
+						    </FormGroup>
+							</div>
+							//if there is no selected element
 							: <strong>Please pick an item to edit</strong>
 						}
 					</Panel>
@@ -171,4 +206,4 @@ class ToolBox extends Component {
 
 const mapStateToProps = state => state
 
-export default connect(mapStateToProps, { createTextBox, addAPhoto })(ToolBox)
+export default connect(mapStateToProps, { createTextBox, addAPhoto, setSize })(ToolBox)
