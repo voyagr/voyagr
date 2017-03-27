@@ -1,8 +1,13 @@
 body {
   background: url("./imgs/paper_texture.jpg"); 
   background-size: cover;
+  font-family: 'Kavivanar', cursive;
+}
+
+h1, h2, h3, h4 {
   font-family: 'Josefin Slab', serif;
 }
+
 
 .container {
   width: 90%;
@@ -14,6 +19,11 @@ body {
   border-color: #78909C;
   margin: 0;
   padding: 3px 0 10px 0;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, .5);
+}
+
+.navbar-nav > .active > a {
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, .5);
 }
 
 .navbar-default .navbar-brand {
@@ -34,7 +44,7 @@ body {
 
 .panel-default {
   border-color: #78909C;
-  box-shadow: 0px 0px 30px rgba(0, 0, 0, .75);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, .5);
 }
 
 .panel-default > .panel-heading {
@@ -49,8 +59,12 @@ body {
   color: #000;
 }
 
+.panel-body {
+  background-color: #fdf5f1;
+}
+
 .trip-card {
-  background-color: #fdfBf8;
+  background-color: #fdf5f1;
   padding: 5px;
   margin: 15px 0;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, .5);
@@ -97,4 +111,9 @@ body {
 
 #imageSizeNative {
 
+}
+
+#toolbox {
+  margin: 2px 0;
+  background-color: 
 }
