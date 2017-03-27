@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { FormControl, FormGroup, ControlLabel, FieldGroup, Form, Col, Button } from 'react-bootstrap'
+import { Alert, FormControl, FormGroup, ControlLabel, FieldGroup, Form, Col, Button } from 'react-bootstrap'
 import { auth } from 'APP/db/firebase'
 import { browserHistory } from 'react-router'
 
@@ -9,16 +9,29 @@ class Login extends Component {
     this.state = Object.assign({}, {
       email: '',
       password: '',
+      showInvalidAlert: false,
     })
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleFailedLogin = this.handleFailedLogin.bind(this)
+  }
+
+  handleFailedLogin () {
+    return (
+      <Alert bsStyle="danger">
+        <p>Email and/or password is invalid.</p>
+      </Alert>
+    )
   }
 
   handleChange(e) {
     const value = e.target.value
     const name = e.target.name
-    this.setState({[name]: value});
+    this.setState({
+      [name]: value,
+      showInvalidAlert: false
+    })
   }
 
   handleSubmit(e) {
@@ -26,13 +39,14 @@ class Login extends Component {
     auth //login
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => browserHistory.push("/timeline"))
-      .catch(function(error) {
+      .catch(error => {
+        this.setState({ showInvalidAlert: true })
         let errorCode = error.code
         let errorMessage = error.message
         console.log('ERROR', errorCode, errorMessage)
       })
   }
-  
+
   render() {
     return (
       <div>
@@ -63,6 +77,9 @@ class Login extends Component {
               </Button>
             </Col>
           </FormGroup>
+          <Col smOffset={3} sm={5}>
+            {this.state.showInvalidAlert ? this.handleFailedLogin() : null}
+          </Col>
         </Form>
       </div>
     )
