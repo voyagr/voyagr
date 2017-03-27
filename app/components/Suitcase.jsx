@@ -7,6 +7,7 @@ export default class Suitcase extends Component {
 		super()
 		this.state = {
 			image: null,
+			selectedTrip: null,
 		}
 	}
 
@@ -29,18 +30,14 @@ export default class Suitcase extends Component {
 
 						const tripIds = Object.keys(snapshot.val())
 
-						// let tripNames = []
+						// get trip names into an obj on the state
+						// { tripId: tripName }
 						let tripNames = {}
-						// get trip names into an array on the state
 						tripIds.map(tripId => {
 							database
 								.ref(`tripInfo/${tripId}/name`)
 								.on('value', (snapshot) => {
-									// tripNamesArr.push(snapshot.val())
-
 									tripNames[tripId] = snapshot.val()
-									console.log(tripNames)
-
 									this.setState({ tripNames: tripNames })
 								})
 						})
@@ -55,7 +52,7 @@ export default class Suitcase extends Component {
 	}
 
 	handleTripChange (e) {
-		console.log(e.target.value)
+		this.state.selectedTrip = e.target.value
 	}
 
 	handleSubmit(e) {
@@ -67,22 +64,32 @@ export default class Suitcase extends Component {
 								//creates reference to folder in db for all photos belonging to user
 								const userPhotosRef = database.ref(`photos/${user}`)
 								//pushes an object with a unique key and download url as value for photo
-								userPhotosRef.push(snapshot.downloadURL)
+								const newPhotoKey = userPhotosRef.push(snapshot.downloadURL).key
+
+								if (this.state.selectedTrip) {
+									database
+										.ref(`tripPhotos/${this.state.selectedTrip}`)
+										.update({
+											[newPhotoKey]: snapshot.downloadURL
+										})
+								}
 						})
 						.then(() => alert("Your image is now in our database FOREVER")) //this is where we need to add the push to db
 						.catch(err => alert(`YOU HAVE MADE A GRIEVOUS ERROR!!! Error: ${err}`))
 	}
 
 	render () {
-		console.log(this.state)
-		const keys = this.state.photos && Object.keys(this.state.photos)
-		const tripIds = this.state.tripNames && Object.keys(this.state.tripNames)
+		// console.log(this.state)
 		const trips = this.state.tripNames
+		const tripIds = trips && Object.keys(trips)
+		const keys = this.state.photos && Object.keys(this.state.photos)
 
 		return (
 			<div>
 				<h1>Suitcase</h1>
 				<h2>Here is all your media!</h2>
+
+				{/* upload form */}
 				<Form horizontal onSubmit={this.handleSubmit.bind(this)}>
 					<ControlLabel>Upload files</ControlLabel>
 					<FormControl
@@ -95,16 +102,19 @@ export default class Suitcase extends Component {
 					<p className="help-block">
 						Media supported: .jpg, .png, .gif, .mp4, .mov, .mp3
 					</p>
+
+					{/* trip selector */}
 					<ControlLabel>Add to trip (optional)</ControlLabel>
 					<FormControl componentClass="select" multiple onChange={this.handleTripChange.bind(this)}>
 
 						{this.state.tripNames ? tripIds.map((tripId, idx) => {
 							return (
-								<option key={idx}>{trips[tripId]}</option>
+								<option key={idx} value={tripId}>{trips[tripId]}</option>
 							)
 						}) : <option>You don't have any trips yet!</option> }
 
 					</FormControl>
+
 					<Button type="submit">Upload File(s)</Button>
 				</Form>
 
