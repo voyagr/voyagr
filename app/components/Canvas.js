@@ -12,7 +12,6 @@ class Canvas extends Component {
     this.handleSnapToGridAfterDropChange = this.handleSnapToGridAfterDropChange.bind(this)
     this.handleSnapToGridWhileDraggingChange = this.handleSnapToGridWhileDraggingChange.bind(this)
     this.handleDeleteMode = this.handleDeleteMode.bind(this)
-    // this.renderCustomDragLayer = this.renderCustomDragLayer.bind(this)
 
     this.state = {
       snapToGridAfterDrop: false,
