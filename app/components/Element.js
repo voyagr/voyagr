@@ -5,7 +5,6 @@ import shouldPureComponentUpdate from './utils/shouldPureComponentUpdate'
 import { editText } from '../reducers/elements'
 
   function getStyles (props) {
-    console.log('inside getstyles', props)
 
     return {
       border: '1px dashed gray',
@@ -34,22 +33,15 @@ class Element extends Component {
     this.props.editText(updatedTextBox)
   }
 
-  // shouldComponentUpdate() {
-  //   console.log("INSIDE UPDATE")
-  //   return false
-  // }
-
   render() {
     const { text, size } = this.props;
-    console.log("PROP SIZE", this.props.size)
     return (
       <div style={getStyles(this.props)}>
-      <ContentEditable
-        html={text}
-        disabled={false}
-        onChange={this.handleChange.bind(this)}
-
-      />
+        <ContentEditable
+          html={text}
+          disabled={false}
+          onChange={this.handleChange.bind(this)}
+        />
       </div>
     );
   }

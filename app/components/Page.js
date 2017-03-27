@@ -45,15 +45,14 @@ class Page extends Component {
 
   moveElement(type, id, left, top) {
 
-    this.props.selectElement(id, type, top, left)
+    this.props.selectElement(type, id)
+    // let elementToUpdateSize = {
+    //   type: type,
+    //   id: id,
+    //   size: "large"
+    // }
 
-    let elementToUpdateSize = {
-      type: type,
-      id: id,
-      size: "large"
-    }
-
-    this.props.setSize(elementToUpdateSize)
+    // this.props.setSize(elementToUpdateSize)
 
     if(this.props.deleteMode) {
       let elementToDelete = {
@@ -77,9 +76,7 @@ class Page extends Component {
 
   renderElement(item, key, type) {
     return (
-      // <div onClick={this.props.selectElement}>
-        <DraggableElement selectElement={this.props.selectElement} key={key} id={key} type={type} {...item} />
-      // </div>
+      <DraggableElement key={key} id={key} type={type} {...item} />
     );
   }
 
@@ -89,7 +86,7 @@ class Page extends Component {
 
 
     return connectDropTarget(
-      <div onClick={this.props.selectElement} style={styles}>
+      <div style={styles}>
         {Object
           .keys(elements)
           .map(type => {

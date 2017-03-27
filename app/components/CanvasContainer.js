@@ -9,11 +9,22 @@ import { Grid, Col } from 'react-bootstrap'
 export default class CanvasContainer extends Component {
   constructor (props) {
     super(props)
+
+    this.state = {
+      selected: null
+    }
+
     this.selectElement = this.selectElement.bind(this)
   }
 
+  selectElement (type, id) {
+    console.log("INSIDE SELECT", type, id)
+    this.setState({
+      selected: {id: id, type: type}
+    })
+  }
   //when this component mounts, figure out the firebase path from params
-  componentDidMount () {
+  componentWillMount () {
     const tripId = this.props.params.tripId
     const tripActionsRef = database.ref(`tripActions/${tripId}`)
 
@@ -26,12 +37,6 @@ export default class CanvasContainer extends Component {
         }))
     })
   }
-
-  selectElement (event) {
-    // console.log("INSIDE SELECT", event.target)
-
-  }
-
 
   render () {
     if (!this.state) return null
@@ -47,10 +52,10 @@ export default class CanvasContainer extends Component {
             : null
           }
           <Col lg={4}>
-            <ToolBox tripInfo={this.state.tripInfo} tripInfoRef={this.state.tripInfoRef}/>
+            <ToolBox tripInfo={this.state.tripInfo} tripInfoRef={this.state.tripInfoRef} selected={this.state.selected}/>
           </Col>
           <Col lg={8}>
-            <Canvas selectElement={this.selectElement} />
+            <Canvas selectElement={this.selectElement}/>
           </Col>
         </Grid>
       </Provider>

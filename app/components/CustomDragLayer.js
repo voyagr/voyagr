@@ -56,8 +56,9 @@ class CustomDragLayer extends Component {
   };
 
   renderItem(type, item) {
-    console.log("ITEM", item)
-    return (<ElementDragPreview size={item.size} source={item.source} type={item.type} text={item.text} />);
+    return (
+      <ElementDragPreview size={item.size} source={item.source} type={item.type} text={item.text} />
+    );
   }
 
   render() {

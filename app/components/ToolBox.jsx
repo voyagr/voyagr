@@ -14,7 +14,6 @@ class ToolBox extends Component {
 			title: '',
 			description: '',
 			startDate: '',
-			selected: null,
 		}
 
 		this.onClickListener = this.onClickListener.bind(this)
@@ -157,7 +156,7 @@ class ToolBox extends Component {
 					</Panel>
 
 					<Panel header="Edit Element" eventKey="3">
-						{ this.state.selected ? <div>THERE IS AN ITEM</div>
+						{ this.props.selected ? <div>THERE IS AN ITEM {`Type, ${this.props.selected.type} ID, ${this.props.selected.id}`}</div>
 							: <strong>Please pick an item to edit</strong>
 						}
 					</Panel>
