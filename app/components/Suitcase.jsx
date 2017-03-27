@@ -65,13 +65,18 @@ export default class Suitcase extends Component {
 
 					<Button type="submit">Upload File(s)</Button>
 				</Form>
-				<div id="photo-panel">
+
+				<div>
+					<h2>Photos</h2><br />
 					{keys ? keys.map(photoKey => {
 						return (
-							<div className="drawer-photo" key={photoKey}>
-							<img src={this.state.photos[photoKey]} />
-							<Button id={this.state.photos[photoKey]} onClick={this.addPhoto}>+</Button>
-						</div>)
+							<div key={photoKey} style={{
+								display: 'inline-block',
+								margin: 1 + 'em',
+							}}>
+								<img src={this.state.photos[photoKey]} height="300px" />
+							</div>
+						)
 					}) : null}
 				</div>
 			</div>
