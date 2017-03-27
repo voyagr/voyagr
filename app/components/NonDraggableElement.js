@@ -24,13 +24,13 @@ class NonDraggableElement extends Component {
   };
 
   render() {
-    const { text } = this.props;
+    const { text, id, size, source, type } = this.props;
     return (
       <div style={getStyles(this.props)}>
         {
           this.props.type === "photo" ?
-            <PhotoElement id={this.props.id} source={this.props.source} editable={false}/>
-            : <TextElement text={text} id={this.props.id} type={this.props.type} editable={false}/>
+            <PhotoElement id={id} size={size} source={source} editable={false}/>
+            : <TextElement text={text} id={id} size={size} type={type} editable={false} {...this.props}/>
         }
       </div>
     )

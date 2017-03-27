@@ -2,12 +2,6 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import shouldPureComponentUpdate from './utils/shouldPureComponentUpdate'
 
-const styles = {
-  border: '1px dashed gray',
-  padding: '20px',
-  cursor: 'move',
-};
-
 class PhotoElement extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate;
 

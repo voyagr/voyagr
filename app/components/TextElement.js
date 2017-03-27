@@ -5,13 +5,13 @@ import shouldPureComponentUpdate from './utils/shouldPureComponentUpdate'
 import { editText } from '../reducers/elements'
 
   function getStyles (props) {
-
     return {
       border: '1px dashed gray',
       padding: '30px',
       cursor: 'move',
-      background: 'white',
+      background: props.background,
       fontSize: props.size,
+      color: props.color,
     };
   }
 

@@ -8,8 +8,8 @@ import PhotoElement from './PhotoElement'
 
 const elementSource = {
   beginDrag(props) {
-    const { size, text, left, top, id, type, source } = props;
-    return { size, text, left, top, id, type, source };
+    const { size, text, left, top, id, type, source, background, color } = props;
+    return { size, text, left, top, id, type, source, background, color };
   },
 };
 
@@ -54,12 +54,13 @@ class DraggableElement extends Component {
 
   render() {
     const { text, connectDragSource, id, size, type, source } = this.props;
+
     return connectDragSource(
       <div style={getStyles(this.props)}>
         {
           this.props.type === "photo" ?
             <PhotoElement id={id} size={size} source={source}/>
-            : <TextElement text={text} id={id} size={size} type={type} />
+            : <TextElement text={text} id={id} size={size} type={type} {...this.props}/>
         }
       </div>,
     );

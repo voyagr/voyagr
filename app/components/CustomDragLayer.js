@@ -55,9 +55,9 @@ class CustomDragLayer extends Component {
     snapToGrid: PropTypes.bool.isRequired,
   };
 
-  renderItem(type, item) {
+  renderItem(item) {
     return (
-      <ElementDragPreview size={item.size} source={item.source} type={item.type} text={item.text} />
+      <ElementDragPreview {...item} />
     );
   }
 
@@ -66,11 +66,10 @@ class CustomDragLayer extends Component {
     if (!isDragging) {
       return null;
     }
-
     return (
       <div style={layerStyles}>
         <div style={getItemStyles(this.props)}>
-          {this.renderItem(itemType, item)}
+          {this.renderItem(item)}
         </div>
       </div>
     );
