@@ -2,12 +2,11 @@ import React, {Component} from 'react'
 import {storage, storageRef, auth, database} from 'APP/db/firebase'
 import {Button, ControlLabel, Form, FormControl, FormGroup } from 'react-bootstrap'
 
-
 export default class Suitcase extends Component {
 	constructor () {
 		super()
 		this.state = {
-			image: null
+			image: null,
 		}
 	}
 
@@ -19,11 +18,32 @@ export default class Suitcase extends Component {
 				dbUserPhotosRef.on('value', (snapshot) => this.setState({
 					photos: snapshot.val(),
 				}))
+				// get user trip ids
 				database
 					.ref(`userTrips/${userId}`)
-					.on('value', (snapshot) => this.setState({
-						trips: snapshot.val(),
-					}))
+					.on('value', (snapshot) => {
+						console.log('trip ids', snapshot.val())
+						this.setState({
+							trips: snapshot.val(),
+						})
+
+						const tripIds = Object.keys(snapshot.val())
+						// console.log(tripIds)
+
+						let tripNamesArr = []
+						tripIds.map(tripId => {
+							database
+								.ref(`tripInfo/${tripId}/name`)
+								.on('value', (snapshot) => {
+									console.log('trip names', snapshot.val())
+									tripNamesArr.push(snapshot.val())
+									console.log('tripNamesArr', tripNamesArr)
+									this.setState({
+										tripNames: tripNamesArr
+									})
+								})
+						})
+					})
 			}
 		})
 	}
@@ -31,7 +51,7 @@ export default class Suitcase extends Component {
 	handleChange (e) {
 		e.preventDefault()
 		this.state.image = e.target.files[0]
-		}
+	}
 
 	handleSubmit(e) {
 		e.preventDefault()
@@ -49,9 +69,8 @@ export default class Suitcase extends Component {
 	}
 
 	render () {
+		console.log('state', this.state)
 		const keys = this.state.photos && Object.keys(this.state.photos)
-		const trips = this.state.trips && Object.keys(this.state.trips)
-		console.log(trips)
 
 		return (
 			<div>
@@ -72,13 +91,12 @@ export default class Suitcase extends Component {
 					<ControlLabel>Add to trip (optional)</ControlLabel>
 					<FormControl componentClass="select" multiple>
 
-						{trips ? trips.map(tripId => {
+						{this.state.tripNames ? this.state.tripNames.map((tripName, idx) => {
 							return (
-								<option>{tripId}</option>
+								<option key={idx}>{tripName}</option>
 							)
 						}) : <option>You don't have any trips yet!</option> }
 
-						<option>test</option>
 					</FormControl>
 					<Button type="submit">Upload File(s)</Button>
 				</Form>
