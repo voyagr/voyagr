@@ -5,17 +5,17 @@ import shouldPureComponentUpdate from './utils/shouldPureComponentUpdate'
 import { editText } from '../reducers/elements'
 
   function getStyles (props) {
-
     return {
       border: '1px dashed gray',
       padding: '30px',
       cursor: 'move',
-      background: 'white',
+      background: props.background,
       fontSize: props.size,
+      color: props.color,
     };
   }
 
-class Element extends Component {
+class TextElement extends Component {
 
   static propTypes = {
     text: PropTypes.string.isRequired,
@@ -39,15 +39,16 @@ class Element extends Component {
     if (this.props.editable === false) isDisabled = true
     else isDisabled = false
     return (
-      <ContentEditable
-        html={text}
-        disabled={isDisabled}
-        onChange={this.handleChange.bind(this)}
-        style={getStyles(this.props)} />
+      <div style={getStyles(this.props)}>
+        <ContentEditable
+          html={text}
+          disabled={isDisabled}
+          onChange={this.handleChange.bind(this)} />
+      </div>
     );
   }
 }
 
 const mapStateToProps = state => state
 
-export default connect(mapStateToProps, { editText })(Element)
+export default connect(mapStateToProps, { editText })(TextElement)

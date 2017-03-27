@@ -47,13 +47,6 @@ class Page extends Component {
   moveElement(type, id, left, top) {
 
     this.props.selectElement(type, id)
-    // let elementToUpdateSize = {
-    //   type: type,
-    //   id: id,
-    //   size: "large"
-    // }
-
-    // this.props.setSize(elementToUpdateSize)
 
     if(this.props.deleteMode) {
       let elementToDelete = {

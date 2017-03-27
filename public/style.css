@@ -20,3 +20,22 @@
 #deleteCheckbox {
   color: red;
 }
+
+#image-size-large {
+  max-width: 300px;
+  max-height: 300px;
+}
+
+#image-size-medium {
+  max-width: 200px;
+  max-height: 200px;
+}
+
+#image-size-small {
+  max-width: 100px;
+  max-height: 100px;
+}
+
+#imageSizeNative {
+
+}
