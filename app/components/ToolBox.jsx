@@ -155,8 +155,12 @@ class ToolBox extends Component {
 						    </FormGroup>
 						  </Form>
 					</Panel>
-
-					<Panel header="Invite your friends to collaborate!" eventKey="3">
+					<Panel header="Edit Element" eventKey="3">
+						{ this.props.selected ? <div>THERE IS AN ITEM {`Type, ${this.props.selected.type} ID, ${this.props.selected.id}`}</div>
+							: <strong>Please pick an item to edit</strong>
+						}
+					</Panel>
+					<Panel header="Invite your friends to collaborate!" eventKey="4">
 						<InviteUser tripId={this.props.tripId} />
 					</Panel>
 				</Accordion>

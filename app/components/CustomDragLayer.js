@@ -56,7 +56,9 @@ class CustomDragLayer extends Component {
   };
 
   renderItem(type, item) {
-    return (<ElementDragPreview source={item.source} type={item.type} text={item.text} />);
+    return (
+      <ElementDragPreview size={item.size} source={item.source} type={item.type} text={item.text} />
+    );
   }
 
   render() {
@@ -64,6 +66,7 @@ class CustomDragLayer extends Component {
     if (!isDragging) {
       return null;
     }
+
     return (
       <div style={layerStyles}>
         <div style={getItemStyles(this.props)}>
