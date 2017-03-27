@@ -25,7 +25,6 @@ export default class NavbarComponent extends Component {
             tripId: null
         }
         this.renderButtons = this.renderButtons.bind(this)
-        this.handleNewTrip = this.handleNewTrip.bind(this)
     }
 
     componentWillMount () {
