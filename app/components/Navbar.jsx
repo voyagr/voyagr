@@ -5,6 +5,7 @@ import { auth } from 'APP/db/firebase'
 import { browserHistory } from 'react-router'
 import { startNewTrip } from './utils/newTrip'
 
+// EI: make this a method on the component?
 function logout () {
   auth
   .signOut()
@@ -35,29 +36,30 @@ export default class NavbarComponent extends Component {
     componentWillUnmount () {
         this.unsubscribe()
     }
-    
+
+    // EI: does this need to be a method on the NavBar component? Or can it be its own component?
     renderButtons () {
 
       if (this.state.user) {
         return (
           <div>
-            <Nav pullRight>      
+            <Nav pullRight>
               <LinkContainer onSelect={logout} to="/">
                 <NavItem eventKey={1}>Log Out</NavItem>
-              </LinkContainer> 
+              </LinkContainer>
               <LinkContainer to="/timeline">
                 <NavItem eventKey={2}>Timeline</NavItem>
               </LinkContainer>
               <NavItem onClick={(startNewTrip)} eventKey={1}>New Trip</NavItem>
               <LinkContainer to="/suitcase">
                 <NavItem eventKey={3}>Suitcase</NavItem>
-              </LinkContainer>  
+              </LinkContainer>
             </Nav>
           </div>
         )
-      } 
+      }
     }
- 
+
   render () {
     return (
       <Navbar>
@@ -67,6 +69,7 @@ export default class NavbarComponent extends Component {
           </Navbar.Brand>
         </Navbar.Header>
         { this.renderButtons() }
+        {/* EI: { this.state.user ? <NavbarButtons /> : null } */}
       </Navbar>
     )
   }

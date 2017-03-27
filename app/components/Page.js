@@ -75,7 +75,6 @@ class Page extends Component {
     const { connectDropTarget } = this.props
     const { elements } = this.props
 
-
     return connectDropTarget(
       <div style={styles}>
         {Object

@@ -7,7 +7,7 @@ import Navbar from './Navbar'
 
 import { auth } from 'APP/db/firebase'
 
-//AppInstance.unsubscribe
+//AppInstance.unsubscribe // EI: can this comment be taken out?
 
 export default class App extends Component {
   constructor(props) {
