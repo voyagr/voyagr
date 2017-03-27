@@ -5,7 +5,8 @@ body {
 }
 
 .container {
-  margin:0 0 0 0;
+  width: 90%;
+  margin: auto;
 }
 
 .navbar {
@@ -17,6 +18,7 @@ body {
 
 .navbar-default .navbar-brand {
   color: #000;
+  font-family: 'Josefin Slab', serif;
   font-size: 40px;
   font-weight: 900;
 }
@@ -47,6 +49,13 @@ body {
   color: #000;
 }
 
+.trip-card {
+  background-color: #fdfBf8;
+  padding: 5px;
+  margin: 15px 0;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, .5);
+}
+
 #photo-panel {
   display: flex;
   flex-wrap: wrap;
@@ -64,4 +73,9 @@ body {
 
 #deleteCheckbox {
   color: red;
+}
+
+#app {
+  margin: auto;
+  width: 80%;
 }
