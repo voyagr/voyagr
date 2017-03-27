@@ -9,6 +9,7 @@ import { Grid, Col } from 'react-bootstrap'
 export default class CanvasContainer extends Component {
   constructor (props) {
     super(props)
+    this.selectElement = this.selectElement.bind(this)
   }
 
   //when this component mounts, figure out the firebase path from params
@@ -25,6 +26,12 @@ export default class CanvasContainer extends Component {
         }))
     })
   }
+
+  selectElement (event) {
+    // console.log("INSIDE SELECT", event.target)
+
+  }
+
 
   render () {
     if (!this.state) return null
@@ -43,7 +50,7 @@ export default class CanvasContainer extends Component {
             <ToolBox tripInfo={this.state.tripInfo} tripInfoRef={this.state.tripInfoRef}/>
           </Col>
           <Col lg={8}>
-            <Canvas />
+            <Canvas selectElement={this.selectElement} />
           </Col>
         </Grid>
       </Provider>

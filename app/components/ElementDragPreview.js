@@ -10,14 +10,14 @@ const styles = {
 export default class ElementDragPreview extends Component {
 
   render() {
-    const { text, id, source, type } = this.props;
+    const { text, id, source, type, size } = this.props;
 
     return (
       <div style={styles}>
         {
         type === "photo" ?
           <PhotoElement id={id} source={source} />
-        : <Element text={text} />
+        : <Element size={size} text={text} />
         }
       </div>
     );

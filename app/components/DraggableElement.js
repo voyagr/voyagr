@@ -14,13 +14,14 @@ const elementSource = {
 };
 
 function getStyles(props) {
-  const { left, top, isDragging } = props;
+  const { left, top, isDragging, size } = props;
   const transform = `translate3d(${left}px, ${top}px, 0)`;
 
   return {
     position: 'absolute',
     transform,
     WebkitTransform: transform,
+    size,
     // IE fallback: hide the real node using CSS when dragging
     // because IE will ignore our custom "empty image" drag preview.
     opacity: isDragging ? 0 : 1,
@@ -52,13 +53,13 @@ class DraggableElement extends Component {
   }
 
   render() {
-    const { text, connectDragSource } = this.props;
+    const { text, connectDragSource, id, size, type, source } = this.props;
     return connectDragSource(
       <div style={getStyles(this.props)}>
         {
           this.props.type === "photo" ?
-            <PhotoElement id={this.props.id} source={this.props.source}/>
-            : <Element text={text} id={this.props.id} type={this.props.type} />
+            <PhotoElement id={id} source={source}/>
+            : <Element text={text} id={id} size={size} type={type} />
         }
       </div>,
     );

@@ -1,7 +1,7 @@
 
 const initialState = {
   textBox: {
-    1: { top: 20, left: 80, size: 'small', text: 'My vacay memories' },
+    1: { top: 20, left: 80, size: 'large', text: 'My vacay memories' },
     2: { top: 100, left: 120, size: 'small', text: 'note to self'} },
   photo: {
     1: {top: 200, left: 200, size: "small", source: "http://placehold.it/300/09f/fff.png"}
@@ -16,6 +16,10 @@ const reducer = (state = initialState, action) => {
     case 'SET_ELEMENT_XY':
       newState[action.elementUpdate.type][action.elementUpdate.id].left = action.elementUpdate.left
       newState[action.elementUpdate.type][action.elementUpdate.id].top = action.elementUpdate.top
+      break;
+
+    case 'SET_SIZE':
+      newState[action.elementUpdateSize.type][action.elementUpdateSize.id].size = action.elementUpdateSize.size
       break;
 
     case 'CREATE_TEXT_BOX':
@@ -48,6 +52,13 @@ export const setElementXY = (elementUpdate) => {
   return {
     type: 'SET_ELEMENT_XY',
     elementUpdate, // { id: 1, type: textBox, x: 101, y: 302 }
+  }
+}
+
+export const setSize = (elementUpdateSize) => {
+  return {
+    type: "SET_SIZE",
+    elementUpdateSize,
   }
 }
 
