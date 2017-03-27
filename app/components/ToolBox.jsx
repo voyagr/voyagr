@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { ButtonToolbar, Button, Accordion, Panel, Form, FormGroup, FormControl, Col, ControlLabel } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { auth, database } from 'APP/db/firebase'
-import { createTextBox, addAPhoto } from '../reducers/elements'
+import { createTextBox, addAPhoto, setSize } from '../reducers/elements'
 import InviteUser from './InviteUser'
 
 class ToolBox extends Component {
@@ -22,6 +22,7 @@ class ToolBox extends Component {
 		this.addPhoto = this.addPhoto.bind(this)
 		this.handleTripInfoSubmit = this.handleTripInfoSubmit.bind(this)
 		this.handleTripInfoInput = this.handleTripInfoInput.bind(this)
+		this.handleSizeChange = this.handleSizeChange.bind(this)
 	}
 
   makeRandomId () {
@@ -47,6 +48,17 @@ class ToolBox extends Component {
 		const type = event.target.name
 
 		this.setState({[type]: value})
+	}
+
+	handleSizeChange (event) {
+		let elementToUpdateSize = {
+			size: event.target.value,
+			id: this.props.selected.id,
+			type: this.props.selected.type,
+		}
+
+
+    this.props.setSize(elementToUpdateSize)
 	}
 
 	onClickListener (event) {
@@ -94,6 +106,8 @@ class ToolBox extends Component {
 	render () {
 		const keys = this.state.photos && Object.keys(this.state.photos)
 		let tripInfo = this.props.tripInfo || ""
+		let selectedElement;
+		if (this.props.selected) selectedElement = this.props.elements[this.props.selected.type][this.props.selected.id]
 
 		return (
 			<div>
@@ -104,16 +118,27 @@ class ToolBox extends Component {
 
 				<Accordion>
 					<Panel header="Add Photo" eventKey="1">
-						This is the photo drawer!
-						<div id="photo-panel">
-						{keys ? keys.map(photoKey => {
-							return (
-							  <div className="drawer-photo" key={photoKey}>
-								  <img src={this.state.photos[photoKey]} />
-								  <Button id={this.state.photos[photoKey]} onClick={this.addPhoto}>+</Button>
-							  </div>)
-						}) : null}
-						</div>
+						{this.state.photos ?
+							//if the user has photos we will map over them
+							//and display them all
+							<div id="photo-panel">
+								{keys ? keys.map(photoKey => {
+									return (
+									  <div className="drawer-photo" key={photoKey}>
+										  <img src={this.state.photos[photoKey]} />
+										  <Button id={this.state.photos[photoKey]} onClick={this.addPhoto}>+</Button>
+									  </div>)
+								}) : null}
+							</div>
+						:
+						//if the user has no uploaded photos this will display
+							<div>
+								You don't have any photos yet!
+							<br/>
+								Head over to your suitcase to upload some pictures!
+							</div>
+					}
+
 					</Panel>
 
 					<Panel header="Edit Trip Information" eventKey="2">
@@ -156,7 +181,25 @@ class ToolBox extends Component {
 						  </Form>
 					</Panel>
 					<Panel header="Edit Element" eventKey="3">
-						{ this.props.selected ? <div>THERE IS AN ITEM {`Type, ${this.props.selected.type} ID, ${this.props.selected.id}`}</div>
+						{ this.props.selected ?
+							//if there is a selected item
+							<div>
+								<FormGroup controlId="formControlsSelect">
+						      <ControlLabel>Select Size</ControlLabel>
+						      <FormControl onChange={this.handleSizeChange} value={selectedElement.size} componentClass="select" placeholder="select">
+						        {
+						        //if the user selected an image we need to have a 4th
+						        //option for native size
+						        this.props.selected.type === "photo" ? <option value="native">Original Size</option>
+						        	: null }
+						        {/* Below are all the options that we will have for all element types*/}
+						        <option value="large">Large</option>
+						        <option value="medium">Medium</option>
+						        <option value="small">Small</option>
+						      </FormControl>
+						    </FormGroup>
+							</div>
+							//if there is no selected element
 							: <strong>Please pick an item to edit</strong>
 						}
 					</Panel>
@@ -171,4 +214,4 @@ class ToolBox extends Component {
 
 const mapStateToProps = state => state
 
-export default connect(mapStateToProps, { createTextBox, addAPhoto })(ToolBox)
+export default connect(mapStateToProps, { createTextBox, addAPhoto, setSize })(ToolBox)

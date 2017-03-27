@@ -27,12 +27,13 @@ export default class CanvasContainer extends Component {
     })
   }
 
+  //this function is called from inside page when we move an element
   selectElement (type, id) {
-    console.log("INSIDE SELECT", type, id)
     this.setState({
       selected: {id: id, type: type}
     })
   }
+
   //when this component mounts, figure out the firebase path from params
   componentWillMount () {
     const tripId = this.props.params.tripId
