@@ -105,7 +105,7 @@ export default class Suitcase extends Component {
 					<ControlLabel>Add to trip (optional)</ControlLabel>
 					<FormControl componentClass="select" multiple onChange={this.handleTripChange.bind(this)}>
 
-						{this.state.tripNames ? tripIds.map((tripId, idx) => {
+						{trips ? tripIds.map((tripId, idx) => {
 							return (
 								<option key={idx} value={tripId}>{trips[tripId]}</option>
 							)
