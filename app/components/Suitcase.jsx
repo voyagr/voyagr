@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {storage, storageRef, auth, database} from 'APP/db/firebase'
-import {Button, ControlLabel, Form, FormControl, Input } from 'react-bootstrap'
+import {Button, ControlLabel, Form, FormControl, FormGroup } from 'react-bootstrap'
 
 
 export default class Suitcase extends Component {
@@ -19,6 +19,11 @@ export default class Suitcase extends Component {
 				dbUserPhotosRef.on('value', (snapshot) => this.setState({
 					photos: snapshot.val(),
 				}))
+				database
+					.ref(`userTrips/${userId}`)
+					.on('value', (snapshot) => this.setState({
+						trips: snapshot.val(),
+					}))
 			}
 		})
 	}
@@ -45,12 +50,14 @@ export default class Suitcase extends Component {
 
 	render () {
 		const keys = this.state.photos && Object.keys(this.state.photos)
+		const trips = this.state.trips && Object.keys(this.state.trips)
+		console.log(trips)
 
 		return (
 			<div>
 				<h1>Suitcase</h1>
 				<h2>Here is all your media!</h2>
-				<Form onSubmit={this.handleSubmit.bind(this)}>
+				<Form horizontal onSubmit={this.handleSubmit.bind(this)}>
 					<ControlLabel>Upload files</ControlLabel>
 					<FormControl
 						id="formControlsFile"
@@ -62,7 +69,17 @@ export default class Suitcase extends Component {
 					<p className="help-block">
 						Types supported: .jpg, .png, .gif, .mp4, .mov, .mp3
 					</p>
+					<ControlLabel>Add to trip (optional)</ControlLabel>
+					<FormControl componentClass="select" multiple>
 
+						{trips ? trips.map(tripId => {
+							return (
+								<option>{tripId}</option>
+							)
+						}) : <option>You don't have any trips yet!</option> }
+
+						<option>test</option>
+					</FormControl>
 					<Button type="submit">Upload File(s)</Button>
 				</Form>
 
