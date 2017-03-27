@@ -17,13 +17,6 @@ import Suitcase from './components/Suitcase'
 import {setFirebaseRef} from './reducers/firebaseRef'
 import InviteUser from 'APP/app/components/InviteUser'
 
-// function testingFirebase () {
-//   const { firebaseRef } = store.getState()
-//   firebaseRef.child('users').on('value', (snapshot) => {
-//     console.log(snapshot.val())
-//   })
-// }
-
 render (
   <Router history={browserHistory}>
     <Route path="/" component={App} landing={LandingPage}>
