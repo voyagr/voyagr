@@ -38,10 +38,6 @@ export default class NavbarComponent extends Component {
         this.unsubscribe()
     }
 
-    handleNewTrip () {
-      startNewTrip()
-    }
-
     renderButtons () {
 
       if (this.state.user) {
@@ -54,7 +50,7 @@ export default class NavbarComponent extends Component {
               <LinkContainer to="/timeline">
                 <NavItem eventKey={2}>Timeline</NavItem>
               </LinkContainer>
-              <NavItem onClick={(this.handleNewTrip)} eventKey={1}>New Trip</NavItem>
+              <NavItem onClick={(startNewTrip)} eventKey={1}>New Trip</NavItem>
               <LinkContainer to="/suitcase">
                 <NavItem eventKey={3}>Suitcase</NavItem>
               </LinkContainer>
