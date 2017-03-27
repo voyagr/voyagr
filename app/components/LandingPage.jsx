@@ -19,6 +19,7 @@ export default class LandingPage extends Component {
   }
 
   componentDidMount () {
+    document.getElementsByTagName("body")[0].style.backgroundImage = "url(./imgs/voyagr_landing.png)"
     this.unsubscribe = auth.onAuthStateChanged(function(user) {
       if (!user) auth.signInAnonymously()
       .catch(error => {
@@ -29,14 +30,17 @@ export default class LandingPage extends Component {
 
   componentWillUnmount () {
     this.unsubscribe()
+    document.getElementsByTagName("body")[0].style.backgroundImage = ""
   }
 
   render() {
     return (
-      <PanelGroup activeKey={this.state.activeKey} onSelect={this.handleSelect} accordion>
-        <Panel header="Sign up" eventKey="1"><Signup /></Panel>
-        <Panel header="Log in" eventKey="2"><Login /></Panel>
-      </PanelGroup>
+      <div id="landing">
+        <PanelGroup activeKey={this.state.activeKey} onSelect={this.handleSelect} accordion>
+          <Panel header="Sign up" eventKey="1"><Signup /></Panel>
+          <Panel header="Log in" eventKey="2"><Login /></Panel>
+        </PanelGroup>
+      </div>
     );
   }
 }
