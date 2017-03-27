@@ -35,14 +35,15 @@ class Element extends Component {
 
   render() {
     const { text, size } = this.props;
+    let isDisabled
+    if (this.props.editable === false) isDisabled = true
+    else isDisabled = false
     return (
-      <div style={getStyles(this.props)}>
-        <ContentEditable
-          html={text}
-          disabled={false}
-          onChange={this.handleChange.bind(this)}
-        />
-      </div>
+      <ContentEditable
+        html={text}
+        disabled={isDisabled}
+        onChange={this.handleChange.bind(this)}
+        style={getStyles(this.props)} />
     );
   }
 }

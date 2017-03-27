@@ -3,6 +3,7 @@ import { ButtonToolbar, Button, Accordion, Panel, Form, FormGroup, FormControl, 
 import { connect } from 'react-redux'
 import { auth, database } from 'APP/db/firebase'
 import { createTextBox, addAPhoto } from '../reducers/elements'
+import InviteUser from './InviteUser'
 
 class ToolBox extends Component {
 	constructor(props) {
@@ -154,11 +155,13 @@ class ToolBox extends Component {
 						    </FormGroup>
 						  </Form>
 					</Panel>
-
 					<Panel header="Edit Element" eventKey="3">
 						{ this.props.selected ? <div>THERE IS AN ITEM {`Type, ${this.props.selected.type} ID, ${this.props.selected.id}`}</div>
 							: <strong>Please pick an item to edit</strong>
 						}
+					</Panel>
+					<Panel header="Invite your friends to collaborate!" eventKey="4">
+						<InviteUser tripId={this.props.tripId} />
 					</Panel>
 				</Accordion>
 			</div>
