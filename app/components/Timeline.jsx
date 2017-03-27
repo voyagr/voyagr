@@ -29,7 +29,6 @@ export default class Timeline extends Component {
                         this.state.trips[tripId] = snap.val()
                      })
                 })
-                console.log(this.state)
             })
         })
     }
