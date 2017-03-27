@@ -23,7 +23,6 @@ export default class Suitcase extends Component {
 				database
 					.ref(`userTrips/${userId}`)
 					.on('value', (snapshot) => {
-						console.log('trip ids', snapshot.val())
 						this.setState({
 							trips: snapshot.val(),
 						})
