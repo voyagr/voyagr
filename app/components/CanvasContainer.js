@@ -57,7 +57,11 @@ export default class CanvasContainer extends Component {
     //render this if editable is true
       <Grid>
         <Col lg={4}>
-          <ToolBox tripInfo={this.state.tripInfo} tripInfoRef={this.state.tripInfoRef}/>
+          <ToolBox
+            tripInfo={this.state.tripInfo}
+            tripInfoRef={this.state.tripInfoRef}
+            tripId={this.props.params.tripId}
+          />
         </Col>
         <Col lg={8}>
           <Canvas editable={this.state.editable} />
