@@ -79,7 +79,6 @@ export default class Suitcase extends Component {
 	}
 
 	render () {
-		// console.log(this.state)
 		const trips = this.state.tripNames
 		const tripIds = trips && Object.keys(trips)
 		const keys = this.state.photos && Object.keys(this.state.photos)

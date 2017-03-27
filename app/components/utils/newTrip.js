@@ -1,7 +1,7 @@
 import { database, auth } from 'APP/db/firebase'
 import { browserHistory } from 'react-router'
 
-export function startNewTrip() {
+export const startNewTrip = () => {
   let uid = auth.currentUser.uid
   let infoPostData = {
     name: 'A Trip',
@@ -18,7 +18,8 @@ export function startNewTrip() {
 
   return database.ref()
     .update(updates)
-    .then(() =>
-        browserHistory.push("/canvas/" + newTripKey)
-    )
+    .then(() => {
+      browserHistory.push("/canvas/" + newTripKey)
+    })
+    .catch(console.error)
 }
