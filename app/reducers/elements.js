@@ -18,6 +18,10 @@ const reducer = (state = initialState, action) => {
       newState[action.elementUpdate.type][action.elementUpdate.id].top = action.elementUpdate.top
       break;
 
+    case 'SET_SIZE':
+      newState[action.elementUpdateSize.type][action.elementUpdateSize.id].size = action.elementUpdateSize.size
+      break;
+
     case 'CREATE_TEXT_BOX':
       id = Object.keys(action.newTextBox)[0]
       newState.textBox[id] = action.newTextBox[id]
@@ -48,6 +52,13 @@ export const setElementXY = (elementUpdate) => {
   return {
     type: 'SET_ELEMENT_XY',
     elementUpdate, // { id: 1, type: textBox, x: 101, y: 302 }
+  }
+}
+
+export const setSize = (elementUpdateSize) => {
+  return {
+    type: "SET_SIZE",
+    elementUpdateSize,
   }
 }
 

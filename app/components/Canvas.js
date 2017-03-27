@@ -43,43 +43,43 @@ class Canvas extends Component {
 
     return (
       <div>
-        <Page snapToGrid={snapToGridAfterDrop} deleteMode={deleteMode} editable={this.props.editable} />
-        {this.props.editable ?
-          (<div>
-            <CustomDragLayer snapToGrid={snapToGridWhileDragging} />
-            <p>
-              <label htmlFor="snapToGridWhileDragging">
-                <input
-                  id="snapToGridWhileDragging"
-                  type="checkbox"
-                  checked={snapToGridWhileDragging}
-                  onChange={this.handleSnapToGridWhileDraggingChange}
-                />
-                <small>Snap to grid while dragging</small>
-              </label>
-              <br />
-              <label htmlFor="snapToGridAfterDrop">
-                <input
-                  id="snapToGridAfterDrop"
-                  type="checkbox"
-                  checked={snapToGridAfterDrop}
-                  onChange={this.handleSnapToGridAfterDropChange}
-                />
-                <small>Snap to grid after drop</small>
-              </label>
-              <br />
-              <label htmlFor="deleteMode">
-                <input
-                  id="deleteMode"
-                  type="checkbox"
-                  checked={deleteMode}
-                  onChange={this.handleDeleteMode}
-                />
-                <small id="deleteCheckbox">Delete mode</small>
-              </label>
-            </p>
-          </div>)
-        : null}
+        <Page snapToGrid={snapToGridAfterDrop} selectElement={this.props.selectElement} deleteMode={deleteMode} editable={this.props.editable} />
+          {this.props.editable ?
+            (<div>
+              <CustomDragLayer snapToGrid={snapToGridWhileDragging} />
+              <p>
+                <label htmlFor="snapToGridWhileDragging">
+                  <input
+                    id="snapToGridWhileDragging"
+                    type="checkbox"
+                    checked={snapToGridWhileDragging}
+                    onChange={this.handleSnapToGridWhileDraggingChange}
+                  />
+                  <small>Snap to grid while dragging</small>
+                </label>
+                <br />
+                <label htmlFor="snapToGridAfterDrop">
+                  <input
+                    id="snapToGridAfterDrop"
+                    type="checkbox"
+                    checked={snapToGridAfterDrop}
+                    onChange={this.handleSnapToGridAfterDropChange}
+                  />
+                  <small>Snap to grid after drop</small>
+                </label>
+                <br />
+                <label htmlFor="deleteMode">
+                  <input
+                    id="deleteMode"
+                    type="checkbox"
+                    checked={deleteMode}
+                    onChange={this.handleDeleteMode}
+                  />
+                  <small id="deleteCheckbox">Delete mode</small>
+                </label>
+              </p>
+            </div>)
+          : null}
       </div>
     );
   }

@@ -11,10 +11,12 @@ export default class CanvasContainer extends Component {
     super(props)
 
     this.state = {
+      selected: null,
       store: null,
       editable: true,
     }
 
+    this.selectElement = this.selectElement.bind(this)
     this.toggleMode = this.toggleMode.bind(this)
     this.renderView = this.renderView.bind(this)
   }
@@ -25,8 +27,13 @@ export default class CanvasContainer extends Component {
     })
   }
 
+  selectElement (type, id) {
+    console.log("INSIDE SELECT", type, id)
+    this.setState({
+      selected: {id: id, type: type}
+    })
+  }
   //when this component mounts, figure out the firebase path from params
-
   componentWillMount () {
     const tripId = this.props.params.tripId
     const tripActionsRef = database.ref(`tripActions/${tripId}`)
@@ -60,11 +67,12 @@ export default class CanvasContainer extends Component {
           <ToolBox
             tripInfo={this.state.tripInfo}
             tripInfoRef={this.state.tripInfoRef}
+            selected={this.state.selected}
             tripId={this.props.params.tripId}
           />
         </Col>
         <Col lg={8}>
-          <Canvas editable={this.state.editable} />
+          <Canvas editable={this.state.editable} selectElement={this.selectElement}/>
         </Col>
       </Grid>
 
