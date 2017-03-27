@@ -1,8 +1,6 @@
 import React, {Component} from 'react'
 import { auth, database } from 'APP/db/firebase'
 import { browserHistory } from 'react-router'
-import store from '../store';
-
 
 export default class Timeline extends Component {
     constructor () {
