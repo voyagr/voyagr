@@ -12,8 +12,9 @@ class Element extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate;
 
   render() {
+    console.log(this.props.size)
     return (
-      <img src={this.props.source} />
+      <img id={`image-size-${this.props.size}`} src={this.props.source} />
     );
   }
 }

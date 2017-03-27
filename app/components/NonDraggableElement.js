@@ -24,7 +24,6 @@ class NonDraggableElement extends Component {
   };
 
   render() {
-    console.log(this.props.type)
     const { text } = this.props;
     return (
       <div style={getStyles(this.props)}>

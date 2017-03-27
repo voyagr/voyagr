@@ -16,7 +16,7 @@ export default class ElementDragPreview extends Component {
       <div style={styles}>
         {
         type === "photo" ?
-          <PhotoElement id={id} source={source} />
+          <PhotoElement id={id} size={size} source={source} />
         : <Element size={size} text={text} />
         }
       </div>

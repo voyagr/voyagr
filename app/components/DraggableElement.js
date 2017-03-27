@@ -58,7 +58,7 @@ class DraggableElement extends Component {
       <div style={getStyles(this.props)}>
         {
           this.props.type === "photo" ?
-            <PhotoElement id={id} source={source}/>
+            <PhotoElement id={id} size={size} source={source}/>
             : <Element text={text} id={id} size={size} type={type} />
         }
       </div>,
