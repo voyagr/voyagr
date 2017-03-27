@@ -15,7 +15,7 @@ import { editText } from '../reducers/elements'
     };
   }
 
-class Element extends Component {
+class TextElement extends Component {
 
   static propTypes = {
     text: PropTypes.string.isRequired,
@@ -51,4 +51,4 @@ class Element extends Component {
 
 const mapStateToProps = state => state
 
-export default connect(mapStateToProps, { editText })(Element)
+export default connect(mapStateToProps, { editText })(TextElement)

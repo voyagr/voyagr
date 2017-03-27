@@ -3,7 +3,7 @@ import { DragSource } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import shouldPureComponentUpdate from './utils/shouldPureComponentUpdate';
 import ItemTypes from './utils/ItemTypes';
-import Element from './Element';
+import TextElement from './TextElement';
 import PhotoElement from './PhotoElement'
 
 const elementSource = {
@@ -59,7 +59,7 @@ class DraggableElement extends Component {
         {
           this.props.type === "photo" ?
             <PhotoElement id={id} size={size} source={source}/>
-            : <Element text={text} id={id} size={size} type={type} />
+            : <TextElement text={text} id={id} size={size} type={type} />
         }
       </div>,
     );

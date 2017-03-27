@@ -56,12 +56,7 @@ class ToolBox extends Component {
 			id: this.props.selected.id,
 			type: this.props.selected.type,
 		}
-		// console.log(newSize)
-		// let elementToUpdateSize = {
-    //   type: type,
-    //   id: id,
-    //   size: "large"
-    // }
+
 
     this.props.setSize(elementToUpdateSize)
 	}
@@ -123,16 +118,27 @@ class ToolBox extends Component {
 
 				<Accordion>
 					<Panel header="Add Photo" eventKey="1">
-						This is the photo drawer!
-						<div id="photo-panel">
-						{keys ? keys.map(photoKey => {
-							return (
-							  <div className="drawer-photo" key={photoKey}>
-								  <img src={this.state.photos[photoKey]} />
-								  <Button id={this.state.photos[photoKey]} onClick={this.addPhoto}>+</Button>
-							  </div>)
-						}) : null}
-						</div>
+						{this.state.photos ?
+							//if the user has photos we will map over them
+							//and display them all
+							<div id="photo-panel">
+								{keys ? keys.map(photoKey => {
+									return (
+									  <div className="drawer-photo" key={photoKey}>
+										  <img src={this.state.photos[photoKey]} />
+										  <Button id={this.state.photos[photoKey]} onClick={this.addPhoto}>+</Button>
+									  </div>)
+								}) : null}
+							</div>
+						:
+						//if the user has no uploaded photos this will display
+							<div>
+								You don't have any photos yet!
+							<br/>
+								Head over to your suitcase to upload some pictures!
+							</div>
+					}
+
 					</Panel>
 
 					<Panel header="Edit Trip Information" eventKey="2">
@@ -178,13 +184,15 @@ class ToolBox extends Component {
 						{ this.props.selected ?
 							//if there is a selected item
 							<div>
-								This is the currently selected element
-								<br />
-								{`Current size, ${selectedElement.size}`}
-								<hr />
 								<FormGroup controlId="formControlsSelect">
 						      <ControlLabel>Select Size</ControlLabel>
 						      <FormControl onChange={this.handleSizeChange} value={selectedElement.size} componentClass="select" placeholder="select">
+						        {
+						        //if the user selected an image we need to have a 4th
+						        //option for native size
+						        this.props.selected.type === "photo" ? <option value="native">Original Size</option>
+						        	: null }
+						        {/* Below are all the options that we will have for all element types*/}
 						        <option value="large">Large</option>
 						        <option value="medium">Medium</option>
 						        <option value="small">Small</option>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Element from './Element';
+import TextElement from './TextElement';
 import PhotoElement from './PhotoElement'
 
 const styles = {
@@ -17,7 +17,7 @@ export default class ElementDragPreview extends Component {
         {
         type === "photo" ?
           <PhotoElement id={id} size={size} source={source} />
-        : <Element size={size} text={text} />
+        : <TextElement size={size} text={text} />
         }
       </div>
     );

@@ -8,11 +8,10 @@ const styles = {
   cursor: 'move',
 };
 
-class Element extends Component {
+class PhotoElement extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate;
 
   render() {
-    console.log(this.props.size)
     return (
       <img id={`image-size-${this.props.size}`} src={this.props.source} />
     );
@@ -21,4 +20,4 @@ class Element extends Component {
 
 const mapStateToProps = state => state
 
-export default connect(mapStateToProps, null)(Element)
+export default connect(mapStateToProps, null)(PhotoElement)

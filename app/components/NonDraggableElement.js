@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { DragSource } from 'react-dnd';
 import { connect } from 'react-redux'
-import Element from './Element';
+import TextElement from './TextElement';
 import PhotoElement from './PhotoElement'
 
 function getStyles(props) {
@@ -30,7 +30,7 @@ class NonDraggableElement extends Component {
         {
           this.props.type === "photo" ?
             <PhotoElement id={this.props.id} source={this.props.source} editable={false}/>
-            : <Element text={text} id={this.props.id} type={this.props.type} editable={false}/>
+            : <TextElement text={text} id={this.props.id} type={this.props.type} editable={false}/>
         }
       </div>
     )
