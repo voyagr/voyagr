@@ -27,7 +27,6 @@ export default class Timeline extends Component {
                     database.ref(`tripInfo/${tripId}`)
                     .on('value', snap => {
                         this.state.trips[tripId] = snap.val()
-                        //console.log(this.state.trips[tripId].name)
                      })
                 })
                 console.log(this.state)
@@ -48,7 +47,6 @@ export default class Timeline extends Component {
                     <h3>Here are your trips!</h3>
                     <ul>
                         { Object.keys(this.state.trips).map(tripId => {
-                            
                             return (<li key={tripId}><a href={`/canvas/${this.state.trips[tripId]}`}>{this.state.trips[tripId]}</a></li>)
                             })
                         }
