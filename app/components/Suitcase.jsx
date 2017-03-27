@@ -28,19 +28,20 @@ export default class Suitcase extends Component {
 						})
 
 						const tripIds = Object.keys(snapshot.val())
-						// console.log(tripIds)
 
-						let tripNamesArr = []
+						// let tripNames = []
+						let tripNames = {}
+						// get trip names into an array on the state
 						tripIds.map(tripId => {
 							database
 								.ref(`tripInfo/${tripId}/name`)
 								.on('value', (snapshot) => {
-									console.log('trip names', snapshot.val())
-									tripNamesArr.push(snapshot.val())
-									console.log('tripNamesArr', tripNamesArr)
-									this.setState({
-										tripNames: tripNamesArr
-									})
+									// tripNamesArr.push(snapshot.val())
+
+									tripNames[tripId] = snapshot.val()
+									console.log(tripNames)
+
+									this.setState({ tripNames: tripNames })
 								})
 						})
 					})
@@ -48,9 +49,13 @@ export default class Suitcase extends Component {
 		})
 	}
 
-	handleChange (e) {
+	handleUploadChange (e) {
 		e.preventDefault()
 		this.state.image = e.target.files[0]
+	}
+
+	handleTripChange (e) {
+		console.log(e.target.value)
 	}
 
 	handleSubmit(e) {
@@ -69,8 +74,10 @@ export default class Suitcase extends Component {
 	}
 
 	render () {
-		console.log('state', this.state)
+		console.log(this.state)
 		const keys = this.state.photos && Object.keys(this.state.photos)
+		const tripIds = this.state.tripNames && Object.keys(this.state.tripNames)
+		const trips = this.state.tripNames
 
 		return (
 			<div>
@@ -82,18 +89,18 @@ export default class Suitcase extends Component {
 						id="formControlsFile"
 						type="file"
 						label="File"
-						onChange={this.handleChange.bind(this)}
+						onChange={this.handleUploadChange.bind(this)}
 						accept=".gif, .jpg, .png, .mp3, .mp4, .mov"
 					/>
 					<p className="help-block">
-						Types supported: .jpg, .png, .gif, .mp4, .mov, .mp3
+						Media supported: .jpg, .png, .gif, .mp4, .mov, .mp3
 					</p>
 					<ControlLabel>Add to trip (optional)</ControlLabel>
-					<FormControl componentClass="select" multiple>
+					<FormControl componentClass="select" multiple onChange={this.handleTripChange.bind(this)}>
 
-						{this.state.tripNames ? this.state.tripNames.map((tripName, idx) => {
+						{this.state.tripNames ? tripIds.map((tripId, idx) => {
 							return (
-								<option key={idx}>{tripName}</option>
+								<option key={idx}>{trips[tripId]}</option>
 							)
 						}) : <option>You don't have any trips yet!</option> }
 
@@ -101,6 +108,7 @@ export default class Suitcase extends Component {
 					<Button type="submit">Upload File(s)</Button>
 				</Form>
 
+				{/* media display */}
 				<div>
 					<h2>Photos</h2><br />
 					{keys ? keys.map(photoKey => {
@@ -112,7 +120,7 @@ export default class Suitcase extends Component {
 								<img src={this.state.photos[photoKey]} height="300px" />
 							</div>
 						)
-					}) : null}
+					}) : <p>Upload some photos!</p>}
 				</div>
 			</div>
 		)
