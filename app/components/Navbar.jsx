@@ -22,8 +22,10 @@ export default class NavbarComponent extends Component {
         super()
         this.state = {
             user: null,
+            tripId: null
         }
         this.renderButtons = this.renderButtons.bind(this)
+        this.handleNewTrip = this.handleNewTrip.bind(this)
     }
 
     componentWillMount () {
@@ -35,29 +37,33 @@ export default class NavbarComponent extends Component {
     componentWillUnmount () {
         this.unsubscribe()
     }
-    
+
+    handleNewTrip () {
+      startNewTrip()
+    }
+
     renderButtons () {
 
       if (this.state.user) {
         return (
           <div>
-            <Nav pullRight>      
+            <Nav pullRight>
               <LinkContainer onSelect={logout} to="/">
                 <NavItem eventKey={1}>Log Out</NavItem>
-              </LinkContainer> 
+              </LinkContainer>
               <LinkContainer to="/timeline">
                 <NavItem eventKey={2}>Timeline</NavItem>
               </LinkContainer>
-              <NavItem onClick={(startNewTrip)} eventKey={1}>New Trip</NavItem>
+              <NavItem onClick={(this.handleNewTrip)} eventKey={1}>New Trip</NavItem>
               <LinkContainer to="/suitcase">
                 <NavItem eventKey={3}>Suitcase</NavItem>
-              </LinkContainer>  
+              </LinkContainer>
             </Nav>
           </div>
         )
-      } 
+      }
     }
- 
+
   render () {
     return (
       <Navbar>

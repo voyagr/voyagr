@@ -11,24 +11,12 @@ export function startNewTrip() {
 
   var newTripKey = database.ref('/userTrips/' + uid).push().key
 
-  // database
-  //   .ref('/tripInfo/')
-  //   .child(newTripKey)
-  //   .update(infoPostData)
-  //   .then(() => {
-  //     database.ref('/userTrips/')
-  //       .child(uid)
-  //       .update({ [newTripKey]: newTripKey })
-  //   })
-
   var updates = {}
-  updates['/tripInfo/' + newTripKey] = infoPostData
+  updates[`/tripInfo/${newTripKey}`] = infoPostData
   updates[`/userTrips/${uid}/${newTripKey}`] = newTripKey
   updates[`/tripUsers/${newTripKey}/${uid}`] = uid
 
-  console.log(updates)
-
-  database.ref()
+  return database.ref()
     .update(updates)
     .then(() =>
         browserHistory.push("/canvas/" + newTripKey)
