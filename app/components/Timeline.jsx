@@ -17,6 +17,7 @@ export default class Timeline extends Component {
 
   componentWillMount () {
     this.unsubscribe = auth.onAuthStateChanged((user) => {
+      if (!user) browserHistory.push('/landing')
       // set current user
       this.setState({
         user: user,
