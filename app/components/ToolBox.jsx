@@ -113,12 +113,9 @@ class ToolBox extends Component {
 
 		return (
 			<div>
-
-				<ButtonToolbar>
-					<Button bsStyle="primary" bsSize="large" onClick={this.addNewTextBox}>Add text box</Button>
-				</ButtonToolbar>
-
 				<Accordion id="toolbox">
+					<Panel header="Add Text Box" eventKey="5" onClick={this.addNewTextBox}>
+					</Panel>
 					<Panel header="Add Photo" eventKey="1">
 						{this.state.photos ?
 							//if the user has photos we will map over them
