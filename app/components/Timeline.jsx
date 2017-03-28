@@ -9,7 +9,6 @@ export default class Timeline extends Component {
     super()
     this.state = {
       user: null,
-      displayName: null,
       trips: {},
     }
     this.renderItems = this.renderItems.bind(this)
@@ -21,19 +20,20 @@ export default class Timeline extends Component {
       // set current user
       this.setState({
         user: user,
-        displayName: user.displayName,
       })
 
       // get the ids of that user's trips
       return database.ref(`userTrips/${user.uid}`)
       .on('value', snap => {
         let userTrips = snap.val()
-        let tripIds = Object.keys(userTrips)
+        if (userTrips) { let tripIds = Object.keys(userTrips) }
+        else { return }
 
         // get the info for that user's trips
         tripIds.map((tripId) => {
           return database.ref(`tripInfo/${tripId}`)
           .on('value', snap => {
+            // add the trips to the state
             this.setState(update(this.state, {
               trips: {
                 $merge: { [tripId]: snap.val() }
@@ -56,19 +56,20 @@ export default class Timeline extends Component {
       const tripId = event.target.value
       const trips = this.state.trips
 
-      console.log(this.state.user)
-
       database
         .ref(`userTrips/${this.state.user.uid}/${tripId}`)
         .remove(() => {
-          const tripsBeforeDelete = trips
-          delete tripsBeforeDelete[tripId]
-          this.setState({trips: tripsBeforeDelete})
+          // save an instance of the current trips on the state
+          const tripsToBeUpdated = trips
+          // delete the trip from that new instance
+          delete tripsToBeUpdated[tripId]
+          // set the state so the page will update
+          this.setState({ trips: tripsToBeUpdated })
         })
     }
   }
 
-  renderItems() {
+  renderItems () {
     const tripIds = Object.keys(this.state.trips)
     const trips = this.state.trips
 
@@ -78,40 +79,40 @@ export default class Timeline extends Component {
           <Grid>
             <Col lg={12}>
               <h1>Timeline</h1>
-              <h3>Welcome, {this.state.displayName}. Here are your trips!</h3>
+              <h3>Welcome, {this.state.user.displayName}. Here are your trips!</h3>
             </Col>
 
             {/* trip boxes */}
-              {tripIds.map(tripId => {
-                return (
-                  <Col lg={6} key={tripId}>
-                    <div className="trip-card">
-                      <a href={`/canvas/${tripId}`}>
-                        <Image src="./imgs/yellow_house.png" thumbnail />
-                        <h3>{trips[tripId].name}</h3>
-                      </a>
+            {tripIds.length > 0 ? tripIds.map(tripId => {
+              return (
+                <Col lg={6} key={tripId}>
+                  <div className="trip-card">
+                    <a href={`/canvas/${tripId}`}>
+                      <Image src="./imgs/yellow_house.png" thumbnail />
+                      <h3>{trips[tripId].name}</h3>
+                    </a>
 
-                      {/* delete button */}
-                      <Button
-                        bsStyle="danger"
-                        bsSize="xsmall"
-                        onClick={this.deleteTrip}
-                        value={tripId}
-                      >
-                        Delete trip
-                      </Button>
+                    {/* delete button */}
+                    <Button
+                      bsStyle="danger"
+                      bsSize="xsmall"
+                      onClick={this.deleteTrip}
+                      value={tripId}
+                    >
+                      Delete trip
+                    </Button>
 
-                      {/* trip info */}
-                      <p>
-                        {trips[tripId].description}
-                      </p>
-                      <p>
-                        <strong>Start date:</strong> {trips[tripId].startDate}
-                      </p>
-                    </div>
-                  </Col>
-                )
-              })}
+                    {/* trip info */}
+                    <p>
+                      {trips[tripId].description}
+                    </p>
+                    <p>
+                      <strong>Start date:</strong> {trips[tripId].startDate}
+                    </p>
+                  </div>
+                </Col>
+              )
+            }) : <h3>No trips to show. Give yourself a vacation then click above to start documenting.</h3>}
           </Grid>
         </div>
       )
