@@ -4,14 +4,15 @@ body {
   font-family: 'Josefin Sans', sans-serif;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3 {
   font-family: 'Josefin Slab', serif;
   color: #212121
 }
 
 .btn {
-  background-color: #FFEE58;
+  background-color: #FFF176;
 }
+
 .container {
   width: 90%;
   margin: auto;
@@ -79,7 +80,7 @@ h1, h2, h3, h4 {
 }
 
 input > .formControlsFile {
-    background-color: #FFEE58;
+    background-color: #FFF176;
 }
 
 #photo-panel {
@@ -125,11 +126,14 @@ input > .formControlsFile {
 
 }
 
+#canvas-header {
+  display: flex;
+  margin: 0;
+}
 
 #canvas-wrapper {
   display: flex;
-  justify-content: center;
-  margin: auto 0;
+  margin: 0;
 }
 
 /*Styling for View Mode!*/
@@ -141,11 +145,12 @@ input > .formControlsFile {
   margin: 2px 0;
 }
 
-#toolbox > .panel-default > .panel-heading {
-  background-color: #FFEE58;
+#toolbox .panel-group{
+  margin: 0;
 }
-#toolbox > h4 > .panel-title > a {
-  font-family: 'Josefin Sans', sans-serif;
+
+#toolbox > .panel-default > .panel-heading {
+  background-color: #FFF176;
   font-size: 14px;
 }
 
