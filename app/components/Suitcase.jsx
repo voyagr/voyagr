@@ -166,7 +166,7 @@ export default class Suitcase extends Component {
 			</div>
 		)
 	}
-}
+	}
 
 
 /* This is all the format of the information
