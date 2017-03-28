@@ -109,13 +109,14 @@ class ToolBox extends Component {
 		const keys = this.state.photos && Object.keys(this.state.photos)
 		let tripInfo = this.props.tripInfo || ""
 		let selectedElement;
-		if (this.props.selected) selectedElement = this.props.elements[this.props.selected.type][this.props.selected.id]
-
+		if (this.props.selected) {
+			selectedElement = this.props.elements[this.props.selected.type][this.props.selected.id]
+		}
+		const path = `voyagr.co/canvas/${this.props.tripId}`
 		return (
 			<div>
 				<Accordion id="toolbox">
-					<Panel header="Add Text Box" eventKey="5" onClick={this.addNewTextBox}>
-					</Panel>
+					<Panel header="Add Text Box" eventKey="5" onClick={this.addNewTextBox} />
 					<Panel header="Add Photo" eventKey="1">
 						{this.state.photos ?
 							//if the user has photos we will map over them
@@ -133,7 +134,7 @@ class ToolBox extends Component {
 						//if the user has no uploaded photos this will display
 							<div>
 								You don't have any photos yet!
-							<br/>
+							<br />
 								Head over to your suitcase to upload some pictures!
 							</div>
 					}
@@ -196,7 +197,9 @@ class ToolBox extends Component {
 							: <strong>Please pick an item to edit</strong>
 						}
 					</Panel>
-					<Panel header="Invite your friends to collaborate!" eventKey="4">
+					<Panel header="Invite your friends!" eventKey="4">
+						<h3>To View</h3>
+							Share This Link: {path}
 						<InviteUser tripId={this.props.tripId} />
 					</Panel>
 				</Accordion>
