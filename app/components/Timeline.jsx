@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import update from 'react/lib/update'
 import { auth, database } from 'APP/db/firebase'
 import { browserHistory } from 'react-router'
 import { Grid, Col, Image } from 'react-bootstrap'
@@ -26,10 +27,11 @@ export default class Timeline extends Component {
         tripIds.map((tripId) => {
           return database.ref(`tripInfo/${tripId}`)
           .on('value', snap => {
-            this.setState({
-              [tripId]: snap.val()
-            })
-              console.log('2', this.state.trips)
+            this.setState(update(this.state, {
+              trips: {
+                $merge: { [tripId]: snap.val() }
+              }
+            }))
           })
         })
       })
@@ -41,6 +43,8 @@ export default class Timeline extends Component {
   }
 
     renderItems() {
+      const tripIds = Object.keys(this.state.trips)
+
         if (this.state.user) {
             return (
                 <div>
@@ -49,18 +53,26 @@ export default class Timeline extends Component {
                         <h1>Timeline</h1>
                         <h3>Welcome, {this.state.displayName}. Here are your trips!</h3>
                         </Col>
-                            { Object.keys(this.state.trips).map(tripId => {
-                                return (<Col lg={6} key={tripId} >
-                                        <div className="trip-card">
-                                            <a href={`/canvas/${this.state.trips[tripId]}`}>
-                                            <Image src="./imgs/yellow_house.png" thumbnail />
-                                            {this.state.trips[tripId]}
-                                            </a>
-                                        </div>
-                                        </Col>
-                                        )
-                                })
-                            }
+
+                          {/* trip boxes */}
+                            {tripIds.map(tripId => {
+                              return (
+                                <Col lg={6} key={tripId}>
+                                  <div className="trip-card">
+                                    <a href={`/canvas/${this.state.trips[tripId]}`}>
+                                      <Image src="./imgs/yellow_house.png" thumbnail />
+                                      <h3>{this.state.trips[tripId].name}</h3>
+                                    </a>
+                                    <p>
+                                      {this.state.trips[tripId].description}
+                                    </p>
+                                    <p>
+                                      <strong>Start date:</strong> {this.state.trips[tripId].startDate}
+                                    </p>
+                                  </div>
+                                </Col>
+                              )
+                            })}
                     </Grid>
                 </div>
             )
@@ -75,3 +87,4 @@ export default class Timeline extends Component {
     )
   }
 }
+
