@@ -45,14 +45,14 @@ class Page extends Component {
   }
 
   moveElement(type, id, left, top) {
-
-
+    const selected = this.props.selected
     if(this.props.deleteMode) {
       let elementToDelete = {
         type: type,
         id: id,
       }
 
+      this.props.clearSelectedIfDeleted(type, id)
       this.props.deleteElement(elementToDelete)
     } else {
 
@@ -77,7 +77,6 @@ class Page extends Component {
   render() {
     const { connectDropTarget } = this.props
     const { elements } = this.props
-
 
     return connectDropTarget(
       <div style={styles}>
