@@ -64,7 +64,7 @@ export default class NavbarComponent extends Component {
       <Navbar>
         <Navbar.Header>
           <Navbar.Brand>
-            <a href="/">Voyagr</a>
+            <a href="/">voyagr</a>
           </Navbar.Brand>
         </Navbar.Header>
         { this.renderButtons() }

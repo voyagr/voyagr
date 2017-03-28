@@ -32,7 +32,7 @@ export default class App extends Component {
     return (
       <div>
         <Navbar />
-        <div>{ this.props.children }</div>
+        <div id="app">{ this.props.children }</div>
       </div>
     )
   }

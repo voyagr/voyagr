@@ -6,7 +6,6 @@ import { createTextBox, addAPhoto, setSize } from '../reducers/elements'
 import InviteUser from './InviteUser'
 import EditTextElement from './EditTextElement'
 import EditPhotoElement from './EditPhotoElement'
-// import makeRandomId from './utils/makeRandomId'
 
 class ToolBox extends Component {
 	constructor(props) {
@@ -119,7 +118,7 @@ class ToolBox extends Component {
 					<Button bsStyle="primary" bsSize="large" onClick={this.addNewTextBox}>Add text box</Button>
 				</ButtonToolbar>
 
-				<Accordion>
+				<Accordion id="toolbox">
 					<Panel header="Add Photo" eventKey="1">
 						{this.state.photos ?
 							//if the user has photos we will map over them

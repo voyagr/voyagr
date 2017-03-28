@@ -1,3 +1,87 @@
+body {
+  background-color: #CFD8DC; 
+  background-size: cover;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Josefin Slab', serif;
+  color: #212121
+}
+
+.btn {
+  background-color: #FFEE58;
+}
+.container {
+  width: 90%;
+  margin: auto;
+}
+
+.navbar {
+  background-color: #607D8B;
+  border-color: #607D8B;
+  margin: 0;
+  padding: 3px 0 10px 0;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, .5);
+}
+
+.navbar-default .navbar-nav>.active>a, 
+.navbar-default .navbar-nav>.active>a:focus, 
+.navbar-default .navbar-nav>.active>a:hover {
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, .5);
+    background-color: #F6F5F1;
+}
+
+.navbar-default .navbar-brand {
+  color: #FFFFFF;
+  font-family: 'Josefin Slab', serif;
+  font-size: 45px;
+  font-weight: 900;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: #000;
+  font-family: 'Josefin Slab', serif;
+  font-size: 14px;
+}
+
+.panel-group {
+  width: 50%;
+  margin: 10% auto;
+}
+
+.panel-default {
+  border-color: #607D8B;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, .5);
+}
+
+.panel-default > .panel-heading {
+  background-color: #607D8B;
+  border-color: #607D8B;
+  text-align: center;
+}
+
+.panel-title {
+  font-weight: 900;
+  font-size: 22px;
+  color: #000;
+}
+
+.panel-body {
+  background-color: #F6F5F1;
+}
+
+.trip-card {
+  background-color: #F6F5F1;
+  padding: 5px;
+  margin: 15px 0;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, .5);
+}
+
+input > .formControlsFile {
+    background-color: #FFEE58;
+}
+
 #photo-panel {
   display: flex;
   flex-wrap: wrap;
@@ -13,12 +97,13 @@
   display: block;
 }
 
-.container {
-  margin:0 0 0 0;
-}
-
 #deleteCheckbox {
   color: red;
+}
+
+#app {
+  margin: auto;
+  width: 80%;
 }
 
 #image-size-large {
@@ -39,3 +124,24 @@
 #imageSizeNative {
 
 }
+
+#toolbox{
+  margin: 2px 0;
+}
+
+#toolbox > .panel-default > .panel-heading {
+  background-color: #FFEE58;
+} 
+#toolbox > h4 > .panel-title > a {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 14px;
+}
+
+.dark-primary-color    { background: #455A64; }
+.default-primary-color { background: #607D8B; }
+.light-primary-color   { background: #CFD8DC; }
+.text-primary-color    { color: #FFFFFF; }
+.accent-color          { background: #FFEE58; }
+.primary-text-color    { color: #212121; }
+.secondary-text-color  { color: #757575; }
+.divider-color         { border-color: #BDBDBD; }
