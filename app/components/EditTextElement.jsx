@@ -15,7 +15,7 @@ class EditElement extends Component {
   handleBackgroundChange (event) {
     console.log(event.target)
 
-    if (!event.target.value) console.log("nobackground")
+    if (!event.target.value) event.target.value = "none"
 
     let elementToUpdate = {
       id: this.props.elementId,
@@ -46,11 +46,11 @@ class EditElement extends Component {
 
         <hr />
         <ControlLabel>Select a new background color</ControlLabel>
-        <input onChange={this.handleBackgroundChange} type="color" value={this.props.selectedElement.background} />
+        <input onChange={this.handleBackgroundChange} type="color" />
         <Button onClick={this.handleBackgroundChange}>No background</Button>
         <hr />
         <ControlLabel>Select a new text color</ControlLabel>
-        <input onChange={this.handleColorChange} type="color" value={this.props.selectedElement.color} />
+        <input onChange={this.handleColorChange} type="color" />
 
       </FormGroup>
 
