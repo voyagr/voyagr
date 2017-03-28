@@ -83,25 +83,25 @@ export default class Suitcase extends Component {
 	handleSubmit(e) {
 		e.preventDefault()
 		if (this.state.image) {
-		let imageRef = storageRef.child(auth.currentUser.uid + '/' + this.state.image.name)
-		imageRef.put(this.state.image)
-						.then(snapshot => {
-								const user = auth.currentUser.uid
-								//creates reference to folder in db for all photos belonging to user
-								const userPhotosRef = database.ref(`photos/${user}`)
-								//pushes an object with a unique key and download url as value for photo
-								const newPhotoKey = userPhotosRef.push(snapshot.downloadURL).key
+			let imageRef = storageRef.child(auth.currentUser.uid + '/' + this.state.image.name)
+			imageRef.put(this.state.image)
+							.then(snapshot => {
+									const user = auth.currentUser.uid
+									//creates reference to folder in db for all photos belonging to user
+									const userPhotosRef = database.ref(`photos/${user}`)
+									//pushes an object with a unique key and download url as value for photo
+									const newPhotoKey = userPhotosRef.push(snapshot.downloadURL).key
 
-								if (this.state.selectedTrip) {
-									database
-										.ref(`tripPhotos/${this.state.selectedTrip}`)
-										.update({
-											[newPhotoKey]: snapshot.downloadURL
-										})
-								}
-						})
-						.then(() => this.setState({ showSuccessAlert: true })) //this is where we need to add the push to db
-						.catch(err => this.setState({ showInvalidAlert: true, error: err }))
+									if (this.state.selectedTrip) {
+										database
+											.ref(`tripPhotos/${this.state.selectedTrip}`)
+											.update({
+												[newPhotoKey]: snapshot.downloadURL
+											})
+									}
+							})
+							.then(() => this.setState({ showSuccessAlert: true })) //this is where we need to add the push to db
+							.catch(err => this.setState({ showInvalidAlert: true, error: err }))
 		} else this.setState({
 			showInvalidAlert: true,
 			err: 'Please choose a file to upload.'
