@@ -1,5 +1,5 @@
 body {
-  background: url("./imgs/paper_texture.jpg"); 
+  background: url("./imgs/paper_texture.jpg");
   background-size: cover;
   font-family: 'Josefin Slab', serif;
 }
@@ -97,4 +97,15 @@ body {
 
 #imageSizeNative {
 
+}
+
+#canvas-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: auto 0;
+}
+
+/*Styling for View Mode!*/
+#canvas-wrapper .col-lg-10 {
+  width: 950px;
 }

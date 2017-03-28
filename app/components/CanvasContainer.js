@@ -63,8 +63,7 @@ export default class CanvasContainer extends Component {
   renderView() {
     return this.state.editable ?
     //render this if editable is true
-      <Grid>
-        <Col lg={4}>
+        <Col lg={2}>
           <ToolBox
             tripInfo={this.state.tripInfo}
             tripInfoRef={this.state.tripInfoRef}
@@ -72,17 +71,9 @@ export default class CanvasContainer extends Component {
             tripId={this.props.params.tripId}
           />
         </Col>
-        <Col lg={8}>
-          <Canvas editable={this.state.editable} selectElement={this.selectElement}/>
-        </Col>
-      </Grid>
 
     //render this if editable is false
-    : <Grid>
-        <Col lg={8}>
-          <Canvas editable={this.state.editable} />
-        </Col>
-      </Grid>
+    : null
   }
 
   render () {
@@ -101,7 +92,12 @@ export default class CanvasContainer extends Component {
           : null
         }
         <Provider store={this.state.store}>
-          {this.renderView()}
+          <Grid id="canvas-wrapper">
+            {this.renderView()}
+            <Col lg={10}>
+              <Canvas editable={this.state.editable} />
+            </Col>
+          </Grid>
         </Provider>
       </div>
     )
