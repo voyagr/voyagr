@@ -1,3 +1,6 @@
+//test if the correct entry was made in the db
+//test if video is working
+
 import React, {Component} from 'react'
 import {storage, storageRef, auth, database} from 'APP/db/firebase'
 import { Alert, Button, ControlLabel, Form, FormControl, FormGroup, Radio } from 'react-bootstrap'
@@ -140,7 +143,7 @@ export default class Suitcase extends Component {
             accept=".gif, .jpg, .png, .mp3, .mp4, .mov"
           />
           <p className="help-block">
-            File types supported: .jpg, .png, .gif, .mp4, .mov, .mp3
+            Media supported: .jpg, .png, .gif, .mp4, .mov, .mp3
           </p>
           {this.state.showInvalidAlert ? this.handleFailedUpload(this.state.err) : null}
           {this.state.showSuccessAlert ? this.handleSuccessUpload() : null}
