@@ -17,13 +17,17 @@ export default class Timeline extends Component {
 
   componentWillMount () {
     this.unsubscribe = auth.onAuthStateChanged((user) => {
+      // set current user
       this.setState({ user: user, displayName: user.displayName })
+
+      // get the ids of that user's trips
       return database.ref('userTrips/' + user.uid)
       .on('value', snap => {
         let userTrips = snap.val()
         this.setState({tripIds: userTrips})
         let tripIds = Object.keys(userTrips)
-        // console.log('1', this.state.trips)
+
+        // get the info for that user's trips
         tripIds.map((tripId) => {
           return database.ref(`tripInfo/${tripId}`)
           .on('value', snap => {
@@ -44,6 +48,7 @@ export default class Timeline extends Component {
 
     renderItems() {
       const tripIds = Object.keys(this.state.trips)
+      const trips = this.state.trips
 
         if (this.state.user) {
             return (
@@ -61,13 +66,13 @@ export default class Timeline extends Component {
                                   <div className="trip-card">
                                     <a href={`/canvas/${this.state.trips[tripId]}`}>
                                       <Image src="./imgs/yellow_house.png" thumbnail />
-                                      <h3>{this.state.trips[tripId].name}</h3>
+                                      <h3>{trips[tripId].name}</h3>
                                     </a>
                                     <p>
-                                      {this.state.trips[tripId].description}
+                                      {trips[tripId].description}
                                     </p>
                                     <p>
-                                      <strong>Start date:</strong> {this.state.trips[tripId].startDate}
+                                      <strong>Start date:</strong> {trips[tripId].startDate}
                                     </p>
                                   </div>
                                 </Col>
