@@ -26,7 +26,9 @@ export default class Timeline extends Component {
       return database.ref(`userTrips/${user.uid}`)
       .on('value', snap => {
         let userTrips = snap.val()
-        if (userTrips) { let tripIds = Object.keys(userTrips) }
+        let tripIds
+
+        if (userTrips) { tripIds = Object.keys(userTrips) }
         else { return }
 
         // get the info for that user's trips
