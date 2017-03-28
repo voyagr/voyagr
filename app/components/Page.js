@@ -75,7 +75,6 @@ class Page extends Component {
   }
 
   render() {
-    console.log('PROPS IN PAGE', this.props)
     const { connectDropTarget } = this.props
     const { elements } = this.props
 
