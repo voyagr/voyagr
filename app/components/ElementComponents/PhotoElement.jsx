@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import shouldPureComponentUpdate from './utils/shouldPureComponentUpdate'
+import shouldPureComponentUpdate from '../utils/shouldPureComponentUpdate'
 
 class PhotoElement extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate;

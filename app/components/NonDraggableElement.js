@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { DragSource } from 'react-dnd';
 import { connect } from 'react-redux'
-import TextElement from './TextElement';
-import PhotoElement from './PhotoElement'
+import TextElement from './ElementComponents/TextElement';
+import PhotoElement from './ElementComponents/PhotoElement'
 
 function getStyles(props) {
   const { left, top, isDragging } = props;

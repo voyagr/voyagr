@@ -2,9 +2,13 @@
 const initialState = {
   textBox: {
     1: { top: 20, left: 80, size: 'large', text: 'My vacay memories', background: '#51b6ea', color: '#000000' },
-    2: { top: 100, left: 120, size: 'small', text: 'note to self', background: '#51b6ea', color: '#000000' } },
+    2: { top: 100, left: 120, size: 'small', text: 'note to self', background: '#51b6ea', color: '#000000' }
+  },
   photo: {
     1: {top: 200, left: 200, size: "small", source: "http://placehold.it/300/09f/fff.png"}
+  },
+  video: {
+    3: {top: 300, left: 300, size: "small", source: "placeholder"}
   }
 }
 
@@ -30,6 +34,10 @@ const reducer = (state = initialState, action) => {
     case 'ADD_A_PHOTO':
       id = Object.keys(action.photo)[0]
       newState.photo[id] = action.photo[id]
+      break;
+
+    case 'ADD_A_VIDEO':
+      newState.video[action.video.id] = action.video[action.video.id]
       break;
 
     case 'EDIT_TEXT':
@@ -110,5 +118,10 @@ export const deleteElement = (elementToDelete) => {
     elementToDelete,
   }
 }
+
+export const addAVideo = video => ({
+  type: "ADD_A_VIDEO",
+  video
+})
 
 export default reducer

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import TextElement from './TextElement';
-import PhotoElement from './PhotoElement'
+import TextElement from './ElementComponents/TextElement';
+import PhotoElement from './ElementComponents/PhotoElement'
 
 const styles = {
   display: 'inline-block',
