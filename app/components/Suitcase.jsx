@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {storage, storageRef, auth, database} from 'APP/db/firebase'
-import {Button, ControlLabel, Form, FormControl, FormGroup } from 'react-bootstrap'
+import { Alert, Button, ControlLabel, Form, FormControl, FormGroup } from 'react-bootstrap'
 
 export default class Suitcase extends Component {
 	constructor () {
@@ -8,7 +8,12 @@ export default class Suitcase extends Component {
 		this.state = {
 			image: null,
 			selectedTrip: null,
+			showInvalidAlert: false,
+			showSuccessAlert: false,
+			err: null
 		}
+		this.handleFailedUpload = this.handleFailedUpload.bind(this)
+		this.handleSuccessUpload = this.handleSuccessUpload.bind(this)
 	}
 
 	componentDidMount () {
@@ -48,14 +53,36 @@ export default class Suitcase extends Component {
 	handleUploadChange (e) {
 		e.preventDefault()
 		this.state.image = e.target.files[0]
+		this.setState({
+			showInvalidAlert: false,
+			showSuccessAlert: false,
+			err: null
+		})
 	}
 
 	handleTripChange (e) {
 		this.state.selectedTrip = e.target.value
 	}
 
+	handleFailedUpload (err) {
+		return (
+			<Alert bsStyle="danger">
+				<p>{err}</p>
+			</Alert>
+		)
+	}
+
+	handleSuccessUpload () {
+		return (
+			<Alert bsStyle="success">
+				<p>Upload successful.</p>
+			</Alert>
+		)
+	}
+
 	handleSubmit(e) {
 		e.preventDefault()
+		if (this.state.image) {
 		let imageRef = storageRef.child(auth.currentUser.uid + '/' + this.state.image.name)
 		imageRef.put(this.state.image)
 						.then(snapshot => {
@@ -73,8 +100,12 @@ export default class Suitcase extends Component {
 										})
 								}
 						})
-						.then(() => alert("Your image is now in our database FOREVER")) //this is where we need to add the push to db
-						.catch(err => alert(`YOU HAVE MADE A GRIEVOUS ERROR!!! Error: ${err}`))
+						.then(() => this.setState({ showSuccessAlert: true })) //this is where we need to add the push to db
+						.catch(err => this.setState({ showInvalidAlert: true, error: err }))
+		} else this.setState({
+			showInvalidAlert: true,
+			err: 'Please choose a file to upload.'
+		})
 	}
 
 	render () {
@@ -100,6 +131,8 @@ export default class Suitcase extends Component {
 					<p className="help-block">
 						Media supported: .jpg, .png, .gif, .mp4, .mov, .mp3
 					</p>
+					{this.state.showInvalidAlert ? this.handleFailedUpload(this.state.err) : null}
+					{this.state.showSuccessAlert ? this.handleSuccessUpload() : null}
 
 					{/* trip selector */}
 					<ControlLabel>Add to trip (optional)</ControlLabel>
