@@ -61,6 +61,7 @@ export default class InviteUser extends Component {
 	render () {
 		return (
 			<div>
+				<h4>Invite To Edit</h4>
 				<Form horizontal onSubmit={this.handleSubmit}>
 					<FormGroup controlId="email">
 						<Col componentClass={ControlLabel} sm={3}>

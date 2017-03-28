@@ -15,18 +15,19 @@ export default class App extends Component {
 
   }
 
-  componentDidMount () {
-    this.unsubscribe = auth.onAuthStateChanged(function(user) {
-      if (!user) auth.signInAnonymously()
-      .catch(error => {
-        console.log('ERROR', error.code, error.message)
-      })
-    })
-  }
+  // componentDidMount () {
+  //   anonymous user sign in, to possibly be implemented in the future
+  //   this.unsubscribe = auth.onAuthStateChanged(function(user) {
+  //     if (!user) auth.signInAnonymously()
+  //     .catch(error => {
+  //       console.log('ERROR', error.code, error.message)
+  //     })
+  //   })
+  // }
 
-  componentWillUnmount () {
-    this.unsubscribe()
-  }
+  // componentWillUnmount () {
+  //   this.unsubscribe()
+  // }
 
   render() {
     return (

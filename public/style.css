@@ -81,10 +81,6 @@ h1, h2, h3 {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, .5);
 }
 
-.form-inline > input > .formControlsFile {
-    background-color: #FFF176;
-}
-
 #photo-panel {
   display: flex;
   flex-wrap: wrap;
