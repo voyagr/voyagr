@@ -20,6 +20,7 @@ export default class CanvasContainer extends Component {
       store: null,
       editable: false,
       userId: null,
+      canEdit: false,
     }
 
     this.selectElement = this.selectElement.bind(this)
@@ -45,7 +46,9 @@ export default class CanvasContainer extends Component {
   componentWillMount () {
     const tripId = this.props.params.tripId
     const tripActionsRef = database.ref(`tripActions/${tripId}`)
+    const tripUsersRef = database.ref(`tripUsers/${tripId}`)
 
+    //replays the actions from the Firebase db to get to 'current state'
     this.setState({
       store: store(tripActionsRef),
       tripInfoRef: database.ref(`tripInfo/${tripId}`)
@@ -55,27 +58,38 @@ export default class CanvasContainer extends Component {
         }))
     })
 
+    //sets a current user listener from Firebase auth
     this.unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        console.log('USER in will mount', user.uid)
-        // this.setState({user: user.uid})
-        this.setState({userId: user.uid})
+        //set user id on state for rendring the edit/view button
+        this.setState({
+          userId: user.uid,
+        })
+        //get the object of users that belong to this trip from Firebase db
+        tripUsersRef.on('value', (snap) => {
+          let tripUsers = snap.val()
+          //get an array of values from the tripUsers object
+          let isCollaborator = Object.values(tripUsers).includes(user.uid)
+          //if current user is in the array, then they can edit, else they can't
+          this.setState({
+            editable: isCollaborator,
+            canEdit: isCollaborator,
+          })
+        })
+      } else { //if there is no user or then they can't edit
+        this.setState({
+          userId: null,
+          editable: false,
+          canEdit: false,
+        })
       }
     })
-  }
-
-  componentWillReceiveProps () {
-
   }
 
   componentWillUnmount () {
     //add cleanup from auth.userChange listener
     this.unsubscribe()
   }
-
-  //add component will receive props, update store
-
-  //possibly add cleanup for component will unmount
 
   renderView() {
     return this.state.editable ?
@@ -94,7 +108,7 @@ export default class CanvasContainer extends Component {
   }
 
   renderEditButton() {
-    return this.user ?
+    return this.state.canEdit ?
                       (<Button onClick={this.toggleMode}>
                         {this.state.editable ? "View" : "Edit" }
                       </Button>)
@@ -102,8 +116,6 @@ export default class CanvasContainer extends Component {
   }
 
   render () {
-    console.log("editable", this.state.editable)
-    console.log("user", this.state.userId)
     if (!this.state) return null
     let tripInfo = this.state.tripInfo || null
     return (
