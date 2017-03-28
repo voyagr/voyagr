@@ -46,10 +46,10 @@ export default class Timeline extends Component {
                         <h3>Welcome, {this.state.displayName}. Here are your trips!</h3>
                         </Col>
                             { Object.keys(this.state.trips).map(tripId => {
-                                return (<Col lg={4} key={tripId} >
+                                return (<Col lg={6} key={tripId} >
                                         <div className="trip-card">
                                             <a href={`/canvas/${this.state.trips[tripId]}`}>
-                                            <Image src="./imgs/world_map1.jpg" thumbnail />
+                                            <Image src="./imgs/yellow_house.png" thumbnail />
                                             {this.state.trips[tripId]}
                                             </a>
                                         </div>    
