@@ -16,6 +16,7 @@ export default class App extends Component {
   }
 
   // componentDidMount () {
+  //   anonymous user sign in, to possibly be implemented in the future
   //   this.unsubscribe = auth.onAuthStateChanged(function(user) {
   //     if (!user) auth.signInAnonymously()
   //     .catch(error => {
