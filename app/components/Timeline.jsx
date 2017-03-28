@@ -94,7 +94,13 @@ export default class Timeline extends Component {
                       <Image src="./imgs/yellow_house.png" thumbnail />
                       <h3>{trips[tripId].name}</h3>
                     </a>
-
+                    {/* trip info */}
+                    <p>
+                      {trips[tripId].description}
+                    </p>
+                    <p>
+                      <strong>Start date:</strong> {trips[tripId].startDate}
+                    </p>
                     {/* delete button */}
                     <Button
                       bsStyle="danger"
@@ -104,15 +110,7 @@ export default class Timeline extends Component {
                     >
                       Delete trip
                     </Button>
-
-                    {/* trip info */}
-                    <p>
-                      {trips[tripId].description}
-                    </p>
-                    <p>
-                      <strong>Start date:</strong> {trips[tripId].startDate}
-                    </p>
-                  </div>
+                    </div>
                 </Col>
               )
             }) : 
