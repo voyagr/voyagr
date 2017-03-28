@@ -1,7 +1,12 @@
+//make a function that checks if user
+// then if that user belongs to this trip or vice versa
+//if both are true then render edit/view button, and tool bar, otherwise don't
+//set permissions to anyone can see but only owners can edit
+
 import React, { Component } from 'react'
 import Canvas from './Canvas'
 import { Provider } from 'react-redux'
-import { database , auth } from 'APP/db/firebase'
+import { database, auth } from 'APP/db/firebase'
 import store from 'APP/app/store'
 import ToolBox from './ToolBox'
 import { Grid, Col, Button } from 'react-bootstrap'
@@ -19,6 +24,7 @@ export default class CanvasContainer extends Component {
     this.selectElement = this.selectElement.bind(this)
     this.toggleMode = this.toggleMode.bind(this)
     this.renderView = this.renderView.bind(this)
+    this.renderEditButton = this.renderEditButton.bind(this)
   }
 
   toggleMode() {
@@ -46,6 +52,14 @@ export default class CanvasContainer extends Component {
       this.state.tripInfoRef.on('value', (snap) => this.setState({
           tripInfo: snap.val()
         }))
+    })
+
+    this.unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        console.log('USER in will mount', user.uid)
+        // this.setState({user: user.uid})
+        this.user = user.uid
+      }
     })
     //add a auth user listener
     //if user then check and see if the page belongs to them. Only display edit/view button if page belongs to them
@@ -76,14 +90,22 @@ export default class CanvasContainer extends Component {
     : null
   }
 
+  renderEditButton() {
+    return this.user ?
+                      (<Button onClick={this.toggleMode}>
+                        {this.state.editable ? "View" : "Edit" }
+                      </Button>)
+                     : null
+  }
+
   render () {
+    console.log("editable", this.state.editable)
+    console.log("user", this.user)
     if (!this.state) return null
     let tripInfo = this.state.tripInfo || null
     return (
       <div>
-        <Button onClick={this.toggleMode}>
-          {this.state.editable ? "View" : "Edit" }
-        </Button>
+        {this.renderEditButton()}
         {
           tripInfo ?
           <div>
