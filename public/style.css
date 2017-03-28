@@ -6,13 +6,31 @@ body {
 
 h1, h2, h3 {
   font-family: 'Josefin Slab', serif;
-  color: #212121
+  color: #212121;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #FFF176;
+    display: inline-block;
+    padding: 6px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #FFF176;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
 }
 
 .btn {
   background-color: #FFF176;
   border-color: #FFF176;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
+}
+
+.btn-danger {
+  color: #212121;
 }
 
 .container {

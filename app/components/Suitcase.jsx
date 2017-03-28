@@ -118,7 +118,8 @@ export default class Suitcase extends Component {
         <h2>Here is all your media!</h2>
         {/* upload form */}
         <Form inline onSubmit={this.handleSubmit.bind(this)}>
-          <ControlLabel>Upload files</ControlLabel>
+          <ControlLabel className="custom-file-upload">
+          Choose files
           <FormControl
             id="formControlsFile"
             type="file"
@@ -126,6 +127,7 @@ export default class Suitcase extends Component {
             onChange={this.handleUploadChange.bind(this)}
             accept=".gif, .jpg, .png, .mp3, .mp4, .mov"
           />
+          </ControlLabel>
           <p className="help-block">
             Media supported: .jpg, .png, .gif, .mp4, .mov, .mp3
           </p>
@@ -141,7 +143,7 @@ export default class Suitcase extends Component {
             }) : <option>You don't have any trips yet!</option> }
 
           </FormControl> <br />
-          <Button type="submit">Upload File(s)</Button>
+          <Button type="submit">Upload</Button>
         </Form>
 
         {/* media display */}
