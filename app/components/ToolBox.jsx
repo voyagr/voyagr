@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { auth, database } from 'APP/db/firebase'
 import { createTextBox, addAPhoto, setSize } from '../reducers/elements'
 import InviteUser from './InviteUser'
+import EditTextElement from './EditTextElement'
+import EditPhotoElement from './EditPhotoElement'
 
 class ToolBox extends Component {
 	constructor(props) {
@@ -17,7 +19,7 @@ class ToolBox extends Component {
 			startDate: '',
 		}
 
-		this.onClickListener = this.onClickListener.bind(this)
+		this.addNewTextBox = this.addNewTextBox.bind(this)
 		this.makeRandomId = this.makeRandomId.bind(this)
 		this.addPhoto = this.addPhoto.bind(this)
 		this.handleTripInfoSubmit = this.handleTripInfoSubmit.bind(this)
@@ -61,7 +63,7 @@ class ToolBox extends Component {
     this.props.setSize(elementToUpdateSize)
 	}
 
-	onClickListener (event) {
+	addNewTextBox (event) {
 		event.preventDefault()
 		let newTextBox = {
 			[this.makeRandomId()]: {
@@ -113,7 +115,7 @@ class ToolBox extends Component {
 			<div>
 
 				<ButtonToolbar>
-					<Button bsStyle="primary" bsSize="large" onClick={this.onClickListener}>Add text box</Button>
+					<Button bsStyle="primary" bsSize="large" onClick={this.addNewTextBox}>Add text box</Button>
 				</ButtonToolbar>
 
 				<Accordion>
@@ -184,20 +186,14 @@ class ToolBox extends Component {
 						{ this.props.selected ?
 							//if there is a selected item
 							<div>
-								<FormGroup controlId="formControlsSelect">
-						      <ControlLabel>Select Size</ControlLabel>
-						      <FormControl onChange={this.handleSizeChange} value={selectedElement.size} componentClass="select" placeholder="select">
-						        {
-						        //if the user selected an image we need to have a 4th
-						        //option for native size
-						        this.props.selected.type === "photo" ? <option value="native">Original Size</option>
-						        	: null }
-						        {/* Below are all the options that we will have for all element types*/}
-						        <option value="large">Large</option>
-						        <option value="medium">Medium</option>
-						        <option value="small">Small</option>
-						      </FormControl>
-						    </FormGroup>
+								{
+									//we will render out different components
+									//based off what different element is selected
+									this.props.selected.type === "photo" ?
+									<EditPhotoElement handleSizeChange={this.handleSizeChange} selectedElement={selectedElement}/>
+									: <EditTextElement elementId={this.props.selected.id}handleSizeChange={this.handleSizeChange} selectedElement={selectedElement}/>
+
+								}
 							</div>
 							//if there is no selected element
 							: <strong>Please pick an item to edit</strong>
