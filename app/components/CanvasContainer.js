@@ -1,5 +1,5 @@
 //make a function that checks if user
-// then if that user belongs to this trip or vice versa
+//then if that user belongs to this trip or vice versa
 //if both are true then render edit/view button, and tool bar, otherwise don't
 //set permissions to anyone can see but only owners can edit
 
@@ -18,7 +18,8 @@ export default class CanvasContainer extends Component {
     this.state = {
       selected: null,
       store: null,
-      editable: true,
+      editable: false,
+      userId: null,
     }
 
     this.selectElement = this.selectElement.bind(this)
@@ -58,16 +59,18 @@ export default class CanvasContainer extends Component {
       if (user) {
         console.log('USER in will mount', user.uid)
         // this.setState({user: user.uid})
-        this.user = user.uid
+        this.setState({userId: user.uid})
       }
     })
-    //add a auth user listener
-    //if user then check and see if the page belongs to them. Only display edit/view button if page belongs to them
-  //
+  }
+
+  componentWillReceiveProps () {
+
   }
 
   componentWillUnmount () {
     //add cleanup from auth.userChange listener
+    this.unsubscribe()
   }
 
   //add component will receive props, update store
@@ -100,7 +103,7 @@ export default class CanvasContainer extends Component {
 
   render () {
     console.log("editable", this.state.editable)
-    console.log("user", this.user)
+    console.log("user", this.state.userId)
     if (!this.state) return null
     let tripInfo = this.state.tripInfo || null
     return (
@@ -117,7 +120,7 @@ export default class CanvasContainer extends Component {
           <Grid id="canvas-wrapper">
             {this.renderView()}
             <Col lg={10}>
-              <Canvas editable={this.state.editable} />
+              <Canvas editable={this.state.editable} selectElement={this.selectElement}/>
             </Col>
           </Grid>
         </Provider>
