@@ -104,7 +104,7 @@ export default class CanvasContainer extends Component {
   renderView() {
     return this.state.editable ?
     //render this if editable is true
-        <Col lg={3}>
+        <Col lg={2}>
           <ToolBox
             tripInfo={this.state.tripInfo}
             tripInfoRef={this.state.tripInfoRef}
@@ -136,7 +136,7 @@ export default class CanvasContainer extends Component {
           {
             tripInfo ?
             <div>
-              <h1>{`${tripInfo.name}, ${tripInfo.description}, ${tripInfo.startDate}`}</h1>
+              <h2>{`${tripInfo.name}, ${tripInfo.description}, ${tripInfo.startDate}`}</h2>
             </div>
             : null
           }
@@ -145,7 +145,7 @@ export default class CanvasContainer extends Component {
         <Provider store={this.state.store}>
           <Grid id="canvas-wrapper">
             {this.renderView()}
-            <Col lg={9}>
+            <Col lg={10}>
               <Canvas editable={this.state.editable}
                       selectElement={this.selectElement}
                       clearSelectedIfDeleted={this.clearSelectedIfDeleted} />
