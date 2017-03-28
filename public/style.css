@@ -161,6 +161,10 @@ h1, h2, h3 {
 #toolbox > .panel-default > .panel-heading > .panel-title {
   font-size: 14px;
 }
+
+#drag-canvas {
+  border-color: #757575;
+}
 .dark-primary-color    { background: #455A64; }
 .default-primary-color { background: #607D8B; }
 .light-primary-color   { background: #CFD8DC; }
