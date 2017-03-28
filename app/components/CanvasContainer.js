@@ -47,9 +47,7 @@ export default class CanvasContainer extends Component {
   //otherwise there is a bug when you delete the currently selected element
   clearSelectedIfDeleted (type, id) {
     const selected = this.state.selected
-    console.log('CLEARING SELECTED IF DELETED')
     if (type === selected.type && id === selected.id) {
-      console.log('CLEARING SELECTED')
       this.setState({ selected: null })
     }
   }
