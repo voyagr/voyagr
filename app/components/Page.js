@@ -46,7 +46,6 @@ class Page extends Component {
 
   moveElement(type, id, left, top) {
 
-    this.props.selectElement(type, id)
 
     if(this.props.deleteMode) {
       let elementToDelete = {
@@ -56,6 +55,8 @@ class Page extends Component {
 
       this.props.deleteElement(elementToDelete)
     } else {
+
+      this.props.selectElement(type, id)
 
       let elementUpdate = {
         type: type,

@@ -1,8 +1,8 @@
 
 const initialState = {
   textBox: {
-    1: { top: 20, left: 80, size: 'large', text: 'My vacay memories', background: 'brown', color: 'pink' },
-    2: { top: 100, left: 120, size: 'small', text: 'note to self', background: 'white', color: 'blue' } },
+    1: { top: 20, left: 80, size: 'large', text: 'My vacay memories', background: '#51b6ea', color: '#000000' },
+    2: { top: 100, left: 120, size: 'small', text: 'note to self', background: '#51b6ea', color: '#000000' } },
   photo: {
     1: {top: 200, left: 200, size: "small", source: "http://placehold.it/300/09f/fff.png"}
   }
@@ -37,6 +37,14 @@ const reducer = (state = initialState, action) => {
       newState.textBox[id].text = action.updatedText[id].text
       break;
 
+    case 'EDIT_BACKGROUND_COLOR':
+      newState.textBox[action.elementUpdate.id].background = action.elementUpdate.background
+      break;
+
+    case 'EDIT_TEXT_COLOR':
+      newState.textBox[action.elementUpdate.id].color = action.elementUpdate.color
+      break;
+
     case 'DELETE_ELEMENT':
       delete newState[action.elementToDelete.type][action.elementToDelete.id]
       break;
@@ -54,6 +62,7 @@ export const setElementXY = (elementUpdate) => {
     elementUpdate, // { id: 1, type: textBox, x: 101, y: 302 }
   }
 }
+
 
 export const setSize = (elementUpdateSize) => {
   return {
@@ -73,6 +82,20 @@ export const editText = (updatedText) => {
   return {
     type: 'EDIT_TEXT',
     updatedText,
+  }
+}
+
+export const editBackgroundColor = (elementUpdate) => {
+  return {
+    type: 'EDIT_BACKGROUND_COLOR',
+    elementUpdate
+  }
+}
+
+export const editTextColor = (elementUpdate) => {
+  return {
+    type: 'EDIT_TEXT_COLOR',
+    elementUpdate
   }
 }
 
