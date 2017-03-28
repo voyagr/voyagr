@@ -122,6 +122,7 @@ class ToolBox extends Component {
 							//and display them all
 							<div id="photo-panel">
 								{keys ? keys.map(photoKey => {
+									console.log(this.state)
 									return (
 									  <div className="drawer-photo" key={photoKey}>
 										  <img src={this.state.photos[photoKey]} />
