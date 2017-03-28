@@ -88,8 +88,8 @@ export default class Suitcase extends Component {
 				<h2>Here is all your media!</h2>
 
 				{/* upload form */}
-				<Form horizontal onSubmit={this.handleSubmit.bind(this)}>
-					<ControlLabel>Upload files</ControlLabel>
+				<Form inline onSubmit={this.handleSubmit.bind(this)}>
+					<ControlLabel id="upload">Upload files</ControlLabel>
 					<FormControl
 						id="formControlsFile"
 						type="file"
@@ -102,8 +102,8 @@ export default class Suitcase extends Component {
 					</p>
 
 					{/* trip selector */}
-					<ControlLabel>Add to trip (optional)</ControlLabel>
-					<FormControl componentClass="select" multiple onChange={this.handleTripChange.bind(this)}>
+					<ControlLabel>Add to trip (optional)</ControlLabel> <br />
+					<FormControl componentClass="select" onChange={this.handleTripChange.bind(this)}>
 
 						{trips ? tripIds.map((tripId, idx) => {
 							return (
@@ -112,7 +112,7 @@ export default class Suitcase extends Component {
 						}) : <option>You don't have any trips yet!</option> }
 
 					</FormControl>
-
+					<br />
 					<Button type="submit">Upload File(s)</Button>
 				</Form>
 
