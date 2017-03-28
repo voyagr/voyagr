@@ -39,7 +39,6 @@ class Canvas extends Component {
   }
 
   render() {
-    console.log('PROPS IN CANVAS', this.props)
     const { snapToGridAfterDrop, snapToGridWhileDragging, deleteMode } = this.state;
 
     return (
