@@ -1,19 +1,21 @@
 import React, {Component} from 'react'
 import {storage, storageRef, auth, database} from 'APP/db/firebase'
-import { Alert, Button, ControlLabel, Form, FormControl, FormGroup } from 'react-bootstrap'
+import { Alert, Button, ControlLabel, Form, FormControl, FormGroup, Radio } from 'react-bootstrap'
 
 export default class Suitcase extends Component {
   constructor () {
     super()
     this.state = {
       image: null,
+      mediaType: null,
       selectedTrip: null,
       showInvalidAlert: false,
       showSuccessAlert: false,
-      err: null
+      err: null,
     }
     this.handleFailedUpload = this.handleFailedUpload.bind(this)
     this.handleSuccessUpload = this.handleSuccessUpload.bind(this)
+    this.handleMediaTypeChange = this.handleMediaTypeChange.bind(this)
   }
 
   componentDidMount () {
@@ -32,19 +34,22 @@ export default class Suitcase extends Component {
               trips: snapshot.val(),
             })
 
-            const tripIds = Object.keys(snapshot.val())
+            let tripIds
+            if (snapshot.val()) {
+              tripIds = Object.keys(snapshot.val())
 
-            // get trip names into an obj on the state
-            // { tripId: tripName }
-            let tripNames = {}
-            tripIds.map(tripId => {
-              database
-                .ref(`tripInfo/${tripId}/name`)
-                .on('value', (snapshot) => {
-                  tripNames[tripId] = snapshot.val()
-                  this.setState({ tripNames: tripNames })
-                })
-            })
+              // get trip names into an obj on the state
+              // { tripId: tripName }
+              let tripNames = {}
+              tripIds.map(tripId => {
+                database
+                  .ref(`tripInfo/${tripId}/name`)
+                  .on('value', (snapshot) => {
+                    tripNames[tripId] = snapshot.val()
+                    this.setState({ tripNames: tripNames })
+                  })
+              })
+            }
           })
       }
     })
@@ -58,6 +63,12 @@ export default class Suitcase extends Component {
       showSuccessAlert: false,
       err: null
     })
+  }
+
+  handleMediaTypeChange (e) {
+    e.preventDefault()
+    const mediaType = e.target.value
+    this.setState({mediaType})
   }
 
   handleTripChange (e) {
@@ -129,10 +140,26 @@ export default class Suitcase extends Component {
             accept=".gif, .jpg, .png, .mp3, .mp4, .mov"
           />
           <p className="help-block">
-            Media supported: .jpg, .png, .gif, .mp4, .mov, .mp3
+            File types supported: .jpg, .png, .gif, .mp4, .mov, .mp3
           </p>
           {this.state.showInvalidAlert ? this.handleFailedUpload(this.state.err) : null}
           {this.state.showSuccessAlert ? this.handleSuccessUpload() : null}
+
+        {/*  media type select */}
+            <ControlLabel>Media Type</ControlLabel>
+            <FormControl
+              id="formControlsMediaType"
+              componentClass="select"
+              placeholder="select"
+              onChange={this.handleMediaTypeChange}
+            >
+              <option value="select">select one</option>
+              <option value="video">video</option>
+              <option value="image">image</option>
+            </FormControl>
+                <p className="help-block">
+            File Types Supported: Video, Pictures
+          </p>
 
           {/* trip selector */}
           <ControlLabel>Add to trip (optional)</ControlLabel>
