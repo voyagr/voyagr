@@ -40,41 +40,32 @@ export default class Timeline extends Component {
     this.unsubscribe()
   }
 
-  renderItems() {
-    // console.log(Object.keys(this.state.trips))
-
-    const tripIds = this.state.tripIds
-    // console.log(tripIds)
-    // console.log(this.state.trips)
-
-    if (this.state.user) {
-      return (
-        <div>
-          <h1>Timeline</h1>
-          <h3>Welcome, {this.state.displayName}. Here are your trips!</h3>
-          <Grid>
-            {Object.keys(this.state.trips).length > 0 ? console.log(this.state.trips) : console.log('wtf')}
-
-            { Object.keys(this.state.trips).map(tripId => {
-              return (
-                <Col lg={4} key={tripId} >
-                  <div className="trip-card">
-                    <a href={`/canvas/${this.state.trips[tripId]}`}>
-                    <Image src="./imgs/world_map1.jpg" thumbnail />
-                    {console.log(tripId)}
-                    <h3>{this.state.trips[tripId]}</h3>
-                    <strong></strong>
-                    </a>
-                  </div>
-                </Col>
-                )
-              })
-            }
-          </Grid>
-        </div>
-      )
+    renderItems() {
+        if (this.state.user) {
+            return (
+                <div>
+                    <Grid>
+                        <Col lg={12} >
+                        <h1>Timeline</h1>
+                        <h3>Welcome, {this.state.displayName}. Here are your trips!</h3>
+                        </Col>
+                            { Object.keys(this.state.trips).map(tripId => {
+                                return (<Col lg={6} key={tripId} >
+                                        <div className="trip-card">
+                                            <a href={`/canvas/${this.state.trips[tripId]}`}>
+                                            <Image src="./imgs/yellow_house.png" thumbnail />
+                                            {this.state.trips[tripId]}
+                                            </a>
+                                        </div>
+                                        </Col>
+                                        )
+                                })
+                            }
+                    </Grid>
+                </div>
+            )
+        }
     }
-  }
 
   render () {
     return (
