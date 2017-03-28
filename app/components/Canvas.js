@@ -40,7 +40,6 @@ class Canvas extends Component {
 
   render() {
     const { snapToGridAfterDrop, snapToGridWhileDragging, deleteMode } = this.state;
-
     return (
       <div>
         <Page snapToGrid={snapToGridAfterDrop}

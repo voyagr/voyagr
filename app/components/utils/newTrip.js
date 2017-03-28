@@ -20,6 +20,7 @@ export const startNewTrip = () => {
     .update(updates)
     .then(() => {
       browserHistory.push("/canvas/" + newTripKey)
+      location.reload()
     })
     .catch(console.error)
 }
