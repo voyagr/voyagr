@@ -6,7 +6,6 @@ import { createTextBox, addAPhoto, setSize } from '../reducers/elements'
 import InviteUser from './InviteUser'
 import EditTextElement from './EditTextElement'
 import EditPhotoElement from './EditPhotoElement'
-// import makeRandomId from './utils/makeRandomId'
 
 class ToolBox extends Component {
 	constructor(props) {
