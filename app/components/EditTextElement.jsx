@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { FormGroup, FormControl, ControlLabel} from 'react-bootstrap'
+import { FormGroup, FormControl, ControlLabel, Button} from 'react-bootstrap'
 import { editBackgroundColor, editTextColor } from '../reducers/elements'
 
 class EditElement extends Component {
@@ -13,6 +13,10 @@ class EditElement extends Component {
   }
 
   handleBackgroundChange (event) {
+    console.log(event.target)
+
+    if (!event.target.value) console.log("nobackground")
+
     let elementToUpdate = {
       id: this.props.elementId,
       background: event.target.value
@@ -43,6 +47,7 @@ class EditElement extends Component {
         <hr />
         <ControlLabel>Select a new background color</ControlLabel>
         <input onChange={this.handleBackgroundChange} type="color" value={this.props.selectedElement.background} />
+        <Button onClick={this.handleBackgroundChange}>No background</Button>
         <hr />
         <ControlLabel>Select a new text color</ControlLabel>
         <input onChange={this.handleColorChange} type="color" value={this.props.selectedElement.color} />
