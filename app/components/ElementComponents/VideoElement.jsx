@@ -10,14 +10,14 @@ class VideoElement extends Component {
   render() {
     console.log(this.props)
     return (
-      <Video id={`image-size-${this.props.video-size}`} autoPlay loop muted
+      <Video id={`image-size-${this.props.size}`} autoPlay loop muted
             controls={['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen']}
             // poster="http://sourceposter.jpg"
             onCanPlayThrough={() => {
                 // Do stuff
             }}>
             <source src={this.props.source} />
-            <track label="English" kind="subtitles" srcLang="en" src="http://source.vtt" default />
+            <track label="English" kind="subtitles" srcLang="en" default />
         </Video>
     )
   }

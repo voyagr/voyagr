@@ -8,7 +8,7 @@ const initialState = {
     1: {top: 200, left: 200, size: "small", source: "http://placehold.it/300/09f/fff.png"}
   },
   video: {
-    3: {top: 300, left: 300, size: "small", source: "placeholder"}
+    3: {top: 300, left: 300, size: "small", source: ""}
   }
 }
 
