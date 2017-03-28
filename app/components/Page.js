@@ -45,7 +45,6 @@ class Page extends Component {
   }
 
   moveElement(type, id, left, top) {
-    console.log('PROPS IN PAGE', this.props)
     const selected = this.props.selected
     if(this.props.deleteMode) {
       let elementToDelete = {
