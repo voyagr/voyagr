@@ -21,12 +21,6 @@ export default class LandingPage extends Component {
 
   componentDidMount () {
     document.getElementsByTagName("body")[0].style.backgroundImage = "url(./imgs/voyagr_landing.png)"
-    // this.unsubscribe = auth.onAuthStateChanged(function(user) {
-    //   if (!user) auth.signInAnonymously()
-    //   .catch(error => {
-    //     console.log('ERROR', error.code, error.message)
-    //   })
-    // })
   }
 
   componentWillUnmount () {
