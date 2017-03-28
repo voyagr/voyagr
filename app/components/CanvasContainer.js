@@ -27,6 +27,7 @@ export default class CanvasContainer extends Component {
     this.toggleMode = this.toggleMode.bind(this)
     this.renderView = this.renderView.bind(this)
     this.renderEditButton = this.renderEditButton.bind(this)
+    this.clearSelectedIfDeleted = this.clearSelectedIfDeleted.bind(this)
   }
 
   toggleMode() {
@@ -40,6 +41,17 @@ export default class CanvasContainer extends Component {
     this.setState({
       selected: {id: id, type: type}
     })
+  }
+
+  //this function gets passed down to Page so that selected is cleared before delete
+  //otherwise there is a bug when you delete the currently selected element
+  clearSelectedIfDeleted (type, id) {
+    const selected = this.state.selected
+    console.log('CLEARING SELECTED IF DELETED')
+    if (type === selected.type && id === selected.id) {
+      console.log('CLEARING SELECTED')
+      this.setState({ selected: null })
+    }
   }
 
   //when this component mounts, figure out the firebase path from params
@@ -132,7 +144,9 @@ export default class CanvasContainer extends Component {
           <Grid id="canvas-wrapper">
             {this.renderView()}
             <Col lg={10}>
-              <Canvas editable={this.state.editable} selectElement={this.selectElement}/>
+              <Canvas editable={this.state.editable}
+                      selectElement={this.selectElement}
+                      clearSelectedIfDeleted={this.clearSelectedIfDeleted} />
             </Col>
           </Grid>
         </Provider>

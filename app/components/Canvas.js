@@ -39,11 +39,16 @@ class Canvas extends Component {
   }
 
   render() {
+    console.log('PROPS IN CANVAS', this.props)
     const { snapToGridAfterDrop, snapToGridWhileDragging, deleteMode } = this.state;
 
     return (
       <div>
-        <Page snapToGrid={snapToGridAfterDrop} selectElement={this.props.selectElement} deleteMode={deleteMode} editable={this.props.editable} />
+        <Page snapToGrid={snapToGridAfterDrop}
+              selectElement={this.props.selectElement}
+              deleteMode={deleteMode}
+              editable={this.props.editable}
+              clearSelectedIfDeleted={this.props.clearSelectedIfDeleted} />
           {this.props.editable ?
             (<div>
               <CustomDragLayer snapToGrid={snapToGridWhileDragging} />
