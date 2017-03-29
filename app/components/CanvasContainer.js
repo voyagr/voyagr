@@ -34,16 +34,20 @@ export default class CanvasContainer extends Component {
   componentWillMount () {
     const pageId = this.props.params.pageId,
           tripId = this.props.params.tripId,
-          tripActionsRef = database.ref(`pageActions/${pageId}`),
+          pageActionsRef = database.ref(`pageActions/${pageId}`),
           tripUsersRef = database.ref(`tripUsers/${tripId}`)
 
     //replays the actions from the Firebase db to get to 'current state'
     this.setState({
-      store: store(tripActionsRef),
-      tripInfoRef: database.ref(`tripInfo/${tripId}`)
+      store: store(pageActionsRef),
+      tripInfoRef: database.ref(`tripInfo/${tripId}`),
+      pageInfoRef: database.ref(`pageInfo/${pageId}`), //should be all set up for page info view/edit
     }, () => {
       this.state.tripInfoRef.on('value', (snap) => this.setState({
           tripInfo: snap.val()
+        }))
+      this.state.pageInfoRef.on('value', (snap) => this.setState({ //should be all set up for page info view/edit
+          pageInfo: snap.val()
         }))
     })
 
@@ -111,6 +115,8 @@ export default class CanvasContainer extends Component {
             tripInfoRef={this.state.tripInfoRef}
             selected={this.state.selected}
             tripId={this.props.params.tripId}
+            pageInfo={this.state.pageInfo} //should be all set up for page info view/edit
+            pageInfoRef={this.state.pageInfoRef} //should be all set up for page info view/edit
           />
         </Col>
 
@@ -127,8 +133,11 @@ export default class CanvasContainer extends Component {
   }
 
   render () {
+    console.log('state', this.state)
     if (!this.state) return null
     let tripInfo = this.state.tripInfo || null
+    let pageInfo = this.state.pageInfo || null //should be all set up for page info view/edit
+
     return (
       <div>
         <Grid id="canvas-header">
