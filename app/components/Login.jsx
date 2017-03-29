@@ -20,7 +20,7 @@ class Login extends Component {
   handleFailedLogin () {
     return (
       <Alert bsStyle="danger">
-        <p>Email and/or password is invalid.</p>
+        <h4>Email and/or password is invalid.</h4>
       </Alert>
     )
   }
@@ -77,10 +77,8 @@ class Login extends Component {
               </Button>
             </Col>
           </FormGroup>
-          <Col smOffset={3} sm={5}>
-            {this.state.showInvalidAlert ? this.handleFailedLogin() : null}
-          </Col>
         </Form>
+        {this.state.showInvalidAlert ? this.handleFailedLogin() : null}
       </div>
     )
   }

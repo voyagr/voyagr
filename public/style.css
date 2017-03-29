@@ -23,6 +23,10 @@ input[type="file"] {
     box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
 }
 
+.alert {
+  text-align: center;
+}
+
 .btn {
   background-color: #FFF176;
   border-color: #FFF176;

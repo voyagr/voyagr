@@ -56,7 +56,7 @@ class Signup extends Component {
 
   signUpConfirmation () {
     return (
-      <Alert bsStyle="success" style={{ textAlign: 'center', }}>
+      <Alert bsStyle="success">
         <h4>Please check your email for a link to validate your account.</h4>
       </Alert>
     )
@@ -64,7 +64,7 @@ class Signup extends Component {
 
   signUpErrorAlert () {
     return (
-      <Alert bsStyle="danger" style={{ textAlign: 'center', }}>
+      <Alert bsStyle="danger">
         <h4>{this.state.signUpError}</h4>
       </Alert>
     )
