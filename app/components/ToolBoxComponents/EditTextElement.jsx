@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { FormGroup, FormControl, ControlLabel, Button} from 'react-bootstrap'
-import { editBackgroundColor, editTextColor } from '../reducers/elements'
+import { editBackgroundColor, editTextColor } from '../../reducers/elements'
 
 class EditElement extends Component {
 

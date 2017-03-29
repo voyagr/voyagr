@@ -40,9 +40,6 @@ class Page extends Component {
 
   shouldComponentUpdate = shouldPureComponentUpdate;
 
-  constructor(props) {
-    super(props)
-  }
 
   moveElement(type, id, left, top) {
     const selected = this.props.selected

@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
-import { browserHistory } from 'react-router'
 import { Alert, Button, Col, ControlLabel, Form, FormControl, FormGroup, HelpBlock } from 'react-bootstrap'
-import { database } from 'APP/db/firebase'
-
 import { inviteUser } from 'APP/app/components/utils/inviteUser'
 
 export default class InviteUser extends Component {
