@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Col, Button } from 'react-bootstrap'
 import { auth } from 'APP/db/firebase'
 import { browserHistory } from 'react-router'
-import { provider } from '../../db/firebase'
+import { provider, fProvider } from '../../db/firebase'
 
 class OAuth extends Component {
 
@@ -33,18 +33,15 @@ class OAuth extends Component {
 
     facebookLogin () {
         auth
-        .getRedirectResult()
-        .then((result) => {
-            if (result.credential) {
-            // This gives you a Facebook Access Token. 
+            .signInWithRedirect(fProvider)
+            .then(function(result) {
+                // This gives you a Facebook Access Token.
                 var token = result.credential.accessToken
-            }
-            var user = result.user
-            browserHistory.push('/timeline')
-        })
-        .catch(function(error) {
-            console.error(error.code, error.message, error.email, error.credential)
-        });
+                var user = result.user
+                browserHistory.push('/timeline')
+            }).catch(function(error) {
+                console.error(error.code, error.message, error.email, error.credential)
+            });
     }
 
     render () {
