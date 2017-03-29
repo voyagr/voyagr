@@ -1,16 +1,16 @@
 //test if the correct entry was made in the db
 //test if video is working
 
-import React, {Component} from 'react'
-import {storage, storageRef, auth, database} from 'APP/db/firebase'
-import { Alert, Button, ControlLabel, Form, FormControl, FormGroup, Radio } from 'react-bootstrap'
+import React, { Component } from 'react'
+import { storageRef, auth, database } from 'APP/db/firebase'
+import { Alert, Button, ControlLabel, Form, FormControl } from 'react-bootstrap'
 
 export default class Suitcase extends Component {
 
   constructor () {
     super()
     this.state = {
-      image: null,
+      file: null,
       mediaType: null,
       selectedTrip: null,
       showInvalidAlert: false,
@@ -33,22 +33,22 @@ export default class Suitcase extends Component {
         // get user trip ids
         database
           .ref(`userTrips/${userId}`)
-          .on('value', (snapshot) => {
+          .on('value', (userTripsSnapshot) => {
             this.setState({
-              trips: snapshot.val(),
+              trips: userTripsSnapshot.val(),
             })
 
             let tripIds
-            if (snapshot.val()) {
-              tripIds = Object.keys(snapshot.val())
+            if (userTripsSnapshot.val()) {
+              tripIds = Object.keys(userTripsSnapshot.val())
               // get trip names into an obj on the state
               // { tripId: tripName }
               let tripNames = {}
               tripIds.map(tripId => {
                 database
                   .ref(`tripInfo/${tripId}/name`)
-                  .on('value', (snapshot) => {
-                    tripNames[tripId] = snapshot.val()
+                  .on('value', (tripInfoSnapshot) => {
+                    tripNames[tripId] = tripInfoSnapshot.val()
                     this.setState({ tripNames: tripNames })
                   })
               })
@@ -60,9 +60,10 @@ export default class Suitcase extends Component {
 
   handleUploadChange (e) {
     e.preventDefault()
+    //not sure why this was like this. Why can't we use the set state function?
     // this.state.image = e.target.files[0]
     this.setState({
-      image: e.target.files[0],
+      file: e.target.files[0],
       showInvalidAlert: false,
       showSuccessAlert: false,
       err: null
@@ -97,17 +98,17 @@ export default class Suitcase extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    if (this.state.image) {
-      const imageRef = storageRef.child(auth.currentUser.uid + '/' + this.state.image.name)
+    if (this.state.file) {
+      const fileRef = storageRef.child(auth.currentUser.uid + '/' + this.state.file.name)
       const mediaPlural = this.state.mediaType === 'video' ? 'Videos' : 'Photos'
-      imageRef.put(this.state.image)
+      fileRef.put(this.state.file)
               .then(snapshot => {
                   const user = auth.currentUser.uid
                   //creates reference to folder in db for all photos belonging to user
                   const userPhotosRef = database.ref(`${this.state.mediaType}s/${user}`)
                   //pushes an object with a unique key and download url as value for photo
                   const newPhotoKey = userPhotosRef.push(snapshot.downloadURL).key
-                  if (this.state.selectedTrip) {
+                  if (this.state.selectedTrip && this.state.selectedTrip !== 'select') {
                     database
                       .ref(`trip${mediaPlural}/${this.state.selectedTrip}`)
                       .update({
@@ -157,6 +158,7 @@ export default class Suitcase extends Component {
               componentClass="select"
               placeholder="select"
               onChange={this.handleMediaTypeChange}
+
             >
               <option value="select">select one</option>
               <option value="video">video</option>
@@ -168,7 +170,11 @@ export default class Suitcase extends Component {
 
           {/* trip selector */}
           <ControlLabel>Add to trip (optional)</ControlLabel> <br />
-          <FormControl componentClass="select" onChange={this.handleTripChange.bind(this)}>
+          <FormControl
+            componentClass="select"
+            onChange={this.handleTripChange.bind(this)}
+          >
+            <option value="select">select</option>
             {trips ? tripIds.map((tripId, idx) => {
               return (
                 <option key={idx} value={tripId}>{trips[tripId]}</option>
