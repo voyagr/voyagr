@@ -33,6 +33,28 @@ export default class CanvasContainer extends Component {
     this.addNewPage = this.addNewPage.bind(this)
   }
 
+  toggleMode() {
+    this.setState({
+      editable: !this.state.editable,
+    })
+  }
+
+  //this function is called from inside page when we move an element
+  selectElement (type, id, zIndex) {
+    this.setState({
+      selected: {id: id, type: type, zIndex: zIndex}
+    })
+  }
+
+  //this function gets passed down to Page so that selected is cleared before delete
+  //otherwise there is a bug when you delete the currently selected element
+  clearSelectedIfDeleted (type, id) {
+    const selected = this.state.selected
+    if (selected && type === selected.type && id === selected.id) {
+      this.setState({ selected: null })
+    }
+  }
+
   //when this component mounts, figure out the firebase path from params
   componentWillMount () {
     const pageId = this.props.params.pageId,

@@ -8,8 +8,8 @@ import whatTypeElementToRender from './utils/whatTypeElementToRender'
 
 const elementSource = {
   beginDrag(props) {
-    const { size, text, left, top, id, type, source, background, color } = props;
-    return { size, text, left, top, id, type, source, background, color };
+    const { size, text, left, top, id, type, source, background, color, zIndex } = props;
+    return { size, text, left, top, id, type, source, background, color, zIndex };
   },
 };
 
@@ -26,6 +26,7 @@ function getStyles(props) {
     // because IE will ignore our custom "empty image" drag preview.
     opacity: isDragging ? 0 : 1,
     height: isDragging ? 0 : '',
+    zIndex: props.zIndex,
   };
 }
 

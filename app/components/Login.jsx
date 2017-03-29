@@ -3,7 +3,7 @@ import { Alert, FormControl, FormGroup, ControlLabel, FieldGroup, Form, Col, But
 import { auth } from 'APP/db/firebase'
 import { browserHistory } from 'react-router'
 
-class Login extends Component {
+export default class Login extends Component {
   constructor () {
     super()
     this.state = Object.assign({}, {
@@ -14,40 +14,33 @@ class Login extends Component {
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleFailedLogin = this.handleFailedLogin.bind(this)
   }
 
   handleFailedLogin () {
     return (
       <Alert bsStyle="danger">
-        <p>Email and/or password is invalid.</p>
+        <h4>Email and/or password is invalid.</h4>
       </Alert>
     )
   }
 
-  handleChange(e) {
-    const value = e.target.value
-    const name = e.target.name
+  handleChange (e) {
     this.setState({
-      [name]: value,
-      showInvalidAlert: false
+      [e.target.name]: e.target.value,
+      showInvalidAlert: false,
     })
   }
 
-  handleSubmit(e) {
+  handleSubmit (e) {
     e.preventDefault()
-    auth //login
+    auth
       .signInWithEmailAndPassword(this.state.email, this.state.password)
+      // redirect to timeline on successful log in
       .then(() => browserHistory.push("/timeline"))
-      .catch(error => {
-        this.setState({ showInvalidAlert: true })
-        let errorCode = error.code
-        let errorMessage = error.message
-        console.log('ERROR', errorCode, errorMessage)
-      })
+      .catch(error => this.setState({ showInvalidAlert: true, }))
   }
 
-  render() {
+  render () {
     return (
       <div>
         <Form horizontal onSubmit={this.handleSubmit}>
@@ -77,13 +70,10 @@ class Login extends Component {
               </Button>
             </Col>
           </FormGroup>
-          <Col smOffset={3} sm={5}>
-            {this.state.showInvalidAlert ? this.handleFailedLogin() : null}
-          </Col>
         </Form>
+
+        {this.state.showInvalidAlert ? this.handleFailedLogin() : null}
       </div>
     )
   }
 }
-
-export default Login

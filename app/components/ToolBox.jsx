@@ -7,9 +7,9 @@ import { DefaultPlayer as Video} from 'react-html5video'
 //COMPONENTS
 import InviteUser from './ToolBoxComponents/InviteUser'
 import EditTextElement from './ToolBoxComponents/EditTextElement'
-import EditPhotoElement from './ToolBoxComponents/EditPhotoElement'
+import EditPhotoOrVideoElement from './ToolBoxComponents/EditPhotoOrVideoElement'
 //REDUCER
-import { createTextBox, addAPhoto, setSize, addAVideo } from '../reducers/elements'
+import { createTextBox, addAPhoto, setSize, addAVideo, setElementZIndex } from '../reducers/elements'
 
 class ToolBox extends Component {
 	constructor(props) {
@@ -31,12 +31,30 @@ class ToolBox extends Component {
 		this.handleTripInfoInput = this.handleTripInfoInput.bind(this)
 		this.handleSizeChange = this.handleSizeChange.bind(this)
 		this.addVideo = this.addVideo.bind(this)
+		this.handleDepth = this.handleDepth.bind(this)
 	}
 
   makeRandomId () {
 		return Math.floor((1 + Math.random()) * 0x10000)
 			.toString(16)
 			.substring(1);
+	}
+
+	handleDepth (event) {
+		//first we are checking if the selected item has a zIndex and
+		//if not set it to one
+		if (!this.props.selected.zIndex) this.props.selected.zIndex = 1
+		//Here we either add or reduce the zIndex
+		const newZIndex = event.target.value === "plus" ? ++this.props.selected.zIndex : --this.props.selected.zIndex
+
+		let elementToUpdate = {
+			id: this.props.selected.id,
+			type: this.props.selected.type,
+			zIndex: newZIndex,
+		}
+
+		//send this updated element into the reducer to update the state
+		this.props.setElementZIndex(elementToUpdate)
 	}
 
 	handleTripInfoSubmit (event) {
@@ -229,11 +247,15 @@ class ToolBox extends Component {
 								{
 									//we will render out different components
 									//based off what different element is selected
-									this.props.selected.type === "photo" ?
-									<EditPhotoElement handleSizeChange={this.handleSizeChange} selectedElement={selectedElement}/>
-									: <EditTextElement elementId={this.props.selected.id}handleSizeChange={this.handleSizeChange} selectedElement={selectedElement}/>
-
+									this.props.selected.type === "textBox" ?
+									<EditTextElement elementId={this.props.selected.id}handleSizeChange={this.handleSizeChange} selectedElement={selectedElement}/>
+									: <EditPhotoOrVideoElement handleSizeChange={this.handleSizeChange} selectedElement={selectedElement}/>
 								}
+								<hr/>
+								<strong>Depth</strong>
+								<br/>
+								<Button onClick={this.handleDepth} value="minus">-</Button>
+								<Button onClick={this.handleDepth} value="plus">+</Button>
 							</div>
 							//if there is no selected element
 							: <strong>Please pick an item to edit</strong>
@@ -252,4 +274,4 @@ class ToolBox extends Component {
 
 const mapStateToProps = state => state
 
-export default connect(mapStateToProps, { createTextBox, addAPhoto, setSize, addAVideo })(ToolBox)
+export default connect(mapStateToProps, { createTextBox, addAPhoto, setSize, addAVideo, setElementZIndex })(ToolBox)
