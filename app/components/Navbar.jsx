@@ -38,8 +38,6 @@ export default class NavbarComponent extends Component {
     }
 
     renderButtons () {
-      console.log(this.state.user)
-
       if (this.state.user && this.state.user.emailVerified) {
         return (
           <div>
