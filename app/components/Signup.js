@@ -10,8 +10,7 @@ class Signup extends Component {
       email: '',
       password: '',
       signUpSuccess: false,
-      weakPassowrd: false,
-      signUpError: null
+      signUpError: null,
     })
 
     this.handleChange = this.handleChange.bind(this)
@@ -23,7 +22,6 @@ class Signup extends Component {
     const name = e.target.name
     this.setState({
       [name]: value,
-      weakPassword: false,
       signUpError: null,
     });
   }
