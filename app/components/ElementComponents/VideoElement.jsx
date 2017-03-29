@@ -9,27 +9,13 @@ class VideoElement extends Component {
   render() {
     return (
       <Video id={`image-size-${this.props.size}`} autoPlay muted
-            controls={['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen']}
-            // poster="http://sourceposter.jpg"
-            onCanPlayThrough={() => {
-                // Do stuff
-            }}>
-            <source src={this.props.source} />
-            <track label="English" kind="subtitles" srcLang="en" default />
-        </Video>
+        controls={['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen']}>
+        <source src={this.props.source} />
+        <track label="English" kind="subtitles" srcLang="en" default />
+      </Video>
     )
   }
 }
-
-// <Video id={`image-size-${this.props.size}`} autoPlay loop muted
-//             controls={['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen']}
-//             // poster="http://sourceposter.jpg"
-//             onCanPlayThrough={() => {
-//                 // Do stuff
-//             }}>
-//             <source src={this.props.source} />
-//             <track label="English" kind="subtitles" srcLang="en" default />
-//         </Video>
 
 const mapStateToProps = state => state
 

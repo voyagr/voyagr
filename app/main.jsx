@@ -3,19 +3,13 @@
 import React from 'react'
 import {Router, Route, IndexRedirect, browserHistory} from 'react-router'
 import {render} from 'react-dom'
-import { Provider} from 'react-redux'
-import axios from 'axios'
-import { initialize, testFunction, ref } from '../db/firebase'
 
 // COMPONENTS
-import Signup from './components/Signup'
 import CanvasContainer from './components/CanvasContainer'
 import App from './components/App'
 import LandingPage from './components/LandingPage'
 import Timeline from './components/Timeline'
 import Suitcase from './components/Suitcase'
-import {setFirebaseRef} from './reducers/firebaseRef'
-import InviteUser from 'APP/app/components/InviteUser'
 
 render (
   <Router history={browserHistory}>
@@ -25,7 +19,6 @@ render (
         <Route path="/canvas/:tripId" component={CanvasContainer} />
       <Route path="/timeline" component={Timeline} />
       <Route path="/suitcase" component={Suitcase} />
-      <Route path="/invite" component={InviteUser} />
     </Route>
   </Router>,
   document.getElementById('main')

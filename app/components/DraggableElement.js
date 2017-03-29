@@ -3,9 +3,8 @@ import { DragSource } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import shouldPureComponentUpdate from './utils/shouldPureComponentUpdate';
 import ItemTypes from './utils/ItemTypes';
-import TextElement from './ElementComponents/TextElement';
-import PhotoElement from './ElementComponents/PhotoElement'
-import VideoElement from './ElementComponents/VideoElement'
+import whatTypeElementToRender from './utils/whatTypeElementToRender'
+
 
 const elementSource = {
   beginDrag(props) {
@@ -41,12 +40,6 @@ class DraggableElement extends Component {
     type: PropTypes.string.isRequired,
   };
 
-  constructor (props) {
-    super(props)
-
-    this.whatElementToRender = this.whatElementToRender.bind(this)
-  }
-
   shouldComponentUpdate = shouldPureComponentUpdate;
 
   componentDidMount() {
@@ -59,46 +52,15 @@ class DraggableElement extends Component {
     });
   }
 
-  whatElementToRender() {
-    //switch case based off of the element type,
-    //returns the proper element
-    const { text, connectDragSource, id, size, type, source } = this.props;
-    switch (this.props.type) {
-
-      case "textBox":
-        return (
-          <TextElement text={text} id={id} size={size} type={type} {...this.props}/>
-        );
-      case "photo":
-        return (
-          <PhotoElement id={id} size={size} source={source}/>
-        );
-      case "video":
-        return (
-          <VideoElement id={id} size={size} source={source}/>
-        );
-    }
-  }
-
   render() {
     const { text, connectDragSource, id, size, type, source } = this.props;
 
     return (
       connectDragSource(
         <div style={getStyles(this.props)}>
-          {this.whatElementToRender()}
+          {whatTypeElementToRender(this.props)}
         </div>,)
     )
-
-    // return connectDragSource(
-    //   <div style={getStyles(this.props)}>
-    //     {
-    //       this.props.type === "photo" ?
-    //         <PhotoElement id={id} size={size} source={source}/>
-    //         : <TextElement text={text} id={id} size={size} type={type} {...this.props}/>
-    //     }
-    //   </div>,
-    // );
   }
 }
 

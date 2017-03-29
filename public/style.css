@@ -118,10 +118,6 @@ input[type="file"] {
   color: red;
 }
 
-#video-panel {
-  max-width: 100px;
-}
-
 #app {
   margin: auto;
   width: 80%;

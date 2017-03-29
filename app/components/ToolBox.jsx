@@ -1,12 +1,15 @@
+//LIBRARIES
 import React, { Component } from 'react'
-import { ButtonToolbar, Button, Accordion, Panel, Form, FormGroup, FormControl, Col, ControlLabel } from 'react-bootstrap'
+import { Button, Accordion, Panel, Form, FormGroup, FormControl, Col, ControlLabel } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { auth, database } from 'APP/db/firebase'
-import { createTextBox, addAPhoto, setSize, addAVideo } from '../reducers/elements'
-import InviteUser from './InviteUser'
-import EditTextElement from './EditTextElement'
-import EditPhotoElement from './EditPhotoElement'
 import { DefaultPlayer as Video} from 'react-html5video'
+//COMPONENTS
+import InviteUser from './ToolBoxComponents/InviteUser'
+import EditTextElement from './ToolBoxComponents/EditTextElement'
+import EditPhotoElement from './ToolBoxComponents/EditPhotoElement'
+//REDUCER
+import { createTextBox, addAPhoto, setSize, addAVideo } from '../reducers/elements'
 
 class ToolBox extends Component {
 	constructor(props) {
@@ -167,7 +170,7 @@ class ToolBox extends Component {
 								{videoKeys ? videoKeys.map(videoKey => {
 										return (
 											<div key={videoKey}>
-												<Video id="video-panel" loop muted
+												<Video loop muted
 													controls={['PlayPause']}>
 													<source src={this.state.videos[videoKey]} type="video/webm" />
 												</Video>
