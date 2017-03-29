@@ -1,18 +1,18 @@
-
+//the comments below in the initialState are what the data will look like once pushed in.
 const initialState = {
   textBox: {
     /*
-    1: { top: 20, left: 80, size: 'large', text: 'My vacay memories', background: '#51b6ea', color: '#000000' },
-     2: { top: 100, left: 120, size: 'small', text: 'note to self', background: '#51b6ea', color: '#000000' }
+    uniqueId: { top: 20, left: 80, size: 'large', text: 'My vacay memories', background: '#51b6ea', color: '#000000' }
      */
   },
   photo: {
-    /* 1: {top: 200, left: 200, size: "small", source: "http://placehold.it/300/09f/fff.png"}
+    /* 
+    uniqueId: {top: 200, left: 200, size: "small", source: "http://placehold.it/300/09f/fff.png"}
     */
   },
   video: {
     /*
-    3: {top: 300, left: 300, size: "small", source: ""}
+    uniqueId: {top: 300, left: 300, size: "small", source: ""}
     */
   }
 }
