@@ -21,7 +21,7 @@ export default class EmailActions extends Component {
     // try to apply the email verification code.
     auth.applyActionCode(actionCode).then(resp => {
       // email address has been verified.
-      this.setState({ emailVerified: true })
+      this.setState({ emailVerified: true, })
     }).catch(error => console.error)
   }
 
@@ -74,13 +74,13 @@ export default class EmailActions extends Component {
   sendNewVerificationEmail () {
     console.log('test')
     auth.currentUser ? auth.currentUser.sendEmailVerification()
-      .then(() => this.setState({ newEmailSent: true }))
+      .then(() => this.setState({ newEmailSent: true, }))
       .catch(console.error) : null
   }
 
   newVerificationEmailSent () {
     return (
-      <div style={{ margin: '20px' }}>
+      <div style={{ margin: '20px', }}>
         <h4>Please check your email for a new confirmation link.</h4>
       </div>
     )
@@ -92,7 +92,7 @@ export default class EmailActions extends Component {
     else alertStyle='success'
 
     return (
-      <Alert bsStyle={alertStyle} style={{ margin: '100px', padding: '100px' }}>
+      <Alert bsStyle={alertStyle} style={{ margin: '100px', padding: '100px', }}>
         {this.state.emailVerified === false ? this.emailNotVerified() : this.emailVerified()}
         {this.state.newEmailSent ? this.newVerificationEmailSent() : null}
       </Alert>

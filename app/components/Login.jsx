@@ -3,7 +3,7 @@ import { Alert, FormControl, FormGroup, ControlLabel, FieldGroup, Form, Col, But
 import { auth } from 'APP/db/firebase'
 import { browserHistory } from 'react-router'
 
-class Login extends Component {
+export default class Login extends Component {
   constructor () {
     super()
     this.state = Object.assign({}, {
@@ -14,7 +14,6 @@ class Login extends Component {
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleFailedLogin = this.handleFailedLogin.bind(this)
   }
 
   handleFailedLogin () {
@@ -25,29 +24,29 @@ class Login extends Component {
     )
   }
 
-  handleChange(e) {
+  handleChange (e) {
     const value = e.target.value
     const name = e.target.name
     this.setState({
       [name]: value,
-      showInvalidAlert: false
+      showInvalidAlert: false,
     })
   }
 
-  handleSubmit(e) {
+  handleSubmit (e) {
     e.preventDefault()
     auth //login
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => browserHistory.push("/timeline"))
       .catch(error => {
-        this.setState({ showInvalidAlert: true })
+        this.setState({ showInvalidAlert: true, })
         let errorCode = error.code
         let errorMessage = error.message
         console.log('ERROR', errorCode, errorMessage)
       })
   }
 
-  render() {
+  render () {
     return (
       <div>
         <Form horizontal onSubmit={this.handleSubmit}>
@@ -83,5 +82,3 @@ class Login extends Component {
     )
   }
 }
-
-export default Login

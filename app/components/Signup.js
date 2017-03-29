@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Alert, FormControl, FormGroup, ControlLabel, FieldGroup, Form, Col, Button } from 'react-bootstrap'
 import { database, auth } from 'APP/db/firebase'
 
-class Signup extends Component {
-  constructor(){
+export default class Signup extends Component {
+  constructor () {
     super()
     this.state = Object.assign({}, {
       name: '',
@@ -17,22 +17,22 @@ class Signup extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleChange(e){
+  handleChange (e) {
     const value = e.target.value
     const name = e.target.name
     this.setState({
       [name]: value,
       signUpError: null,
-    });
+    })
   }
 
-  handleSubmit(e){
+  handleSubmit (e) {
     e.preventDefault()
     auth
     .createUserWithEmailAndPassword(this.state.email, this.state.password)
     .then(() => {
       auth.onAuthStateChanged((user) => {
-        this.setState({ signUpSuccess: true })
+        this.setState({ signUpSuccess: true, })
         if (user) {
           user.updateProfile({
             displayName: this.state.name,
@@ -50,7 +50,7 @@ class Signup extends Component {
         } else console.error('There is no user to be pushed to database.')
       })
     })
-    .catch(error => this.setState({ signUpError: error.message }))
+    .catch(error => this.setState({ signUpError: error.message, }))
 
   }
 
@@ -116,5 +116,3 @@ class Signup extends Component {
     )
   }
 }
-
-export default Signup
