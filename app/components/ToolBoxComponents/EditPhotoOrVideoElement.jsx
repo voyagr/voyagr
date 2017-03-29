@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { FormGroup, FormControl, ControlLabel} from 'react-bootstrap'
 
-export default class EditElement extends Component {
+export default class EditPhotoOrVideoElement extends Component {
 
   render () {
     return (

@@ -26,8 +26,7 @@ const elementTarget = {
     if (props.snapToGrid) {
       [left, top] = snapToGrid(left, top)
     }
-
-    component.moveElement(item.type, item.id, left, top)
+    component.moveElement(item.type, item.id, left, top, item.zIndex)
   },
 };
 
@@ -41,7 +40,7 @@ class Page extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate;
 
 
-  moveElement(type, id, left, top) {
+  moveElement(type, id, left, top, zIndex) {
     const selected = this.props.selected
     if(this.props.deleteMode) {
       let elementToDelete = {
@@ -52,8 +51,7 @@ class Page extends Component {
       this.props.clearSelectedIfDeleted(type, id)
       this.props.deleteElement(elementToDelete)
     } else {
-
-      this.props.selectElement(type, id)
+      this.props.selectElement(type, id, zIndex)
 
       let elementUpdate = {
         type: type,
