@@ -1,12 +1,10 @@
 //the comments below in the initialState are what the data will look like once pushed in.
 const initialState = {
   textBox: {
-    /*
-    uniqueId: { top: 20, left: 80, size: 'large', text: 'My vacay memories', background: '#51b6ea', color: '#000000' }
-     */
+    uniqueId: { top: 20, left: 80, size: 'large', text: 'My vacay memories', background: '#51b6ea', color: '#000000', zIndex: 6 }
   },
   photo: {
-    /* 
+    /*
     uniqueId: {top: 200, left: 200, size: "small", source: "http://placehold.it/300/09f/fff.png"}
     */
   },
@@ -25,6 +23,13 @@ const reducer = (state = initialState, action) => {
     case 'SET_ELEMENT_XY':
       newState[action.elementUpdate.type][action.elementUpdate.id].left = action.elementUpdate.left
       newState[action.elementUpdate.type][action.elementUpdate.id].top = action.elementUpdate.top
+      break;
+
+    case 'SET_Z_INDEX':
+      // id = Object.keys(action.element.id)
+      console.log("ID IN REDUCER", action.element.id)
+      console.log("zIndex to update", newState[action.element.type][action.element.id].zIndex)
+      newState[action.element.type][action.element.id].zIndex = action.element.zIndex
       break;
 
     case 'SET_SIZE':
@@ -77,6 +82,12 @@ export const setElementXY = (elementUpdate) => {
   }
 }
 
+export const setElementZIndex = (element) => {
+  return {
+    type: 'SET_Z_INDEX',
+    element
+  }
+}
 
 export const setSize = (elementUpdateSize) => {
   return {
