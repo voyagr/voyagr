@@ -104,7 +104,7 @@ export default class CanvasContainer extends Component {
   renderView() {
     return this.state.editable ?
     //render this if editable is true
-        <Col lg={2}>
+        <Col lg={3}>
           <ToolBox
             tripInfo={this.state.tripInfo}
             tripInfoRef={this.state.tripInfoRef}
@@ -130,18 +130,22 @@ export default class CanvasContainer extends Component {
     let tripInfo = this.state.tripInfo || null
     return (
       <div>
-        {this.renderEditButton()}
-        {
-          tripInfo ?
-          <div>
-            <h1>{`${tripInfo.name}, ${tripInfo.description}, ${tripInfo.startDate}`}</h1>
-          </div>
-          : null
-        }
+        <Grid id="canvas-header">
+          <Col lg={12}>
+          {this.renderEditButton()}
+          {
+            tripInfo ?
+            <div>
+              <h2>{`${tripInfo.name}, ${tripInfo.description}, ${tripInfo.startDate}`}</h2>
+            </div>
+            : null
+          }
+          </Col>
+        </Grid>
         <Provider store={this.state.store}>
           <Grid id="canvas-wrapper">
             {this.renderView()}
-            <Col lg={10}>
+            <Col lg={9}>
               <Canvas editable={this.state.editable}
                       selectElement={this.selectElement}
                       clearSelectedIfDeleted={this.clearSelectedIfDeleted} />
