@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "A collaborative multimedia travel journal",
   "main": "index.js",
+  "window": {
+    "icon": "imgs/suitcase.png"
+  },
   "scripts": {
     "validate": "check-node-version --node '>= 6.7.0'",
     "setup": "./bin/setup",
