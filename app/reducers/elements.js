@@ -37,7 +37,10 @@ const reducer = (state = initialState, action) => {
       break;
 
     case 'ADD_A_VIDEO':
-      newState.video[action.video.id] = action.video[action.video.id]
+      id = Object.keys(action.video)[0]
+      // console.log("INSIDE", Object.keys(action.video)[0])
+      // console.log("VIDEO IN REDUCER ", action.video, Object.keys(action.photo)[0])
+      newState.video[id] = action.video[id]
       break;
 
     case 'EDIT_TEXT':

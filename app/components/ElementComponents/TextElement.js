@@ -17,10 +17,6 @@ import { editText } from '../../reducers/elements'
 
 class TextElement extends Component {
 
-  static propTypes = {
-    text: PropTypes.string.isRequired,
-  };
-
   shouldComponentUpdate = shouldPureComponentUpdate;
 
   handleChange (event) {

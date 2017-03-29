@@ -67,21 +67,15 @@ class DraggableElement extends Component {
 
       case "textBox":
         return (
-          <div style={getStyles(this.props)}>
-            <TextElement text={text} id={id} size={size} type={type} {...this.props}/>
-          </div>
+          <TextElement text={text} id={id} size={size} type={type} {...this.props}/>
         );
       case "photo":
         return (
-          <div style={getStyles(this.props)}>
-            <PhotoElement id={id} size={size} source={source}/>
-          </div>
+          <PhotoElement id={id} size={size} source={source}/>
         );
       case "video":
         return (
-          <div style={getStyles(this.props)}>
-            <VideoElement id={id} size={size} source={source}/>
-          </div>
+          <VideoElement id={id} size={size} source={source}/>
         );
     }
   }
@@ -90,7 +84,10 @@ class DraggableElement extends Component {
     const { text, connectDragSource, id, size, type, source } = this.props;
 
     return (
-      connectDragSource(this.whatElementToRender(),)
+      connectDragSource(
+        <div style={getStyles(this.props)}>
+          {this.whatElementToRender()}
+        </div>,)
     )
 
     // return connectDragSource(
