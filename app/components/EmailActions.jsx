@@ -72,7 +72,6 @@ export default class EmailActions extends Component {
   }
 
   sendNewVerificationEmail () {
-    console.log('test')
     auth.currentUser ? auth.currentUser.sendEmailVerification()
       .then(() => this.setState({ newEmailSent: true, }))
       .catch(console.error) : null
