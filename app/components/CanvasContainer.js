@@ -9,7 +9,7 @@ import { Provider } from 'react-redux'
 import { database, auth } from 'APP/db/firebase'
 import store from 'APP/app/store'
 import ToolBox from './ToolBox'
-import { Grid, Col, Button } from 'react-bootstrap'
+import { Grid, Col, Button, ButtonGroup } from 'react-bootstrap'
 
 export default class CanvasContainer extends Component {
   constructor (props) {
@@ -27,6 +27,7 @@ export default class CanvasContainer extends Component {
     this.toggleMode = this.toggleMode.bind(this)
     this.renderView = this.renderView.bind(this)
     this.renderEditButton = this.renderEditButton.bind(this)
+    this.renderPageNavButtons = this.renderPageNavButtons.bind(this)
     this.clearSelectedIfDeleted = this.clearSelectedIfDeleted.bind(this)
   }
 
@@ -41,14 +42,19 @@ export default class CanvasContainer extends Component {
     this.setState({
       store: store(pageActionsRef),
       tripInfoRef: database.ref(`tripInfo/${tripId}`),
-      pageInfoRef: database.ref(`pageInfo/${pageId}`), //should be all set up for page info view/edit
     }, () => {
       this.state.tripInfoRef.on('value', (snap) => this.setState({
           tripInfo: snap.val()
-        }))
-      this.state.pageInfoRef.on('value', (snap) => this.setState({ //should be all set up for page info view/edit
-          pageInfo: snap.val()
-        }))
+      }))
+    })
+
+    this.setState({
+      pageInfoRef: database.ref(`pageInfo/${pageId}`), //should be all set up for page info view/edit
+    }, () => {
+        this.state.pageInfoRef.on('value', (snap) => {
+          this.setState({ //should be all set up for page info view/edit
+            pageInfo: snap.val()
+          })})
     })
 
     //sets a current user listener from Firebase auth
@@ -132,8 +138,31 @@ export default class CanvasContainer extends Component {
                      : null
   }
 
+  renderPageNavButtons() {
+    let nextPageDisabled, previousPageDisabled
+    if (this.state.pageInfo) {
+      nextPageDisabled = this.state.pageInfo.nextPage === ''
+      previousPageDisabled = this.state.pageInfo.previousPage === ''
+    }
+    return this.state.pageInfo ? (
+      <ButtonGroup>
+        <Button
+          href={`/canvas/${this.props.params.tripId}/${this.state.pageInfo.previousPage}`}
+          disabled={previousPageDisabled}
+        >
+          previous page
+        </Button>
+        <Button
+          href={`/canvas/${this.props.params.tripId}/${this.state.pageInfo.nextPage}`}
+          disabled={nextPageDisabled}
+        >
+          next page
+        </Button>
+      </ButtonGroup>
+    ) : null
+  }
+
   render () {
-    console.log('state', this.state)
     if (!this.state) return null
     let tripInfo = this.state.tripInfo || null
     let pageInfo = this.state.pageInfo || null //should be all set up for page info view/edit
@@ -143,6 +172,7 @@ export default class CanvasContainer extends Component {
         <Grid id="canvas-header">
           <Col lg={12}>
           {this.renderEditButton()}
+          {this.renderPageNavButtons()}
           {
             tripInfo ?
             <div>

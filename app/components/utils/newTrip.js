@@ -9,8 +9,8 @@ export const startNewTrip = () => {
     startDate: '1/1/2000'
   }
   const pageDefaultData = {
-    nextPage: null,
-    previousPage: null,
+    nextPage: '',
+    previousPage: '',
   }
 
   var newTripKey = database.ref('/userTrips/' + uid).push().key
