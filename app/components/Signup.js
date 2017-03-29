@@ -18,10 +18,8 @@ export default class Signup extends Component {
   }
 
   handleChange (e) {
-    const value = e.target.value
-    const name = e.target.name
     this.setState({
-      [name]: value,
+      [e.target.name]: e.target.value,
       signUpError: null,
     })
   }
@@ -109,6 +107,7 @@ export default class Signup extends Component {
               </Button>
             </Col>
           </FormGroup>
+
           {this.state.signUpError ? this.signUpErrorAlert() : null}
           {this.state.signUpSuccess ? this.signUpConfirmation() : null}
         </Form>

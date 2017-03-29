@@ -25,25 +25,19 @@ export default class Login extends Component {
   }
 
   handleChange (e) {
-    const value = e.target.value
-    const name = e.target.name
     this.setState({
-      [name]: value,
+      [e.target.name]: e.target.value,
       showInvalidAlert: false,
     })
   }
 
   handleSubmit (e) {
     e.preventDefault()
-    auth //login
+    auth
       .signInWithEmailAndPassword(this.state.email, this.state.password)
+      // redirect to timeline on successful log in
       .then(() => browserHistory.push("/timeline"))
-      .catch(error => {
-        this.setState({ showInvalidAlert: true, })
-        let errorCode = error.code
-        let errorMessage = error.message
-        console.log('ERROR', errorCode, errorMessage)
-      })
+      .catch(error => this.setState({ showInvalidAlert: true, }))
   }
 
   render () {
@@ -77,6 +71,7 @@ export default class Login extends Component {
             </Col>
           </FormGroup>
         </Form>
+
         {this.state.showInvalidAlert ? this.handleFailedLogin() : null}
       </div>
     )
