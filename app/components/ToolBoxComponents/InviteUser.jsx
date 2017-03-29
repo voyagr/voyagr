@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import { Alert, Button, Col, ControlLabel, Form, FormControl, FormGroup, HelpBlock } from 'react-bootstrap'
-import { inviteUser } from 'APP/app/components/utils/inviteUser'
+import update from 'react/lib/update'
+import { Alert, Button, Col, ControlLabel, Form, FormControl, FormGroup, HelpBlock, ListGroup, ListGroupItem } from 'react-bootstrap'
+import { inviteUser, listUsers } from 'APP/app/components/utils/inviteUser'
+import { database } from 'APP/db/firebase'
 
 export default class InviteUser extends Component {
 	constructor(props) {
@@ -10,13 +12,32 @@ export default class InviteUser extends Component {
 			email: '',
 			showInvalidAlert: false,
 			showSuccessAlert: false,
+      collaboratorNames: [],
 		}
 
 		this.handleChange = this.handleChange.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.handleInvalidEmail = this.handleInvalidEmail.bind(this)
 		this.handleSuccess = this.handleSuccess.bind(this)
+    // this.listCollaborators = this.listCollaborators.bind(this)
 	}
+
+  componentWillMount () {
+    database
+      .ref(`tripUsers/${this.props.tripId}`)
+      .once('value')
+      .then(users => {
+        for (let id in users.val()) {
+          listUsers(id)
+            .then(name => {
+              this.state.collaboratorNames.push(name)
+              this.forceUpdate()
+            })
+            .catch(console.error)
+        }
+      })
+
+  }
 
 	handleChange (event) {
 		this.setState({
@@ -56,15 +77,28 @@ export default class InviteUser extends Component {
 	}
 
 	render () {
+    const collaborators = this.state.collaboratorNames
 		return (
 			<div>
 				<h4>Invite To Edit</h4>
+        <Col sm={12}>
+          <strong>Current collaborators:</strong>
+          <ListGroup>
+            {collaborators ? collaborators.map(name => {
+              return (
+                <ListGroupItem key={name}>
+                  {name}
+                </ListGroupItem>
+              )
+            }) : <p>Invite some friends !</p>}
+          </ListGroup>
+        </Col>
 				<Form horizontal onSubmit={this.handleSubmit}>
 					<FormGroup controlId="email">
-						<Col componentClass={ControlLabel} sm={3}>
+						<Col componentClass={ControlLabel} sm={2}>
 							Email
 						</Col>
-						<Col sm={9}>
+						<Col sm={10}>
 							<FormControl
 								type="email"
 								name="email"
@@ -78,7 +112,7 @@ export default class InviteUser extends Component {
 					</FormGroup>
 
 					<FormGroup>
-						<Col smOffset={3} sm={10}>
+						<Col smOffset={2} sm={10}>
 							<Button type="submit" value="Submit">
 								Invite
 							</Button>
