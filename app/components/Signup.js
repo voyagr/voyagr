@@ -48,13 +48,12 @@ class Signup extends Component {
               email: this.state.email,
             })
           })
-          .catch(error => {
-            console.log('NESTED ERROR', error.code, error.message)
-          })
-        } else console.log('NO USER')
+          .catch(error => console.error)
+        } else console.error('There is no user to be pushed to database.')
       })
     })
     .catch(error => this.setState({ signUpError: error.message }))
+
   }
 
   signUpConfirmation () {
