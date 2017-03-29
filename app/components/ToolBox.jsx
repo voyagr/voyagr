@@ -1,11 +1,15 @@
+//LIBRARIES
 import React, { Component } from 'react'
-import { ButtonToolbar, Button, Accordion, Panel, Form, FormGroup, FormControl, Col, ControlLabel } from 'react-bootstrap'
+import { Button, Accordion, Panel, Form, FormGroup, FormControl, Col, ControlLabel } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { auth, database } from 'APP/db/firebase'
-import { createTextBox, addAPhoto, setSize } from '../reducers/elements'
-import InviteUser from './InviteUser'
-import EditTextElement from './EditTextElement'
-import EditPhotoElement from './EditPhotoElement'
+import { DefaultPlayer as Video} from 'react-html5video'
+//COMPONENTS
+import InviteUser from './ToolBoxComponents/InviteUser'
+import EditTextElement from './ToolBoxComponents/EditTextElement'
+import EditPhotoElement from './ToolBoxComponents/EditPhotoElement'
+//REDUCER
+import { createTextBox, addAPhoto, setSize, addAVideo } from '../reducers/elements'
 
 class ToolBox extends Component {
 	constructor(props) {
@@ -14,6 +18,7 @@ class ToolBox extends Component {
 		this.state = {
 			address: null,
 			photos: null,
+			videos: null,
 			title: '',
 			description: '',
 			startDate: '',
@@ -25,6 +30,7 @@ class ToolBox extends Component {
 		this.handleTripInfoSubmit = this.handleTripInfoSubmit.bind(this)
 		this.handleTripInfoInput = this.handleTripInfoInput.bind(this)
 		this.handleSizeChange = this.handleSizeChange.bind(this)
+		this.addVideo = this.addVideo.bind(this)
 	}
 
   makeRandomId () {
@@ -77,6 +83,19 @@ class ToolBox extends Component {
 		this.props.createTextBox(newTextBox)
 	}
 
+	addVideo (event) {
+		let newVideo = {
+			[this.makeRandomId()]: {
+				source: event.target.getAttribute('id'),
+				top: 300,
+				left: 300,
+				size: 'medium',
+			}
+		}
+
+		this.props.addAVideo(newVideo)
+	}
+
 	addPhoto (event) {
 		let newPhoto = {
 			[this.makeRandomId()]: {
@@ -97,6 +116,10 @@ class ToolBox extends Component {
 				dbUserPhotosRef.on('value', (snapshot) => this.setState({
 					photos: snapshot.val(),
 				}))
+				const dbUserVideoRef = database.ref(`videos/${userId}`)
+				dbUserVideoRef.on('value', (snapshot) => this.setState({
+					videos: snapshot.val(),
+				}))
 			}
 		})
 	}
@@ -106,7 +129,8 @@ class ToolBox extends Component {
   }
 
 	render () {
-		const keys = this.state.photos && Object.keys(this.state.photos)
+		const photoKeys = this.state.photos && Object.keys(this.state.photos)
+		const videoKeys = this.state.videos && Object.keys(this.state.videos)
 		let tripInfo = this.props.tripInfo || ""
 		let selectedElement;
 		if (this.props.selected) {
@@ -116,13 +140,13 @@ class ToolBox extends Component {
 		return (
 			<div id="toolbox-container">
 				<Accordion id="toolbox">
-					<Panel header="Add Text Box" eventKey="5" onClick={this.addNewTextBox} />
-					<Panel header="Add Photo" eventKey="1">
+					<Panel header="Add Text Box" eventKey="1" onClick={this.addNewTextBox} />
+					<Panel header="Add Photo" eventKey="2">
 						{this.state.photos ?
 							//if the user has photos we will map over them
 							//and display them all
 							<div id="photo-panel">
-								{keys ? keys.map(photoKey => {
+								{photoKeys ? photoKeys.map(photoKey => {
 									return (
 									  <div className="drawer-photo" key={photoKey}>
 										  <img src={this.state.photos[photoKey]} />
@@ -140,8 +164,26 @@ class ToolBox extends Component {
 					}
 
 					</Panel>
-
-					<Panel header="Edit Trip Information" eventKey="2">
+					<Panel header="Add a Video" eventKey="3">
+						{this.state.videos ?
+							<div>
+								{videoKeys ? videoKeys.map(videoKey => {
+										return (
+											<div key={videoKey}>
+												<Video loop muted
+													controls={['PlayPause']}>
+													<source src={this.state.videos[videoKey]} type="video/webm" />
+												</Video>
+												<Button id={this.state.videos[videoKey]} onClick={this.addVideo}>+</Button>
+											</div>
+										)
+									}) : null }
+							</div>
+							:
+							<div>YOU have no videos yet! <br/> Head over to your suitcase to upload some. </div>
+						}
+					</Panel>
+					<Panel header="Edit Trip Information" eventKey="4">
 						<strong>Edit your trip information</strong>
 						<Form horizontal onSubmit={this.handleTripInfoSubmit}>
 						    <FormGroup controlId="Title">
@@ -180,7 +222,7 @@ class ToolBox extends Component {
 						    </FormGroup>
 						  </Form>
 					</Panel>
-					<Panel header="Edit Element" eventKey="3">
+					<Panel header="Edit Element" eventKey="5">
 						{ this.props.selected ?
 							//if there is a selected item
 							<div>
@@ -197,7 +239,7 @@ class ToolBox extends Component {
 							: <strong>Please pick an item to edit</strong>
 						}
 					</Panel>
-					<Panel header="Invite your friends!" eventKey="4">
+					<Panel header="Invite your friends!" eventKey="6">
 						<h3>To View</h3>
 							Share This Link: {path}
 						<InviteUser tripId={this.props.tripId} />
@@ -210,4 +252,4 @@ class ToolBox extends Component {
 
 const mapStateToProps = state => state
 
-export default connect(mapStateToProps, { createTextBox, addAPhoto, setSize })(ToolBox)
+export default connect(mapStateToProps, { createTextBox, addAPhoto, setSize, addAVideo })(ToolBox)

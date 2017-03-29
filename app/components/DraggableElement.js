@@ -3,8 +3,8 @@ import { DragSource } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import shouldPureComponentUpdate from './utils/shouldPureComponentUpdate';
 import ItemTypes from './utils/ItemTypes';
-import TextElement from './TextElement';
-import PhotoElement from './PhotoElement'
+import whatTypeElementToRender from './utils/whatTypeElementToRender'
+
 
 const elementSource = {
   beginDrag(props) {
@@ -55,15 +55,12 @@ class DraggableElement extends Component {
   render() {
     const { text, connectDragSource, id, size, type, source } = this.props;
 
-    return connectDragSource(
-      <div style={getStyles(this.props)}>
-        {
-          this.props.type === "photo" ?
-            <PhotoElement id={id} size={size} source={source}/>
-            : <TextElement text={text} id={id} size={size} type={type} {...this.props}/>
-        }
-      </div>,
-    );
+    return (
+      connectDragSource(
+        <div style={getStyles(this.props)}>
+          {whatTypeElementToRender(this.props)}
+        </div>,)
+    )
   }
 }
 
