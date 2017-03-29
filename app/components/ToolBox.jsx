@@ -135,7 +135,7 @@ class ToolBox extends Component {
 		}
 		const path = `voyagr.co/canvas/${this.props.tripId}`
 		return (
-			<div>
+			<div id="toolbox-container">
 				<Accordion id="toolbox">
 					<Panel header="Add Text Box" eventKey="1" onClick={this.addNewTextBox} />
 					<Panel header="Add Photo" eventKey="2">

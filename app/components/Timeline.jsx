@@ -17,6 +17,7 @@ export default class Timeline extends Component {
 
   componentWillMount () {
     this.unsubscribe = auth.onAuthStateChanged((user) => {
+      if (!user) browserHistory.push('/landing')
       // set current user
       this.setState({
         user: user,
@@ -93,7 +94,13 @@ export default class Timeline extends Component {
                       <Image src="./imgs/yellow_house.png" thumbnail />
                       <h3>{trips[tripId].name}</h3>
                     </a>
-
+                    {/* trip info */}
+                    <p>
+                      {trips[tripId].description}
+                    </p>
+                    <p>
+                      <strong>Start date:</strong> {trips[tripId].startDate}
+                    </p>
                     {/* delete button */}
                     <Button
                       bsStyle="danger"
@@ -103,18 +110,14 @@ export default class Timeline extends Component {
                     >
                       Delete trip
                     </Button>
-
-                    {/* trip info */}
-                    <p>
-                      {trips[tripId].description}
-                    </p>
-                    <p>
-                      <strong>Start date:</strong> {trips[tripId].startDate}
-                    </p>
-                  </div>
+                    </div>
                 </Col>
               )
-            }) : <h3>No trips to show. Give yourself a vacation then click above to start documenting.</h3>}
+            }) : 
+            <Col lg={12}>
+              <h3>No trips to show. Give yourself a vacation then click above to start documenting.</h3>
+            </Col>
+          }
           </Grid>
         </div>
       )

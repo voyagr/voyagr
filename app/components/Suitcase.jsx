@@ -3,6 +3,7 @@ import {storage, storageRef, auth, database} from 'APP/db/firebase'
 import { Alert, Button, ControlLabel, Form, FormControl, FormGroup } from 'react-bootstrap'
 
 export default class Suitcase extends Component {
+
   constructor () {
     super()
     this.state = {
@@ -31,9 +32,7 @@ export default class Suitcase extends Component {
             this.setState({
               trips: snapshot.val(),
             })
-
             const tripIds = Object.keys(snapshot.val())
-
             // get trip names into an obj on the state
             // { tripId: tripName }
             let tripNames = {}
@@ -45,7 +44,7 @@ export default class Suitcase extends Component {
                   this.setState({ tripNames: tripNames })
                 })
             })
-          })
+        })
       }
     })
   }
@@ -117,10 +116,10 @@ export default class Suitcase extends Component {
       <div>
         <h1>Suitcase</h1>
         <h2>Here is all your media!</h2>
-
         {/* upload form */}
-        <Form horizontal onSubmit={this.handleSubmit.bind(this)}>
-          <ControlLabel>Upload files</ControlLabel>
+        <Form inline onSubmit={this.handleSubmit.bind(this)}>
+          <ControlLabel className="custom-file-upload">
+          Choose files
           <FormControl
             id="formControlsFile"
             type="file"
@@ -128,25 +127,23 @@ export default class Suitcase extends Component {
             onChange={this.handleUploadChange.bind(this)}
             accept=".gif, .jpg, .png, .mp3, .mp4, .mov"
           />
+          </ControlLabel>
           <p className="help-block">
             Media supported: .jpg, .png, .gif, .mp4, .mov, .mp3
           </p>
           {this.state.showInvalidAlert ? this.handleFailedUpload(this.state.err) : null}
           {this.state.showSuccessAlert ? this.handleSuccessUpload() : null}
-
           {/* trip selector */}
-          <ControlLabel>Add to trip (optional)</ControlLabel>
-          <FormControl componentClass="select" multiple onChange={this.handleTripChange.bind(this)}>
-
+          <ControlLabel>Add to trip (optional)</ControlLabel> <br />
+          <FormControl componentClass="select" onChange={this.handleTripChange.bind(this)}>
             {trips ? tripIds.map((tripId, idx) => {
               return (
                 <option key={idx} value={tripId}>{trips[tripId]}</option>
               )
             }) : <option>You don't have any trips yet!</option> }
 
-          </FormControl>
-
-          <Button type="submit">Upload File(s)</Button>
+          </FormControl> <br />
+          <Button type="submit">Upload</Button>
         </Form>
 
         {/* media display */}

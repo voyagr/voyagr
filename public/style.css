@@ -4,14 +4,35 @@ body {
   font-family: 'Josefin Sans', sans-serif;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3 {
   font-family: 'Josefin Slab', serif;
-  color: #212121
+  color: #212121;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #FFF176;
+    display: inline-block;
+    padding: 6px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #FFF176;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
 }
 
 .btn {
-  background-color: #FFEE58;
+  background-color: #FFF176;
+  border-color: #FFF176;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
 }
+
+.btn-danger {
+  color: #212121;
+}
+
 .container {
   width: 90%;
   margin: auto;
@@ -78,10 +99,6 @@ h1, h2, h3, h4 {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, .5);
 }
 
-input > .formControlsFile {
-    background-color: #FFEE58;
-}
-
 #photo-panel {
   display: flex;
   flex-wrap: wrap;
@@ -129,11 +146,14 @@ input > .formControlsFile {
 
 }
 
+#canvas-header {
+  display: flex;
+  margin: 0;
+}
 
 #canvas-wrapper {
   display: flex;
-  justify-content: center;
-  margin: auto 0;
+  margin: 0;
 }
 
 /*Styling for View Mode!*/
@@ -141,23 +161,37 @@ input > .formControlsFile {
   width: 950px;
 }
 
+#toolbox-container {
+  margin: 0;
+}
+
 #toolbox{
   margin: 2px 0;
+  width: 100%;
+}
+
+#toolbox > .panel-default {
+  border-color: #FFF176;
 }
 
 #toolbox > .panel-default > .panel-heading {
-  background-color: #FFEE58;
+  width: 100%;
+  margin: 0;
+  background-color: #FFF176;
 }
-#toolbox > h4 > .panel-title > a {
-  font-family: 'Josefin Sans', sans-serif;
+
+#toolbox > .panel-default > .panel-heading > .panel-title {
   font-size: 14px;
 }
 
+#drag-canvas {
+  border-color: #757575;
+}
 .dark-primary-color    { background: #455A64; }
 .default-primary-color { background: #607D8B; }
 .light-primary-color   { background: #CFD8DC; }
 .text-primary-color    { color: #FFFFFF; }
-.accent-color          { background: #FFEE58; }
+.accent-color          { background: #FFF176; }
 .primary-text-color    { color: #212121; }
 .secondary-text-color  { color: #757575; }
-.divider-color         { border-color: #BDBDBD; }
+.divider-color         { border-color: #F6F5F1; }
