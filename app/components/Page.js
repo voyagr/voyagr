@@ -9,12 +9,23 @@ import snapToGrid from './utils/snapToGrid';
 import { connect } from 'react-redux';
 import { setElementXY, deleteElement, setSize } from '../reducers/elements'
 
-const styles = {
-  width: '100%',
-  height: 500,
-  border: '1px dotted #FFF176',
-  position: 'relative',
-};
+// const styles = {
+//   width: '795',
+//   height: 500,
+//   border: '1px solid #607D8B',
+//   position: 'relative',
+// };
+
+function getStyles (props) {
+  let border = props.editable ? '1px solid #607D8B' : "none"
+
+  return {
+    width: '795',
+    height: 500,
+    border: border,
+    position: 'border',
+  }
+}
 
 const elementTarget = {
   drop(props, monitor, component) {
@@ -74,7 +85,7 @@ class Page extends Component {
     const { elements } = this.props
 
     return connectDropTarget(
-      <div style={styles}>
+      <div style={getStyles(this.props)}>
         {Object
           .keys(elements)
           .map(type => {
