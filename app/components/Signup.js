@@ -9,7 +9,9 @@ class Signup extends Component {
       name: '',
       email: '',
       password: '',
-      signUpSuccess: false
+      signUpSuccess: false,
+      weakPassowrd: false,
+      signUpError: null
     })
 
     this.handleChange = this.handleChange.bind(this)
@@ -19,7 +21,11 @@ class Signup extends Component {
   handleChange(e){
     const value = e.target.value
     const name = e.target.name
-    this.setState({[name]: value});
+    this.setState({
+      [name]: value,
+      weakPassword: false,
+      signUpError: null,
+    });
   }
 
   handleSubmit(e){
@@ -28,8 +34,8 @@ class Signup extends Component {
     .createUserWithEmailAndPassword(this.state.email, this.state.password)
     .then(() => {
       auth.onAuthStateChanged((user) => {
+        this.setState({ signUpSuccess: true })
         if (user) {
-          this.setState({ signUpSuccess: true })
           user.updateProfile({
             displayName: this.state.name,
           })
@@ -48,21 +54,21 @@ class Signup extends Component {
         } else console.log('NO USER')
       })
     })
-    .catch(function(error) {
-      if (error.code === 'auth/weak-password') {
-          alert('The password is too weak.')
-        } else {
-          alert(error.message)
-        }
-        console.log('ERROR', error.code, error.message)
-    })
-
+    .catch(error => this.setState({ signUpError: error.message }))
   }
 
   signUpConfirmation () {
     return (
       <Alert bsStyle="success" style={{ textAlign: 'center', }}>
         <h4>Please check your email for a link to validate your account.</h4>
+      </Alert>
+    )
+  }
+
+  signUpErrorAlert () {
+    return (
+      <Alert bsStyle="danger" style={{ textAlign: 'center', }}>
+        <h4>{this.state.signUpError}</h4>
       </Alert>
     )
   }
@@ -106,6 +112,7 @@ class Signup extends Component {
               </Button>
             </Col>
           </FormGroup>
+          {this.state.signUpError ? this.signUpErrorAlert() : null}
           {this.state.signUpSuccess ? this.signUpConfirmation() : null}
         </Form>
     </div>
