@@ -10,6 +10,7 @@ import { database, auth } from 'APP/db/firebase'
 import store from 'APP/app/store'
 import ToolBox from './ToolBox'
 import { Grid, Col, Button, ButtonGroup } from 'react-bootstrap'
+import { addNewPage } from './utils/addNewPage'
 
 export default class CanvasContainer extends Component {
   constructor (props) {
@@ -26,9 +27,10 @@ export default class CanvasContainer extends Component {
     this.selectElement = this.selectElement.bind(this)
     this.toggleMode = this.toggleMode.bind(this)
     this.renderView = this.renderView.bind(this)
-    this.renderEditButton = this.renderEditButton.bind(this)
+    this.renderEditButtons = this.renderEditButtons.bind(this)
     this.renderPageNavButtons = this.renderPageNavButtons.bind(this)
     this.clearSelectedIfDeleted = this.clearSelectedIfDeleted.bind(this)
+    this.addNewPage = this.addNewPage.bind(this)
   }
 
   //when this component mounts, figure out the firebase path from params
@@ -130,11 +132,17 @@ export default class CanvasContainer extends Component {
     : null
   }
 
-  renderEditButton() {
+  addNewPage (tripId, currentPageId) {
+    addNewPage(this.props.params.tripId, this.props.params.pageId)
+  }
+
+  renderEditButtons() {
     return this.state.canEdit ?
-                      (<Button onClick={this.toggleMode}>
-                        {this.state.editable ? "View" : "Edit" }
-                      </Button>)
+                      (<div>
+                        <Button onClick={this.toggleMode}>
+                          {this.state.editable ? "View" : "Edit" }
+                        </Button>
+                      </div>)
                      : null
   }
 
@@ -150,13 +158,20 @@ export default class CanvasContainer extends Component {
           href={`/canvas/${this.props.params.tripId}/${this.state.pageInfo.previousPage}`}
           disabled={previousPageDisabled}
         >
-          previous page
+          Previous Page
         </Button>
         <Button
           href={`/canvas/${this.props.params.tripId}/${this.state.pageInfo.nextPage}`}
           disabled={nextPageDisabled}
         >
-          next page
+          Next Page
+        </Button>
+      {/*if next page is enabled, then add a page is disabled*/}
+        <Button
+          onClick={this.addNewPage}
+          disabled={!nextPageDisabled}
+        >
+          Add A Page
         </Button>
       </ButtonGroup>
     ) : null
@@ -171,7 +186,7 @@ export default class CanvasContainer extends Component {
       <div>
         <Grid id="canvas-header">
           <Col lg={12}>
-          {this.renderEditButton()}
+          {this.renderEditButtons()}
           {this.renderPageNavButtons()}
           {
             tripInfo ?
