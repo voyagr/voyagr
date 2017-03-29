@@ -14,3 +14,5 @@ export const storage = firebase.storage()
 export const storageRef = storage.ref()
 
 export const provider = new firebase.auth.GoogleAuthProvider();
+
+export const fProvider = new firebase.auth.FacebookAuthProvider();
