@@ -87,11 +87,11 @@ export default class EmailActions extends Component {
 
   render () {
     let alertStyle
-    if (this.state.emailVerified === false) alertStyle='danger'
-    else alertStyle='success'
+    if (this.state.emailVerified === false) alertStyle='alert-danger'
+    else alertStyle='verify-success'
 
     return (
-      <Alert bsStyle={alertStyle} style={{ margin: '100px', padding: '100px', }}>
+      <Alert className={alertStyle} style={{ margin: '100px', padding: '100px', }}>
         {this.state.emailVerified === false ? this.emailNotVerified() : this.emailVerified()}
         {this.state.newEmailSent ? this.newVerificationEmailSent() : null}
       </Alert>
