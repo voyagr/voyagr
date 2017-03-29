@@ -1,39 +1,42 @@
 import React, { Component } from 'react'
-import { FormControl, FormGroup, ControlLabel, FieldGroup, Form, Col, Button } from 'react-bootstrap'
+import { Alert, FormControl, FormGroup, ControlLabel, FieldGroup, Form, Col, Button } from 'react-bootstrap'
 import { database, auth } from 'APP/db/firebase'
 
-class Signup extends Component {
-  constructor(){
+export default class Signup extends Component {
+  constructor () {
     super()
     this.state = Object.assign({}, {
       name: '',
       email: '',
       password: '',
+      signUpSuccess: false,
+      signUpError: null,
     })
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleChange(e){
-    const value = e.target.value
-    const name = e.target.name
-    this.setState({[name]: value});
+  handleChange (e) {
+    this.setState({
+      [e.target.name]: e.target.value,
+      signUpError: null,
+    })
   }
 
-  handleSubmit(e){
+  handleSubmit (e) {
     e.preventDefault()
     auth
     .createUserWithEmailAndPassword(this.state.email, this.state.password)
     .then(() => {
       auth.onAuthStateChanged((user) => {
+        this.setState({ signUpSuccess: true, })
         if (user) {
           user.updateProfile({
             displayName: this.state.name,
           })
           .then(() => user.sendEmailVerification())
           .then(() => {
-            console.log(this.state)
             database
             .ref(`users/${user.uid}`)
             .set({
@@ -41,21 +44,28 @@ class Signup extends Component {
               email: this.state.email,
             })
           })
-          .catch(error => {
-            console.log('NESTED ERROR', error.code, error.message)
-          })
-        } else console.log('NO USER')
+          .catch(error => console.error)
+        } else console.error('There is no user to be pushed to database.')
       })
     })
-    .catch(function(error) {
-      if (error.code === 'auth/weak-password') {
-          alert('The password is too weak.')
-        } else {
-          alert(error.message)
-        }
-        console.log('ERROR', error.code, error.message)
-    })
+    .catch(error => this.setState({ signUpError: error.message, }))
 
+  }
+
+  signUpConfirmation () {
+    return (
+      <Alert bsStyle="success">
+        <h4>Please check your email for a link to validate your account.</h4>
+      </Alert>
+    )
+  }
+
+  signUpErrorAlert () {
+    return (
+      <Alert bsStyle="danger">
+        <h4>{this.state.signUpError}</h4>
+      </Alert>
+    )
   }
 
   render () {
@@ -98,10 +108,10 @@ class Signup extends Component {
             </Col>
           </FormGroup>
 
+          {this.state.signUpError ? this.signUpErrorAlert() : null}
+          {this.state.signUpSuccess ? this.signUpConfirmation() : null}
         </Form>
     </div>
     )
   }
 }
-
-export default Signup
