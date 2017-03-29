@@ -16,7 +16,7 @@ render (
     <Route path="/" component={App} landing={LandingPage}>
       <IndexRedirect to="/landing" />
       <Route path="/landing" component={LandingPage} />
-        <Route path="/canvas/:tripId" component={CanvasContainer} />
+        <Route path="/canvas/:tripId/:pageId" component={CanvasContainer} />
       <Route path="/timeline" component={Timeline} />
       <Route path="/suitcase" component={Suitcase} />
     </Route>

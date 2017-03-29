@@ -30,33 +30,12 @@ export default class CanvasContainer extends Component {
     this.clearSelectedIfDeleted = this.clearSelectedIfDeleted.bind(this)
   }
 
-  toggleMode() {
-    this.setState({
-      editable: !this.state.editable,
-    })
-  }
-
-  //this function is called from inside page when we move an element
-  selectElement (type, id) {
-    this.setState({
-      selected: {id: id, type: type}
-    })
-  }
-
-  //this function gets passed down to Page so that selected is cleared before delete
-  //otherwise there is a bug when you delete the currently selected element
-  clearSelectedIfDeleted (type, id) {
-    const selected = this.state.selected
-    if (selected && type === selected.type && id === selected.id) {
-      this.setState({ selected: null })
-    }
-  }
-
   //when this component mounts, figure out the firebase path from params
   componentWillMount () {
-    const tripId = this.props.params.tripId
-    const tripActionsRef = database.ref(`tripActions/${tripId}`)
-    const tripUsersRef = database.ref(`tripUsers/${tripId}`)
+    const pageId = this.props.params.pageId,
+          tripId = this.props.params.tripId,
+          tripActionsRef = database.ref(`pageActions/${pageId}`),
+          tripUsersRef = database.ref(`tripUsers/${tripId}`)
 
     //replays the actions from the Firebase db to get to 'current state'
     this.setState({
@@ -99,6 +78,28 @@ export default class CanvasContainer extends Component {
   componentWillUnmount () {
     //add cleanup from auth.userChange listener
     this.unsubscribe()
+  }
+
+  toggleMode() {
+    this.setState({
+      editable: !this.state.editable,
+    })
+  }
+
+  //this function is called from inside page when we move an element
+  selectElement (type, id) {
+    this.setState({
+      selected: {id: id, type: type}
+    })
+  }
+
+  //this function gets passed down to Page so that selected is cleared before delete
+  //otherwise there is a bug when you delete the currently selected element
+  clearSelectedIfDeleted (type, id) {
+    const selected = this.state.selected
+    if (selected && type === selected.type && id === selected.id) {
+      this.setState({ selected: null })
+    }
   }
 
   renderView() {
