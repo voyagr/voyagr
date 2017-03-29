@@ -26,9 +26,6 @@ const reducer = (state = initialState, action) => {
       break;
 
     case 'SET_Z_INDEX':
-      // id = Object.keys(action.element.id)
-      console.log("ID IN REDUCER", action.element.id)
-      console.log("zIndex to update", newState[action.element.type][action.element.id].zIndex)
       newState[action.element.type][action.element.id].zIndex = action.element.zIndex
       break;
 
