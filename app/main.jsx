@@ -3,10 +3,6 @@
 import React from 'react'
 import {Router, Route, IndexRedirect, browserHistory} from 'react-router'
 import {render} from 'react-dom'
-import { Provider} from 'react-redux'
-import axios from 'axios'
-import { initialize, testFunction, ref } from '../db/firebase'
-import {setFirebaseRef} from './reducers/firebaseRef'
 
 // COMPONENTS
 import CanvasContainer from './components/CanvasContainer'
