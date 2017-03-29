@@ -7,7 +7,7 @@ export default class EmailActions extends Component {
     super()
 
     this.state = {
-      emailVerified: false,
+      emailVerified: null,
       newEmailSent: false,
     }
 
@@ -16,6 +16,20 @@ export default class EmailActions extends Component {
     this.emailVerified = this.emailVerified.bind(this)
     this.sendNewVerificationEmail = this.sendNewVerificationEmail.bind(this)
     this.newVerificationEmailSent = this.newVerificationEmailSent.bind(this)
+  }
+
+  componentWillMount () {
+    const actionCode = this.getParameterByName('oobCode')
+    // Try to apply the email verification code.
+    auth.applyActionCode(actionCode).then(resp => {
+      this.setState({ emailVerified: true })
+      // Email address has been verified.
+      console.log(this.state)
+
+    }).catch(error => {
+      // this.emailVerified()
+      console.error(error)
+    })
   }
 
   getParameterByName (name) {
@@ -30,17 +44,7 @@ export default class EmailActions extends Component {
   }
 
   handleVerifyEmail () {
-    const actionCode = this.getParameterByName('oobCode')
-    // Try to apply the email verification code.
-    auth.applyActionCode(actionCode).then(resp => {
-      this.setState({ emailVerified: true })
-      // Email address has been verified.
-      console.log(this.state)
 
-    }).catch(error => {
-      // this.emailVerified()
-      console.error(error)
-    })
   }
 
   goToTimeline () {
@@ -52,9 +56,9 @@ export default class EmailActions extends Component {
       <div style={{ textAlign: 'center' }}>
         <h3>Your email has been successfully verified.</h3>
         <Button
-          bsStyle="primary"
           bsSize="large"
           onClick={this.goToTimeline}
+          className="btn"
         >
           Start capturing your memories
         </Button>
@@ -67,10 +71,9 @@ export default class EmailActions extends Component {
       <div style={{ textAlign: 'center' }}>
         <h3>Your email could not be verified. Click below to receive a new confirmation link.</h3>
         <Button
-          bsStyle="primary"
           bsSize="large"
           onClick={this.sendNewVerificationEmail}
-          style={{ color: 'black' }}
+          className="btn"
         >
           Resend confirmation email
         </Button>
@@ -95,13 +98,12 @@ export default class EmailActions extends Component {
 
   render () {
     let alertStyle
-    if (this.state.emailVerified) alertStyle='success'
-    else alertStyle='danger'
+    if (this.state.emailVerified === false) alertStyle='danger'
+    else alertStyle='success'
 
     return (
       <Alert bsStyle={alertStyle} style={{ margin: '100px', padding: '100px' }}>
-        {this.handleVerifyEmail()}
-        {this.state.emailVerified ? this.emailVerified() : this.emailNotVerified()}
+        {this.state.emailVerified === false ? this.emailNotVerified() : this.emailVerified()}
         {this.state.newEmailSent ? this.newVerificationEmailSent() : null}
       </Alert>
     )

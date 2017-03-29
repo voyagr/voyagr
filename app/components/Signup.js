@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { FormControl, FormGroup, ControlLabel, FieldGroup, Form, Col, Button } from 'react-bootstrap'
+import { Alert, FormControl, FormGroup, ControlLabel, FieldGroup, Form, Col, Button } from 'react-bootstrap'
 import { database, auth } from 'APP/db/firebase'
 
 class Signup extends Component {
@@ -9,6 +9,7 @@ class Signup extends Component {
       name: '',
       email: '',
       password: '',
+      signUpSuccess: false
     })
 
     this.handleChange = this.handleChange.bind(this)
@@ -28,12 +29,12 @@ class Signup extends Component {
     .then(() => {
       auth.onAuthStateChanged((user) => {
         if (user) {
+          this.setState({ signUpSuccess: true })
           user.updateProfile({
             displayName: this.state.name,
           })
           .then(() => user.sendEmailVerification())
           .then(() => {
-            console.log(this.state)
             database
             .ref(`users/${user.uid}`)
             .set({
@@ -56,6 +57,14 @@ class Signup extends Component {
         console.log('ERROR', error.code, error.message)
     })
 
+  }
+
+  signUpConfirmation () {
+    return (
+      <Alert bsStyle="success" style={{ textAlign: 'center', }}>
+        <h4>Please check your email for a link to validate your account.</h4>
+      </Alert>
+    )
   }
 
   render () {
@@ -97,7 +106,7 @@ class Signup extends Component {
               </Button>
             </Col>
           </FormGroup>
-
+          {this.state.signUpSuccess ? this.signUpConfirmation() : null}
         </Form>
     </div>
     )
