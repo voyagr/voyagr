@@ -3,12 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import rootReducer from './reducers'
 import createLogger from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
-
 import { ref } from 'APP/db/firebase'
-
-import {whoami} from './reducers/auth'
-
-
 
 const store = ref => createStore(
   rootReducer,
