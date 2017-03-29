@@ -60,8 +60,9 @@ export default class Suitcase extends Component {
 
   handleUploadChange (e) {
     e.preventDefault()
-    this.state.image = e.target.files[0]
+    // this.state.image = e.target.files[0]
     this.setState({
+      image: e.target.files[0],
       showInvalidAlert: false,
       showSuccessAlert: false,
       err: null
@@ -97,18 +98,18 @@ export default class Suitcase extends Component {
   handleSubmit(e) {
     e.preventDefault()
     if (this.state.image) {
-      let imageRef = storageRef.child(auth.currentUser.uid + '/' + this.state.image.name)
+      const imageRef = storageRef.child(auth.currentUser.uid + '/' + this.state.image.name)
+      const mediaPlural = this.state.mediaType === 'video' ? 'Videos' : 'Photos'
       imageRef.put(this.state.image)
               .then(snapshot => {
                   const user = auth.currentUser.uid
                   //creates reference to folder in db for all photos belonging to user
-                  const userPhotosRef = database.ref(`photos/${user}`)
+                  const userPhotosRef = database.ref(`${this.state.mediaType}s/${user}`)
                   //pushes an object with a unique key and download url as value for photo
                   const newPhotoKey = userPhotosRef.push(snapshot.downloadURL).key
-
                   if (this.state.selectedTrip) {
                     database
-                      .ref(`tripPhotos/${this.state.selectedTrip}`)
+                      .ref(`trip${mediaPlural}/${this.state.selectedTrip}`)
                       .update({
                         [newPhotoKey]: snapshot.downloadURL
                       })
@@ -116,10 +117,10 @@ export default class Suitcase extends Component {
               })
               .then(() => this.setState({ showSuccessAlert: true })) //this is where we need to add the push to db
               .catch(err => this.setState({ showInvalidAlert: true, error: err }))
-    } else this.setState({
+    } else {this.setState({
       showInvalidAlert: true,
       err: 'Please choose a file to upload.'
-    })
+    })}
   }
 
   render () {
@@ -143,7 +144,7 @@ export default class Suitcase extends Component {
             accept=".gif, .jpg, .png, .mp3, .mp4, .mov"
           />
           <p className="help-block">
-            Media supported: .jpg, .png, .gif, .mp4, .mov, .mp3
+            File types supported: .jpg, .png, .gif, .mp4, .mov, .mp3
           </p>
           {this.state.showInvalidAlert ? this.handleFailedUpload(this.state.err) : null}
           {this.state.showSuccessAlert ? this.handleSuccessUpload() : null}
@@ -158,7 +159,7 @@ export default class Suitcase extends Component {
             >
               <option value="select">select one</option>
               <option value="video">video</option>
-              <option value="image">image</option>
+              <option value="photo">photo</option>
             </FormControl>
                 <p className="help-block">
             File Types Supported: Video, Pictures
