@@ -1,6 +1,76 @@
 {
   "rules": {
-    ".read": "auth != null",
-    ".write": "auth != null"
+    "photos": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      "$userId": {
+        ".read": "$userId === auth.uid",
+        ".write": "$userId === auth.uid"
+      }
+    },
+    "tripActions": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      "$tripId": {
+        ".read": "root.child('tripUsers').child($tripId).val() === auth.uid && root.child('userTrips').child(auth.uid).val() === $tripId",
+        ".write": "root.child('tripUsers').child($tripId).val() === auth.uid && root.child('userTrips').child(auth.uid).val() === $tripId"
+      }
+    },
+    "tripInfo": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      "$tripId": {
+        ".read": "root.child('tripUsers').child($tripId).val() === auth.uid && root.child('userTrips').child(auth.uid).val() === $tripId",
+        ".write": "root.child('tripUsers').child($tripId).val() === auth.uid && root.child('userTrips').child(auth.uid).val() === $tripId"
+      }
+    },
+    "tripPages": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      "$tripId": {
+        ".read": "root.child('tripUsers').child($tripId).val() === auth.uid && root.child('userTrips').child(auth.uid).val() === $tripId",
+        ".write": "root.child('tripUsers').child($tripId).val() === auth.uid && root.child('userTrips').child(auth.uid).val() === $tripId"
+      }
+    },
+    "tripPhotos": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      "$tripId": {
+        ".read": "root.child('tripUsers').child($tripId).val() === auth.uid && root.child('userTrips').child(auth.uid).val() === $tripId",
+        ".write": "root.child('tripUsers').child($tripId).val() === auth.uid && root.child('userTrips').child(auth.uid).val() === $tripId"
+      }
+    },
+    "tripUsers": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      "$tripId": {
+        ".read": "root.child('tripUsers').child($tripId).val() === auth.uid && root.child('userTrips').child(auth.uid).val() === $tripId",
+        ".write": "root.child('tripUsers').child($tripId).val() === auth.uid && root.child('userTrips').child(auth.uid).val() === $tripId"
+      }
+    },
+    "tripVideos": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      "$tripId": {
+        ".read": "root.child('tripUsers').child($tripId).val() === auth.uid && root.child('userTrips').child(auth.uid).val() === $tripId",
+        ".write": "root.child('tripUsers').child($tripId).val() === auth.uid && root.child('userTrips').child(auth.uid).val() === $tripId"
+      }
+    },
+    "userTrips": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    },
+    "videos": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      "$userId": {
+        ".read": "$userId === auth.uid",
+        ".write": "$userId === auth.uid"
+      }
+    }
   }
 }
