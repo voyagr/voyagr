@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Alert, Button, Col, ControlLabel, Form, FormControl, FormGroup, HelpBlock } from 'react-bootstrap'
 import { inviteUser } from 'APP/app/components/utils/inviteUser'
+import { auth } from 'APP/db/firebase'
 
 export default class InviteUser extends Component {
 	constructor(props) {
@@ -28,7 +29,7 @@ export default class InviteUser extends Component {
 
 	handleSubmit (event) {
 		event.preventDefault()
-
+		console.log(event)
 		inviteUser(this.state.email, this.props.tripId)
 			.then(status => {
 				if (status) {

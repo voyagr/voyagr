@@ -5,7 +5,6 @@ const admin = require('firebase-admin')
 
 const config = require('APP/firebaseConfig')
 const firebase = require('firebase').initializeApp(config)
-const database = firebase.database()
 
 const serviceAccount = require('APP/serviceAccountKey.json')
 
@@ -13,6 +12,8 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: 'https://voyagr-59d3e.firebaseio.com'
 })
+
+const database = admin.database()
 
 router.post('/', (req, res, next) => {
 	const email = req.body.email
@@ -28,7 +29,6 @@ router.post('/', (req, res, next) => {
 				.update({
 					[uid]: uid
 				})
-				.then(res.send)
 				.catch(console.error)
 
 			// add tripId to userTrips

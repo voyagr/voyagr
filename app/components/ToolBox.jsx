@@ -19,8 +19,8 @@ class ToolBox extends Component {
 			address: null,
 			photos: null,
 			videos: null,
-			title: '',
-			description: '',
+			title: props.tripInfo.title,
+			description: props.tripInfo.description,
 			startDate: '',
 		}
 
@@ -191,7 +191,7 @@ class ToolBox extends Component {
 						        Title
 						      </Col>
 						      <Col sm={9}>
-						        <FormControl onChange={this.handleTripInfoInput} name="title" placeholder={tripInfo.name} />
+						        <FormControl onChange={this.handleTripInfoInput} name="title" value={tripInfo.name} />
 						      </Col>
 						    </FormGroup>
 
@@ -200,7 +200,7 @@ class ToolBox extends Component {
 						        Description
 						      </Col>
 						      <Col sm={9}>
-						        <FormControl name="description" onChange={this.handleTripInfoInput} placeholder={tripInfo.description} />
+						        <FormControl name="description" onChange={this.handleTripInfoInput} value={tripInfo.description} />
 						      </Col>
 						    </FormGroup>
 
@@ -209,7 +209,7 @@ class ToolBox extends Component {
 						        Start Date
 						      </Col>
 						      <Col sm={9}>
-						        <FormControl name="startDate" onChange={this.handleTripInfoInput} placeholder={tripInfo.startDate} />
+						        <FormControl name="startDate" onChange={this.handleTripInfoInput} value={tripInfo.startDate} />
 						      </Col>
 						    </FormGroup>
 
