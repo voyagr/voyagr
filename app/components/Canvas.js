@@ -40,7 +40,6 @@ class Canvas extends Component {
 
   render() {
     const { snapToGridAfterDrop, snapToGridWhileDragging, deleteMode } = this.state;
-
     return (
       <div>
         <Page snapToGrid={snapToGridAfterDrop}
@@ -49,7 +48,7 @@ class Canvas extends Component {
               editable={this.props.editable}
               clearSelectedIfDeleted={this.props.clearSelectedIfDeleted} />
           {this.props.editable ?
-            (<div>
+            (<div id="drag-canvas">
               <CustomDragLayer snapToGrid={snapToGridWhileDragging} />
               <p>
                 <label htmlFor="snapToGridWhileDragging">
