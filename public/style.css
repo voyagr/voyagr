@@ -27,6 +27,12 @@ input[type="file"] {
   text-align: center;
 }
 
+.verify-success {
+  color: #F6F5F1;
+  background-color: #F6F5F1;
+  border-color: #CFD8DC;
+}
+
 .btn {
   background-color: #FFF176;
   border-color: #FFF176;
