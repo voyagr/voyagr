@@ -8,7 +8,7 @@ class PhotoElement extends Component {
   render() {
     return (
       <img
-        id={`image-size-${this.props.size}`}
+        className={`element-size-${this.props.size}`}
         src={this.props.source}
         value={this.props.id}
         type={this.props.type} />

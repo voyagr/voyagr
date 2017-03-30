@@ -132,7 +132,6 @@ const mapStateToProps = state => state
 // similar to the redux connect function
 Page = DropTarget(ItemTypes.ELEMENT, elementTarget, (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
-  plzGetItem: monitor.getItem(),
 }))(Page)
 
 Page = connect(mapStateToProps, { setElementXY, deleteElement, setSize })(Page)

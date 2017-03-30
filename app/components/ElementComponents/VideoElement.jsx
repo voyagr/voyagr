@@ -11,7 +11,7 @@ class VideoElement extends Component {
       <Video
           value={this.props.id}
           type={this.props.type}
-          id={`image-size-${this.props.size}`}
+          className={`element-size-${this.props.size}`}
           autoPlay
           muted
           controls={['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen']}
