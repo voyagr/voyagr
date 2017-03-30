@@ -4,9 +4,11 @@ import ContentEditable from 'react-contenteditable'
 import shouldPureComponentUpdate from '../utils/shouldPureComponentUpdate'
 import { editText } from '../../reducers/elements'
 
-  function getStyles (props) {
+  function getStyles (props, isDisabled) {
+    let border = isDisabled ? "none" : '1px dashed gray'
+
     return {
-      border: '1px dashed gray',
+      border: border,
       padding: '30px',
       cursor: 'move',
       background: props.background,
@@ -35,7 +37,7 @@ class TextElement extends Component {
     if (this.props.editable === false) isDisabled = true
     else isDisabled = false
     return (
-      <div style={getStyles(this.props)}>
+      <div style={getStyles(this.props, isDisabled)}>
         <ContentEditable
           html={text}
           disabled={isDisabled}

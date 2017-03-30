@@ -38,14 +38,17 @@ router.post('/', (req, res, next) => {
 					[tripId]: tripId
 				})
 				.catch(console.error)
-
-			res.send(user)
-
 		})
-		.catch(function(error) {
-			console.error(error)
-			res.send(error)
-  })
+		.catch(next)
+})
+
+router.get('/:userId', (req, res, next) => {
+	admin.auth()
+		.getUser(req.params.userId)
+		.then(user => {
+			res.send(user.displayName)
+		})
+		.catch(next)
 })
 
 module.exports = router
