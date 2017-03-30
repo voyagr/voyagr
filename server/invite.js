@@ -29,7 +29,6 @@ router.post('/', (req, res, next) => {
 				.update({
 					[uid]: uid
 				})
-				.then(res.send)
 				.catch(console.error)
 
 			// add tripId to userTrips

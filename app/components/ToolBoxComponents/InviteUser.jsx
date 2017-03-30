@@ -19,7 +19,6 @@ export default class InviteUser extends Component {
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.handleInvalidEmail = this.handleInvalidEmail.bind(this)
 		this.handleSuccess = this.handleSuccess.bind(this)
-    // this.listCollaborators = this.listCollaborators.bind(this)
 	}
 
   componentWillMount () {
@@ -49,7 +48,6 @@ export default class InviteUser extends Component {
 
 	handleSubmit (event) {
 		event.preventDefault()
-
 		inviteUser(this.state.email, this.props.tripId)
 			.then(status => {
 				if (status) {
