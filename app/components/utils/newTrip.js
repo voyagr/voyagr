@@ -29,8 +29,9 @@ export const startNewTrip = () => {
   return database.ref()
     .update(updates)
     .then(() => {
-      browserHistory.push(`/canvas/${newTripKey}/${newPageKey}`)
-      location.reload()
+      console.log('go to', `/canvas/${newTripKey}/${newPageKey}`)
+      // browserHistory.push(`/canvas/${newTripKey}/${newPageKey}`)
+      // location.reload()
     })
     .catch(console.error)
 }
