@@ -9,13 +9,6 @@ import snapToGrid from './utils/snapToGrid';
 import { connect } from 'react-redux';
 import { setElementXY, deleteElement, setSize } from '../reducers/elements'
 
-// const styles = {
-//   width: '795',
-//   height: 500,
-//   border: '1px solid #607D8B',
-//   position: 'relative',
-// };
-
 function getStyles (props) {
   let border = props.editable ? '1px solid #607D8B' : "none"
 
@@ -23,7 +16,7 @@ function getStyles (props) {
     width: '795',
     height: 500,
     border: border,
-    position: 'border',
+    position: 'relative',
   }
 }
 
