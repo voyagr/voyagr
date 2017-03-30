@@ -13,14 +13,19 @@ input[type="file"] {
     display: none;
 }
 
+span {
+  position:absolute;
+  bottom: 15px;
+}
+
 .custom-file-upload {
-    border: 1px solid #FFF176;
-    display: inline-block;
-    padding: 6px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    background-color: #FFF176;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
+  border: 1px solid #FFF176;
+  display: inline-block;
+  padding: 6px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #FFF176;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
 }
 
 .alert {
@@ -49,6 +54,7 @@ input[type="file"] {
 }
 
 .navbar {
+  color: #F6F5F1;
   background-color: #607D8B;
   border-color: #607D8B;
   margin: 0;
@@ -64,14 +70,14 @@ input[type="file"] {
 }
 
 .navbar-default .navbar-brand {
-  color: #FFFFFF;
+  color: #F6F5F1;
   font-family: 'Josefin Slab', serif;
   font-size: 45px;
   font-weight: 900;
 }
 
 .navbar-default .navbar-nav > li > a {
-  color: #000;
+  color: #F6F5F1;
   font-family: 'Josefin Slab', serif;
   font-size: 14px;
 }

@@ -84,6 +84,7 @@ export default class Timeline extends Component {
             <Col lg={12}>
               <h1>Timeline</h1>
               <h3>Welcome, {this.state.user.displayName}. Here are your trips!</h3>
+              <h4>Click into one to edit, or click above to start a new trip.</h4>
             </Col>
 
             {/* trip boxes */}
@@ -116,7 +117,7 @@ export default class Timeline extends Component {
               )
             }) :
             <Col lg={12}>
-              <h3>No trips to show. Give yourself a vacation then click above to start documenting.</h3>
+              <h3>No trips to show. Start putting some images in your Suitcase.</h3>
             </Col>
           }
           </Grid>
