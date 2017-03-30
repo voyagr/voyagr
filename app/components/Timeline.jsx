@@ -75,6 +75,7 @@ export default class Timeline extends Component {
   renderItems () {
     const tripIds = Object.keys(this.state.trips)
     const trips = this.state.trips
+    console.log('trips', trips)
 
     if (this.state.user) {
       return (
@@ -90,7 +91,7 @@ export default class Timeline extends Component {
               return (
                 <Col lg={6} key={tripId}>
                   <div className="trip-card">
-                    <a href={`/canvas/${tripId}`}>
+                    <a href={`/canvas/${tripId}/${trips[tripId].startPage}`}>
                       <Image src="./imgs/yellow_house.png" thumbnail />
                       <h3>{trips[tripId].name}</h3>
                     </a>
@@ -113,7 +114,7 @@ export default class Timeline extends Component {
                     </div>
                 </Col>
               )
-            }) : 
+            }) :
             <Col lg={12}>
               <h3>No trips to show. Give yourself a vacation then click above to start documenting.</h3>
             </Col>

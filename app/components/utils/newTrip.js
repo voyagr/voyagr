@@ -6,7 +6,8 @@ export const startNewTrip = () => {
   const tripDefaultData = {
     name: 'A Trip',
     description: 'A description',
-    startDate: '1/1/2000'
+    startDate: '1/1/2000',
+    startPage: '',
   }
   const pageDefaultData = {
     nextPage: '',
@@ -15,6 +16,9 @@ export const startNewTrip = () => {
 
   var newTripKey = database.ref('/userTrips/' + uid).push().key
   var newPageKey = database.ref('/tripPages/' + newTripKey).push().key
+
+  //set the startPage to be the new page key
+  tripDefaultData.startPage = newPageKey
 
   var updates = {}
   //creating trip in firebase db
@@ -29,9 +33,8 @@ export const startNewTrip = () => {
   return database.ref()
     .update(updates)
     .then(() => {
-      console.log('go to', `/canvas/${newTripKey}/${newPageKey}`)
-      // browserHistory.push(`/canvas/${newTripKey}/${newPageKey}`)
-      // location.reload()
+      browserHistory.push(`/canvas/${newTripKey}/${newPageKey}`)
+      location.reload()
     })
     .catch(console.error)
 }
