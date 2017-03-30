@@ -37,7 +37,7 @@ class TextElement extends Component {
     if (this.props.editable === false) isDisabled = true
     else isDisabled = false
     return (
-      <div style={getStyles(this.props, isDisabled)}>
+      <div value={this.props.id} type={this.props.type} style={getStyles(this.props, isDisabled)}>
         <ContentEditable
           html={text}
           disabled={isDisabled}

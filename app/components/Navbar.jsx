@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+  import React, { Component } from 'react'
 import { Button, Navbar, Nav, NavItem, NavDropdown, MenuItem, pullRight } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { auth } from 'APP/db/firebase'
@@ -38,6 +38,7 @@ export default class NavbarComponent extends Component {
     }
 
     renderButtons () {
+      console.log(this.state)
       if (this.state.user && this.state.user.emailVerified) {
         return (
           <div>
