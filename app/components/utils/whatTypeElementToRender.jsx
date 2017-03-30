@@ -16,11 +16,11 @@ export default function whatTypeElementToRender (props, editable) {
         );
       case "photo":
         return (
-          <PhotoElement id={id} size={size} source={source}/>
+          <PhotoElement id={id} size={size} type={type} source={source}/>
         );
       case "video":
         return (
-          <VideoElement id={id} size={size} source={source}/>
+          <VideoElement id={id} size={size} type={type} source={source}/>
         );
     }
   }

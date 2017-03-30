@@ -1,7 +1,7 @@
 //the comments below in the initialState are what the data will look like once pushed in.
 const initialState = {
   textBox: {
-    uniqueId: { top: 20, left: 80, size: 'large', text: 'My vacay memories', background: '#51b6ea', color: '#000000', zIndex: 6 }
+    // uniqueId: { top: 20, left: 80, size: 'large', text: 'My vacay memories', background: '#51b6ea', color: '#000000', zIndex: 6 }
   },
   photo: {
     /*

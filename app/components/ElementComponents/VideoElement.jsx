@@ -8,8 +8,14 @@ class VideoElement extends Component {
 
   render() {
     return (
-      <Video id={`image-size-${this.props.size}`} autoPlay muted
-        controls={['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen']}>
+      <Video
+          value={this.props.id}
+          type={this.props.type}
+          className={`element-size-${this.props.size}`}
+          autoPlay
+          muted
+          controls={['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen']}
+          >
         <source src={this.props.source} />
         <track label="English" kind="subtitles" srcLang="en" default />
       </Video>

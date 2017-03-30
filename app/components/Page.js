@@ -13,7 +13,7 @@ function getStyles (props) {
   let border = props.editable ? '1px solid #607D8B' : "none"
 
   return {
-    width: '795',
+    width: '795px',
     height: 500,
     border: border,
     position: 'relative',
@@ -32,20 +32,27 @@ const elementTarget = {
     }
     component.moveElement(item.type, item.id, left, top, item.zIndex)
   },
-};
 
+};
 
 class Page extends Component {
   static propTypes = {
     connectDropTarget: PropTypes.func.isRequired,
     snapToGrid: PropTypes.bool.isRequired,
   }
+  constructor (props) {
+    super(props)
+
+    this.elementClick = this.elementClick.bind(this)
+  }
 
   shouldComponentUpdate = shouldPureComponentUpdate;
 
 
   moveElement(type, id, left, top, zIndex) {
-    const selected = this.props.selected
+    //we have to leave this here just for the video
+    //elements because they wont get into the element
+    //click because of the click to play mode
     if(this.props.deleteMode) {
       let elementToDelete = {
         type: type,
@@ -68,8 +75,33 @@ class Page extends Component {
     }
   }
 
+  //this gets called when we click on anything in the
+  //page box
+  elementClick (event) {
+    //we pull off the value and the type off of each element
+    const id = event.target.getAttribute("value")
+    const type = event.target.getAttribute("type")
+    //if either of the values are false that means the user
+    //clicked on something other than an element
+    if (!id || !type) return
+    let clickedElement = this.props.elements[type][id]
+    if(this.props.deleteMode) {
+      let elementToDelete = {
+        type: type,
+        id: id,
+      }
+
+      this.props.clearSelectedIfDeleted(type, id)
+      this.props.deleteElement(elementToDelete)
+    } else {
+      this.props.selectElement(type, id, clickedElement.zIndex)
+
+    }
+
+  }
+
   renderElement(item, key, type) {
-    if (this.props.editable) return <DraggableElement key={key} id={key} type={type} {...item} />
+    if (this.props.editable) return <DraggableElement  key={key} onClick={this.elementClick} id={key} type={type} {...item} />
     else return <NonDraggableElement key={key} id={key} type={type} {...item} />
   }
 
@@ -78,7 +110,7 @@ class Page extends Component {
     const { elements } = this.props
 
     return connectDropTarget(
-      <div style={getStyles(this.props)}>
+      <div onClick={this.elementClick} style={getStyles(this.props)}>
         {Object
           .keys(elements)
           .map(type => {
@@ -98,7 +130,7 @@ const mapStateToProps = state => state
 
 // wraps Page component with DropTarget capabilities from react-dnd,
 // similar to the redux connect function
-Page = DropTarget(ItemTypes.ELEMENT, elementTarget, connect => ({
+Page = DropTarget(ItemTypes.ELEMENT, elementTarget, (connect) => ({
   connectDropTarget: connect.dropTarget(),
 }))(Page)
 

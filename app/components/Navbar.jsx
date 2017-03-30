@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+  import React, { Component } from 'react'
 import { Button, Navbar, Nav, NavItem, NavDropdown, MenuItem, pullRight } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { auth } from 'APP/db/firebase'
