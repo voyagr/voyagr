@@ -13,7 +13,7 @@ function getStyles (props) {
   let border = props.editable ? '1px solid #607D8B' : "none"
 
   return {
-    width: '795',
+    width: '795px',
     height: 500,
     border: border,
     position: 'relative',
@@ -85,7 +85,6 @@ class Page extends Component {
     //clicked on something other than an element
     if (!id || !type) return
     let clickedElement = this.props.elements[type][id]
-
     if(this.props.deleteMode) {
       let elementToDelete = {
         type: type,

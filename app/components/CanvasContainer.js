@@ -38,7 +38,6 @@ export default class CanvasContainer extends Component {
 
   //this function is called from inside page when we move an element
   selectElement (type, id, zIndex) {
-    console.log('INSIDE SELECTELEMENT', type, id, zIndex)
     this.setState({
       selected: {id: id, type: type, zIndex: zIndex}
     })

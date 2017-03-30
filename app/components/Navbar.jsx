@@ -38,8 +38,7 @@ export default class NavbarComponent extends Component {
     }
 
     renderButtons () {
-      console.log(this.state)
-      if (this.state.user && this.state.user.emailVerified) {
+      if (this.state.user ) {
         return (
           <div>
             <Nav pullRight>
