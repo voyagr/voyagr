@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import update from 'react/lib/update';
-import { DropTarget, DragSource } from 'react-dnd';
+import { DropTarget } from 'react-dnd';
 import shouldPureComponentUpdate from './utils/shouldPureComponentUpdate';
 import ItemTypes from './utils/ItemTypes';
 import DraggableElement from './DraggableElement';
