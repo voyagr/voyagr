@@ -147,6 +147,7 @@ export default class CanvasContainer extends Component {
             tripId={this.props.params.tripId}
             pageInfo={this.state.pageInfo} //should be all set up for page info view/edit
             pageInfoRef={this.state.pageInfoRef} //should be all set up for page info view/edit
+            pageId={this.props.params.pageId}
           />
         </Col>
 

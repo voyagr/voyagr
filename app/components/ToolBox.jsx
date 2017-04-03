@@ -153,7 +153,7 @@ class ToolBox extends Component {
     if (this.props.selected) {
       selectedElement = this.props.elements[this.props.selected.type][this.props.selected.id]
     }
-    const path = `voyagr.co/canvas/${this.props.tripId}`
+    const path = `voyagr.co/canvas/${this.props.tripId}/${this.props.pageId}`
     return (
       <div id="toolbox-container">
         <Accordion id="toolbox">
@@ -263,7 +263,7 @@ class ToolBox extends Component {
           <Panel header="Invite your friends!" eventKey="6">
             <h3>To View</h3>
               Share This Link: {path}
-            <InviteUser tripId={this.props.tripId} />
+            <InviteUser tripId={this.props.tripId} pageId={this.props.pageId} />
           </Panel>
         </Accordion>
       </div>
