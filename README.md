@@ -1,7 +1,7 @@
 # This is Voyagr
 
 ## [Voyagr.co](http://voyagr.co)
-Get rid of that box of momentos without worry. Voyagr lets you collect photos, videos, sounds, and text. Arrange those memories on a page to keep for yourself or share it with others. Invite your trip companions to upload media to your trip "Suitcase" and collaboratively edit online.
+Get rid of that box of mementos without worry. Voyagr lets you collect photos, videos, sounds, and text. Arrange those memories on a page to keep for yourself or share it with others. Invite your trip companions to upload media to your trip "Suitcase" and collaboratively edit online.
 
 ## Composition
 Voyagr uses:
