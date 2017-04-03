@@ -148,15 +148,12 @@ class ToolBox extends Component {
   render () {
     const photoKeys = this.state.photos && Object.keys(this.state.photos)
     const videoKeys = this.state.videos && Object.keys(this.state.videos)
-    const pageId = this.props.pageId
-    console.log('PAGE ID', pageId)
     let tripInfo = this.props.tripInfo || ""
     let selectedElement;
     if (this.props.selected) {
       selectedElement = this.props.elements[this.props.selected.type][this.props.selected.id]
     }
-    // const path = `voyagr.co/canvas/${this.props.tripId}/${pageId}`
-    const path = `Many Puppies`
+    const path = `voyagr.co/canvas/${this.props.tripId}/${this.props.pageId}`
     return (
       <div id="toolbox-container">
         <Accordion id="toolbox">
