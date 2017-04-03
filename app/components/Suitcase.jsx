@@ -132,7 +132,8 @@ export default class Suitcase extends Component {
     return (
       <div>
         <h1>Suitcase</h1>
-        <h2>Here is all your media!</h2>
+        <h2>Here is all your media.</h2>
+        <h4>Stash your photos and videos here until you create your trip.</h4>
         {/* upload form */}
         <Form inline onSubmit={this.handleSubmit.bind(this)}>
           <ControlLabel className="custom-file-upload">
@@ -179,7 +180,7 @@ export default class Suitcase extends Component {
               return (
                 <option key={idx} value={tripId}>{trips[tripId]}</option>
               )
-            }) : <option>You don't have any trips yet!</option> }
+            }) : <option>You don't have any trips yet.</option> }
 
           </FormControl> <br />
           <Button type="submit">Upload</Button>
