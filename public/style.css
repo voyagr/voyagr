@@ -213,3 +213,8 @@ span {
 .logout-button {
   border: 1px solid #F6F5F1;
 }
+
+.page-and-view-buttons {
+  width: 100%;
+  padding-top: 10px;
+}
