@@ -66,7 +66,7 @@ class ToolBox extends Component {
       startDate: this.state.startDate
     }
 
-    this.props.tripInfoRef.set(infoToUpdate)
+    this.props.tripInfoRef.update(infoToUpdate)
   }
 
   handleTripInfoInput (event) {
