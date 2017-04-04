@@ -26,7 +26,7 @@ class NonDraggableElement extends Component {
   render() {
     const { text, id, size, source, type } = this.props;
     const editable = false
-    console.log("PROPS INS NONDRAG", this.props)
+    
     return (
       <div style={getStyles(this.props, editable)}>
         {whatTypeElementToRender(this.props, editable)}
