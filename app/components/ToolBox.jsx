@@ -176,7 +176,7 @@ class ToolBox extends Component {
               <div>
                 You don't have any photos yet!
               <br />
-                Head over to your suitcase to upload some pictures!
+                Head over to your <a href="/suitcase">suitcase</a> to upload some pictures!
               </div>
           }
 
@@ -197,7 +197,7 @@ class ToolBox extends Component {
                   }) : null }
               </div>
               :
-              <div>YOU have no videos yet! <br/> Head over to your suitcase to upload some. </div>
+              <div>You have no videos yet! <br/> Head over to your <a href="/suitcase">suitcase</a> to upload some. </div>
             }
           </Panel>
           <Panel header="Edit Trip Information" eventKey="4">

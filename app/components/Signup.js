@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Alert, FormControl, FormGroup, ControlLabel, FieldGroup, Form, Col, Button } from 'react-bootstrap'
-import { database, auth } from 'APP/db/firebase'
+import { Alert, FormControl, FormGroup, ControlLabel, Form, Col, Button } from 'react-bootstrap'
+import { auth } from 'APP/db/firebase'
 
 export default class Signup extends Component {
   constructor () {
@@ -36,14 +36,6 @@ export default class Signup extends Component {
             displayName: this.state.name,
           })
           .then(() => user.sendEmailVerification())
-          .then(() => {
-            database
-            .ref(`users/${user.uid}`)
-            .set({
-              name: this.state.name,
-              email: this.state.email,
-            })
-          })
           .catch(error => console.error)
         } else console.error('There is no user to be pushed to database.')
       })
