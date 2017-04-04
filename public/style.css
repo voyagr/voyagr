@@ -118,6 +118,8 @@ span {
 #photo-panel {
   display: flex;
   flex-wrap: wrap;
+  max-height: 300px;
+  overflow: scroll;
 }
 
 #photo-panel .drawer-photo{
@@ -125,7 +127,7 @@ span {
 }
 
 #photo-panel .drawer-photo img{
-  max-width: 150px;
+  max-width: 75px;
   max-height: 150px;
   display: block;
 }
