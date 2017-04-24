@@ -13,3 +13,6 @@ npm-debug.log
 
 # Firebase Config File w/the tasty API keys
 firebaseConfig.js
+
+# Firebase service account key
+serviceAccountKey.json
