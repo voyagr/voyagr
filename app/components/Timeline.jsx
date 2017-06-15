@@ -75,7 +75,6 @@ export default class Timeline extends Component {
   renderItems () {
     const tripIds = Object.keys(this.state.trips)
     const trips = this.state.trips
-    console.log('trips', trips)
 
     if (this.state.user) {
       return (
