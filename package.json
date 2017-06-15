@@ -15,6 +15,7 @@
     "build-watch": "npm run build -- -w",
     "build-dev": "cross-env NODE_ENV=development npm run build-watch",
     "build-branch": "bin/build-branch.sh",
+    "deploy": "NODE_ENV=production npm run build && firebase deploy",
     "start": "node server/start.js",
     "start-watch": "nodemon server/start.js --watch server --watch db",
     "start-dev": "cross-env NODE_ENV=development npm run start-watch",
@@ -26,7 +27,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/illuminatedspace/automagically"
+    "url": "https://github.com/voyagr/voyagr"
   },
   "keywords": [
     "react",
@@ -39,7 +40,7 @@
   "author": "Ashi Krishnan, Claire Freehafer, Luisa de Miranda, Aria Moraine, Liz Phillips",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/illuminatedspace/automagically/issues"
+    "url": "https://github.com/voyagr/voyagr/issues"
   },
   "homepage": "voyagr.co",
   "dependencies": {
