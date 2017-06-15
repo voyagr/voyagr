@@ -9,7 +9,7 @@ import { Provider } from 'react-redux'
 import { database, auth } from 'APP/db/firebase'
 import store from 'APP/app/store'
 import ToolBox from './ToolBox'
-import { Grid, Col, Button, ButtonGroup } from 'react-bootstrap'
+import { Grid, Col, Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap'
 import { addNewPage } from './utils/addNewPage'
 
 export default class CanvasContainer extends Component {
@@ -114,28 +114,6 @@ export default class CanvasContainer extends Component {
     this.unsubscribe()
   }
 
-  toggleMode() {
-    this.setState({
-      editable: !this.state.editable,
-    })
-  }
-
-  //this function is called from inside page when we move an element
-  selectElement (type, id) {
-    this.setState({
-      selected: {id: id, type: type}
-    })
-  }
-
-  //this function gets passed down to Page so that selected is cleared before delete
-  //otherwise there is a bug when you delete the currently selected element
-  clearSelectedIfDeleted (type, id) {
-    const selected = this.state.selected
-    if (selected && type === selected.type && id === selected.id) {
-      this.setState({ selected: null })
-    }
-  }
-
   renderView() {
     return this.state.editable ?
     //render this if editable is true
@@ -161,11 +139,11 @@ export default class CanvasContainer extends Component {
 
   renderEditButtons() {
     return this.state.canEdit ?
-                      (<div>
+                      (
                         <Button onClick={this.toggleMode}>
                           {this.state.editable ? "View" : "Edit" }
                         </Button>
-                      </div>)
+                      )
                      : null
   }
 
@@ -209,8 +187,10 @@ export default class CanvasContainer extends Component {
       <div>
         <Grid id="canvas-header">
           <Col lg={12}>
-          {this.renderEditButtons()}
-          {this.renderPageNavButtons()}
+            <ButtonToolbar className="page-and-view-buttons">
+              {this.renderEditButtons()}
+              {this.renderPageNavButtons()}
+            </ButtonToolbar>
           {
             tripInfo ?
             <div>

@@ -42,15 +42,15 @@ export default class NavbarComponent extends Component {
         return (
           <div>
             <Nav pullRight>
-              <LinkContainer onSelect={logout} to="/">
-                <NavItem eventKey={1}>Log Out</NavItem>
-              </LinkContainer>
               <LinkContainer to="/timeline">
-                <NavItem eventKey={2}>Timeline</NavItem>
+                <NavItem eventKey={1}>Timeline</NavItem>
               </LinkContainer>
               <NavItem onClick={(startNewTrip)} eventKey={1}>New Trip</NavItem>
               <LinkContainer to="/suitcase">
-                <NavItem eventKey={3}>Suitcase</NavItem>
+                <NavItem eventKey={2}>Suitcase</NavItem>
+              </LinkContainer>
+              <LinkContainer className="logout-button" active={false} onSelect={logout} to="/">
+                <NavItem eventKey={3}>Log Out</NavItem>
               </LinkContainer>
             </Nav>
           </div>
