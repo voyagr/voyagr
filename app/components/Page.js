@@ -4,7 +4,7 @@ import { DropTarget } from 'react-dnd';
 import shouldPureComponentUpdate from './utils/shouldPureComponentUpdate';
 import ItemTypes from './utils/ItemTypes';
 import DraggableElement from './DraggableElement';
-import NonDraggableElement from './NonDraggableElement';
+import NonDraggableElement from './DragAndDropComponents/NonDraggableElement';
 import snapToGrid from './utils/snapToGrid';
 import { connect } from 'react-redux';
 import { setElementXY, deleteElement, setSize } from '../reducers/elements'
