@@ -23,9 +23,6 @@ export default class CanvasContainer extends Component {
 
     this.selectElement = this.selectElement.bind(this)
     this.toggleMode = this.toggleMode.bind(this)
-    // this.renderView = this.renderView.bind(this)
-    // this.renderEditButtons = this.renderEditButtons.bind(this)
-    // this.renderPageNavButtons = this.renderPageNavButtons.bind(this)
     this.clearSelectedIfDeleted = this.clearSelectedIfDeleted.bind(this)
     this.addNewPage = this.addNewPage.bind(this)
   }

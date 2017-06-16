@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import {DragDropContext} from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
-import Page from './Page';
-import CustomDragLayer from './CustomDragLayer';
+import React, {Component} from 'react'
+import {DragDropContext} from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
+import Page from './Page'
+import CustomDragLayer from './DragAndDropComponents/CustomDragLayer'
 
 class Canvas extends Component {
   constructor() {
