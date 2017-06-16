@@ -1,13 +1,13 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import update from 'react/lib/update';
 import { DropTarget } from 'react-dnd';
+import { setElementXY, deleteElement, setSize } from '../reducers/elements'
 import shouldPureComponentUpdate from './utils/shouldPureComponentUpdate';
 import ItemTypes from './utils/ItemTypes';
-import DraggableElement from './DraggableElement';
-import NonDraggableElement from './NonDraggableElement';
 import snapToGrid from './utils/snapToGrid';
-import { connect } from 'react-redux';
-import { setElementXY, deleteElement, setSize } from '../reducers/elements'
+import DraggableElement from './DragAndDropComponents/DraggableElement';
+import NonDraggableElement from './DragAndDropComponents/NonDraggableElement';
 
 function getStyles (props) {
   let border = props.editable ? '1px solid #607D8B' : "none"

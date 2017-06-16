@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import whatTypeElementToRender from './utils/whatTypeElementToRender'
+import whatTypeElementToRender from '../utils/whatTypeElementToRender'
 
 const styles = {
   display: 'inline-block',

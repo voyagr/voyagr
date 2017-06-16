@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { DragLayer } from 'react-dnd';
-import ItemTypes from './utils/ItemTypes';
+import ItemTypes from '../utils/ItemTypes';
+import snapToGrid from '../utils/snapToGrid';
 import ElementDragPreview from './ElementDragPreview';
-import snapToGrid from './utils/snapToGrid';
 
 const layerStyles = {
   position: 'fixed',

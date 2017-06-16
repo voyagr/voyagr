@@ -1,8 +1,6 @@
 'use strict'
 
-// const db = require('APP/db')
 const api = module.exports = require('express').Router()
-// const Page = require('APP/db/models/page')
 
 api.use('/invite', require('./invite'))
 

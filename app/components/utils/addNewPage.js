@@ -1,5 +1,5 @@
-import { database } from 'APP/db/firebase'
-import { browserHistory } from 'react-router'
+import {database} from 'APP/db/firebase'
+import {browserHistory} from 'react-router'
 
 export const addNewPage = (tripId, currentPageId) => {
   const pageDefaultData = {
@@ -7,7 +7,7 @@ export const addNewPage = (tripId, currentPageId) => {
     nextPage: '',
   }
 
-  var newPageKey = database.ref('/tripPages/' + tripId).push().key
+  var newPageKey = database.ref(`/tripPages/${tripId}`).push().key
 
   var updates = {}
   //creating first page of new trip in firebase db
@@ -19,7 +19,7 @@ export const addNewPage = (tripId, currentPageId) => {
     .update(updates)
     .then(() => {
       browserHistory.push(`/canvas/${tripId}/${newPageKey}`)
-      location.reload()
+      location.reload(true)
     })
     .catch(console.error)
 }

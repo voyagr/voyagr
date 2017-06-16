@@ -1,13 +1,12 @@
-import React, { Component } from 'react';
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
-import Page from './Page';
-import CustomDragLayer from './CustomDragLayer';
-import ToolBox from './ToolBox'
+import React, {Component} from 'react'
+import {DragDropContext} from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
+import Page from './Page'
+import CustomDragLayer from './DragAndDropComponents/CustomDragLayer'
 
 class Canvas extends Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
 
     this.handleSnapToGridAfterDropChange = this.handleSnapToGridAfterDropChange.bind(this)
     this.handleSnapToGridWhileDraggingChange = this.handleSnapToGridWhileDraggingChange.bind(this)
@@ -17,19 +16,19 @@ class Canvas extends Component {
       snapToGridAfterDrop: false,
       snapToGridWhileDragging: false,
       deleteMode: false,
-    };
+    }
   }
 
   handleSnapToGridAfterDropChange() {
     this.setState({
       snapToGridAfterDrop: !this.state.snapToGridAfterDrop,
-    });
+    })
   }
 
   handleSnapToGridWhileDraggingChange() {
     this.setState({
       snapToGridWhileDragging: !this.state.snapToGridWhileDragging,
-    });
+    })
   }
 
   handleDeleteMode () {
@@ -42,11 +41,13 @@ class Canvas extends Component {
     const { snapToGridAfterDrop, snapToGridWhileDragging, deleteMode } = this.state;
     return (
       <div>
-        <Page snapToGrid={snapToGridAfterDrop}
-              selectElement={this.props.selectElement}
-              deleteMode={deleteMode}
-              editable={this.props.editable}
-              clearSelectedIfDeleted={this.props.clearSelectedIfDeleted} />
+        <Page
+          snapToGrid={snapToGridAfterDrop}
+          selectElement={this.props.selectElement}
+          deleteMode={deleteMode}
+          editable={this.props.editable}
+          clearSelectedIfDeleted={this.props.clearSelectedIfDeleted}
+        />
           {this.props.editable ?
             (<div id="drag-canvas">
               <CustomDragLayer snapToGrid={snapToGridWhileDragging} />
