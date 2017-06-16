@@ -13,7 +13,7 @@ const devMode = process.env.NODE_ENV === 'development';
 const USE_FAST_SOURCE_MAPS = false;
 
 module.exports = {
-  entry: './app/main.jsx',
+  entry: './app/main.js',
   output: {
     path: __dirname,
     filename: './public/bundle.js'
