@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import { Alert, FormControl, FormGroup, ControlLabel, FieldGroup, Form, Col, Button } from 'react-bootstrap'
-import { auth } from 'APP/db/firebase'
-import { browserHistory } from 'react-router'
+import React, {Component} from 'react'
+import {Alert, FormControl, FormGroup, ControlLabel, Form, Col, Button} from 'react-bootstrap'
+import {auth} from 'APP/db/firebase'
+import {browserHistory} from 'react-router'
 
 export default class Login extends Component {
   constructor () {
@@ -36,8 +36,13 @@ export default class Login extends Component {
     auth
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       // redirect to timeline on successful log in
-      .then(() => browserHistory.push("/timeline"))
-      .catch(error => this.setState({ showInvalidAlert: true, }))
+      .then(() => browserHistory.push('/timeline'))
+      .catch(error => {
+        this.setState({
+        showInvalidAlert: true,
+        })
+        console.error(error)
+      })
   }
 
   render () {

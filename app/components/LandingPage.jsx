@@ -1,31 +1,30 @@
-import React, { Component } from 'react'
-import { PanelGroup, Panel} from 'react-bootstrap'
+import React, {Component} from 'react'
+import {PanelGroup, Panel} from 'react-bootstrap'
 import Signup from './Signup'
 import Login from './Login'
 import OAuth from './OAuth'
-import { auth } from 'APP/db/firebase'
+import {auth} from 'APP/db/firebase' // even though it isn't used, it initializes firebase auth
 
 export default class LandingPage extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      activeKey: '1' // dictates which panel is open
+      activeKey: '1', // dictates which panel is open
     }
     this.handleSelect = this.handleSelect.bind(this)
   }
 
   handleSelect(activeKey) {
-    this.setState({ activeKey });
+    this.setState({activeKey});
   }
 
   componentDidMount () {
-    document.getElementsByTagName("body")[0].style.backgroundImage = "url(./imgs/voyagr_landing.png)"
+    document.getElementsByTagName('body')[0].style.backgroundImage = 'url(./imgs/voyagr_landing.png)'
   }
 
   componentWillUnmount () {
-    // this.unsubscribe()
-    document.getElementsByTagName("body")[0].style.backgroundImage = ""
+    document.getElementsByTagName('body')[0].style.backgroundImage = ''
   }
 
   render() {
@@ -37,6 +36,6 @@ export default class LandingPage extends Component {
           <Panel header="Log in with another account" eventKey="3"><OAuth /></Panel>
         </PanelGroup>
       </div>
-    );
+    )
   }
 }

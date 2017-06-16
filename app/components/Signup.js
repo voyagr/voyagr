@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import { Alert, FormControl, FormGroup, ControlLabel, Form, Col, Button } from 'react-bootstrap'
-import { auth } from 'APP/db/firebase'
+import React, {Component} from 'react'
+import {Alert, FormControl, FormGroup, ControlLabel, Form, Col, Button} from 'react-bootstrap'
+import {auth} from 'APP/db/firebase'
 
 export default class Signup extends Component {
   constructor () {
@@ -30,17 +30,23 @@ export default class Signup extends Component {
     .createUserWithEmailAndPassword(this.state.email, this.state.password)
     .then(() => {
       auth.onAuthStateChanged((user) => {
-        this.setState({ signUpSuccess: true, })
+        this.setState({
+          signUpSuccess: true,
+        })
         if (user) {
           user.updateProfile({
             displayName: this.state.name,
           })
           .then(() => user.sendEmailVerification())
-          .catch(error => console.error)
-        } else console.error('There is no user to be pushed to database.')
+          .catch(error => console.error(error))
+        } else {
+          console.error('There is no user to be pushed to database.')
+        }
       })
     })
-    .catch(error => this.setState({ signUpError: error.message, }))
+    .catch(error => this.setState({
+      signUpError: error.message,
+    }))
 
   }
 

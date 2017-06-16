@@ -12,7 +12,7 @@ import Timeline from './components/Timeline'
 import Suitcase from './components/Suitcase'
 import EmailActions from 'APP/app/components/EmailActions'
 
-render (
+render(
   <Router history={browserHistory}>
     <Route path="/" component={App} landing={LandingPage}>
       <IndexRedirect to="/landing" />
