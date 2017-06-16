@@ -1,20 +1,17 @@
-//make a function that checks if user
-//then if that user belongs to this trip or vice versa
-//if both are true then render edit/view button, and tool bar, otherwise don't
-//set permissions to anyone can see but only owners can edit
-
-import React, { Component } from 'react'
-import Canvas from './Canvas'
-import { Provider } from 'react-redux'
-import { database, auth } from 'APP/db/firebase'
+import React, {Component} from 'react'
+import {Provider} from 'react-redux'
+import {database, auth} from 'APP/db/firebase'
+import {Grid, Col, ButtonToolbar} from 'react-bootstrap'
+import {addNewPage} from './utils/addNewPage'
 import store from 'APP/app/store'
-import ToolBox from './ToolBox'
-import { Grid, Col, Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap'
-import { addNewPage } from './utils/addNewPage'
+import Canvas from './Canvas'
+import EditTools from './EditTools'
+import ViewEditToggle from './ViewEditToggle'
+import PageNavButtons from './PageNavButtons'
 
 export default class CanvasContainer extends Component {
-  constructor (props) {
-    super(props)
+  constructor () {
+    super()
 
     this.state = {
       selected: null,
@@ -26,9 +23,9 @@ export default class CanvasContainer extends Component {
 
     this.selectElement = this.selectElement.bind(this)
     this.toggleMode = this.toggleMode.bind(this)
-    this.renderView = this.renderView.bind(this)
-    this.renderEditButtons = this.renderEditButtons.bind(this)
-    this.renderPageNavButtons = this.renderPageNavButtons.bind(this)
+    // this.renderView = this.renderView.bind(this)
+    // this.renderEditButtons = this.renderEditButtons.bind(this)
+    // this.renderPageNavButtons = this.renderPageNavButtons.bind(this)
     this.clearSelectedIfDeleted = this.clearSelectedIfDeleted.bind(this)
     this.addNewPage = this.addNewPage.bind(this)
   }
@@ -42,7 +39,7 @@ export default class CanvasContainer extends Component {
   //this function is called from inside page when we move an element
   selectElement (type, id, zIndex) {
     this.setState({
-      selected: {id: id, type: type, zIndex: zIndex}
+      selected: {id, type, zIndex}
     })
   }
 
@@ -51,7 +48,9 @@ export default class CanvasContainer extends Component {
   clearSelectedIfDeleted (type, id) {
     const selected = this.state.selected
     if (selected && type === selected.type && id === selected.id) {
-      this.setState({ selected: null })
+      this.setState({
+        selected: null,
+      })
     }
   }
 
@@ -68,17 +67,18 @@ export default class CanvasContainer extends Component {
       tripInfoRef: database.ref(`tripInfo/${tripId}`),
     }, () => {
       this.state.tripInfoRef.on('value', (snap) => this.setState({
-          tripInfo: snap.val()
+          tripInfo: snap.val(),
       }))
     })
 
     this.setState({
       pageInfoRef: database.ref(`pageInfo/${pageId}`), //should be all set up for page info view/edit
     }, () => {
-        this.state.pageInfoRef.on('value', (snap) => {
-          this.setState({ //should be all set up for page info view/edit
-            pageInfo: snap.val()
-          })})
+      this.state.pageInfoRef.on('value', (snap) => {
+        this.setState({ //should be all set up for page info view/edit
+          pageInfo: snap.val(),
+        })
+      })
     })
 
     //sets a current user listener from Firebase auth
@@ -110,72 +110,11 @@ export default class CanvasContainer extends Component {
   }
 
   componentWillUnmount () {
-    //add cleanup from auth.userChange listener
     this.unsubscribe()
-  }
-
-  renderView() {
-    return this.state.editable ?
-    //render this if editable is true
-        <Col lg={3}>
-          <ToolBox
-            tripInfo={this.state.tripInfo}
-            tripInfoRef={this.state.tripInfoRef}
-            selected={this.state.selected}
-            tripId={this.props.params.tripId}
-            pageInfo={this.state.pageInfo} //should be all set up for page info view/edit
-            pageInfoRef={this.state.pageInfoRef} //should be all set up for page info view/edit
-            pageId={this.props.params.pageId}
-          />
-        </Col>
-
-    //render this if editable is false
-    : null
   }
 
   addNewPage (tripId, currentPageId) {
     addNewPage(this.props.params.tripId, this.props.params.pageId)
-  }
-
-  renderEditButtons() {
-    return this.state.canEdit ?
-                      (
-                        <Button onClick={this.toggleMode}>
-                          {this.state.editable ? "View" : "Edit" }
-                        </Button>
-                      )
-                     : null
-  }
-
-  renderPageNavButtons() {
-    let nextPageDisabled, previousPageDisabled
-    if (this.state.pageInfo) {
-      nextPageDisabled = this.state.pageInfo.nextPage === ''
-      previousPageDisabled = this.state.pageInfo.previousPage === ''
-    }
-    return this.state.pageInfo ? (
-      <ButtonGroup>
-        <Button
-          href={`/canvas/${this.props.params.tripId}/${this.state.pageInfo.previousPage}`}
-          disabled={previousPageDisabled}
-        >
-          Previous Page
-        </Button>
-        <Button
-          href={`/canvas/${this.props.params.tripId}/${this.state.pageInfo.nextPage}`}
-          disabled={nextPageDisabled}
-        >
-          Next Page
-        </Button>
-      {/*if next page is enabled, then add a page is disabled*/}
-        <Button
-          onClick={this.addNewPage}
-          disabled={!nextPageDisabled}
-        >
-          Add A Page
-        </Button>
-      </ButtonGroup>
-    ) : null
   }
 
   render () {
@@ -188,8 +127,23 @@ export default class CanvasContainer extends Component {
         <Grid id="canvas-header">
           <Col lg={12}>
             <ButtonToolbar className="page-and-view-buttons">
-              {this.renderEditButtons()}
-              {this.renderPageNavButtons()}
+              {
+                this.state.canEdit ?
+                <ViewEditToggle
+                  editable={this.state.editable}
+                  toggleMode={this.toggleMode}
+                />
+                : null
+              }
+              {
+                this.state.pageInfo ?
+                <PageNavButtons
+                  pageInfo={this.state.pageInfo}
+                  tripId={this.props.params.tripId}
+                  addNewPage={this.addNewPage}
+                />
+                : null
+              }
             </ButtonToolbar>
           {
             tripInfo ?
@@ -202,11 +156,25 @@ export default class CanvasContainer extends Component {
         </Grid>
         <Provider store={this.state.store}>
           <Grid id="canvas-wrapper">
-            {this.renderView()}
+            {
+              this.state.editable ?
+              <EditTools
+                tripInfo={this.state.tripInfo}
+                tripInfoRef={this.state.tripInfoRef}
+                selected={this.state.selected}
+                tripId={this.props.params.tripId}
+                pageInfo={this.state.pageInfo} //should be all set up for page info view/edit
+                pageInfoRef={this.state.pageInfoRef} //should be all set up for page info view/edit
+                pageId={this.props.params.pageId}
+              />
+              : null
+            }
             <Col lg={9}>
-              <Canvas editable={this.state.editable}
-                      selectElement={this.selectElement}
-                      clearSelectedIfDeleted={this.clearSelectedIfDeleted} />
+              <Canvas
+                editable={this.state.editable}
+                selectElement={this.selectElement}
+                clearSelectedIfDeleted={this.clearSelectedIfDeleted}
+              />
             </Col>
           </Grid>
         </Provider>

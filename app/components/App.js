@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import Navbar from './Navbar'
 
 export default class App extends Component {
@@ -7,7 +7,7 @@ export default class App extends Component {
     return (
       <div>
         <Navbar />
-        <div id="app">{ this.props.children }</div>
+        <div id="app">{this.props.children}</div>
       </div>
     )
   }

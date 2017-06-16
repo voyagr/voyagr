@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Navbar, Nav, NavItem, } from 'react-bootstrap'
+import { Navbar, Nav, NavItem } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { auth } from 'APP/db/firebase'
 import { browserHistory } from 'react-router'
@@ -27,9 +27,9 @@ export default class NavbarComponent extends Component {
   }
 
   componentWillMount () {
-      this.unsubscribe = auth.onAuthStateChanged((user) => {
-          this.setState({ user: user })
-      })
+    this.unsubscribe = auth.onAuthStateChanged((user) => {
+        this.setState({ user: user })
+    })
   }
 
   componentWillUnmount () {
