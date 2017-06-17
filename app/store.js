@@ -13,7 +13,10 @@ const store = ref => createStore(
       thunkMiddleware,
       /*receives the store, then original dispatch, the action attached to the original dispatch*/
       store => dispatch => {
-        ref.on('child_added', snap => dispatch(snap.val()))
+        ref.on('child_added', snap => {
+          console.log('child added')
+          return dispatch(snap.val())
+        })
         return action => action.doNotSync ? dispatch(action) : ref.push(action)
       }
     )
